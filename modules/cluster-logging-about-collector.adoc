@@ -2,7 +2,7 @@
 //
 // * logging/cluster-logging.adoc
 
-[id="cluster-logging-about-fluentd_{context}"]
+[id="cluster-logging-about-collector_{context}"]
 = About the logging collector
 
 {product-title} uses Fluentd to collect container and node logs.
@@ -23,4 +23,3 @@ source of log messages and do not guarantee unique individual log
 messages or that these messages can be traced to their source.
 ====
 
-For more information, see http://www.fluentd.org/architecture[Fluentd].

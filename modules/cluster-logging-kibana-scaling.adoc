@@ -3,9 +3,9 @@
 // * logging/cluster-logging-kibana.adoc
 
 [id="cluster-logging-kibana-scaling_{context}"]
-= Scaling Kibana for redundancy
+= Scaling redundancy for the log visualizer nodes
 
-You can scale the Kibana deployment for redundancy.
+You can scale the Pods that host the log visualizer for redundancy.
 
 ..Procedure
 

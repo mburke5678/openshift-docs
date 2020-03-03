@@ -1,15 +1,11 @@
 :context: cluster-logging-viewing
 [id="cluster-logging-viewing"]
-= Viewing cluster logs in the console or CLI
+= Viewing cluster logs in {product-title}
 include::modules/common-attributes.adoc[]
 
 toc::[]
 
-<<<<<<< HEAD
-You can view {product-title} cluster logs in the CLI or {product-title} web console. 
-=======
 You can view cluster logs in the CLI, the {product-title} web console, or Kibana. 
->>>>>>> edit
 
 // The following include statements pull in the module files that comprise
 // the assembly. Include any combination of concept, procedure, or reference
@@ -17,6 +13,5 @@ You can view cluster logs in the CLI, the {product-title} web console, or Kibana
 // assemblies.
 
 include::modules/cluster-logging-viewing-logs.adoc[leveloffset=+1]
-
-// modules/cluster-logging-viewing-logs-console.adoc[leveloffset=+1]
+include::modules/cluster-logging-viewing-logs-console.adoc[leveloffset=+1]
 

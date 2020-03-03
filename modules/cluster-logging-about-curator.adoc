@@ -20,4 +20,3 @@ spec:
 
 <1> Specify the Curator schedule in the link://en.wikipedia.org/wiki/Cron[cron format]. 
 
-For more information, see link:https://www.elastic.co/guide/en/elasticsearch/client/curator/current/about.html[Curator].

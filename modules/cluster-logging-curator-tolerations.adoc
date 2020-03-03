@@ -3,9 +3,9 @@
 // * logging/cluster-logging-curator.adoc
 
 [id="cluster-logging-curator-tolerations_{context}"]
-= Using tolerations to control the Curator Pod placement
+= Using tolerations to control the Pod placement for log curation
 
-You can control which node the Curator Pod runs on and prevent 
+You can control which node the  log curation Pod runs on and prevent 
 other workloads from using those nodes by using tolerations on the Pod.
 
 You apply tolerations to the Curator Pod through the Cluster Logging Custom Resource (CR)

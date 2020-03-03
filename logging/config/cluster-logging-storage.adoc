@@ -1,6 +1,6 @@
-:context: cluster-logging-elasticsearch
-[id="cluster-logging-elasticsearch"]
-= Configuring Elasticsearch to store and organize log data
+:context: cluster-logging-storage
+[id="cluster-logging-storage"]
+= Configuring the logstore
 include::modules/common-attributes.adoc[]
 
 toc::[]
@@ -28,17 +28,13 @@ or higher memory.
 
 Each Elasticsearch node can operate with a lower memory setting though this is not recommended for production deployments.
 
-[NOTE]
-====
-If you set the Elasticsearch Operator (EO) to unmanaged and leave the Cluster Logging Operator (CLO) as managed, the CLO will revert changes you make to the EO, as the EO is managed by the CLO.
-====
 
 // The following include statements pull in the module files that comprise
 // the assembly. Include any combination of concept, procedure, or reference
 // modules required to cover the user story. You can also include other
 // assemblies.
 
-include::modules/cluster-logging-elasticsearch-limits.adoc[leveloffset=+1]
+include::modules/cluster-logging-cpu-memory.adoc[leveloffset=+1]
 
 include::modules/cluster-logging-elasticsearch-ha.adoc[leveloffset=+1]
 
@@ -49,8 +45,6 @@ include::modules/cluster-logging-elasticsearch-persistent-storage-empty.adoc[lev
 // modules/cluster-logging-elasticsearch-add-remove.adoc[leveloffset=+1]
 
 include::modules/cluster-logging-elasticsearch-exposing.adoc[leveloffset=+1]
-
-include::modules/cluster-logging-elasticsearch-rules.adoc[leveloffset=+1]
 
 ////
 modules/cluster-logging-elasticsearch-persistent-storage-persistent.adoc[leveloffset=+2]

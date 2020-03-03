@@ -1,18 +1,20 @@
-:context: cluster-logging-kibana-interface
-[id="cluster-logging-kibana-interface"]
-= Viewing cluster logs using Kibana
+:context: cluster-logging-troubleshooting-curator
+[id="cluster-logging-troubleshooting-curator"]
+= Troubleshooting the log curator
 include::modules/common-attributes.adoc[]
 
 toc::[]
 
-The cluster logging installation deploys the Kibana web console. 
 
+You can use information in this section for debugging log curation. 
 
 // The following include statements pull in the module files that comprise
 // the assembly. Include any combination of concept, procedure, or reference
 // modules required to cover the user story. You can also include other
 // assemblies.
 
-include::modules/cluster-logging-kibana-interface-launch.adoc[leveloffset=+1]
+include::modules/cluster-logging-curator-troubleshoot.adoc[leveloffset=+1]
+
+
 
 

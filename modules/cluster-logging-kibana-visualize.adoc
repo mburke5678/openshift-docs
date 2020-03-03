@@ -3,11 +3,9 @@
 // * logging/cluster-logging-kibana.adoc
 
 [id="cluster-logging-kibana-visualize_{context}"]
-= Installing the Kibana Visualize tool
+= Installing the Kibana Visualize tab
 
-Kibana's *Visualize* tab enables you to create visualizations and dashboards for
-monitoring container logs, allowing administrator users (`cluster-admin` or
-`cluster-reader`) to view logs by deployment, namespace, pod, and container.
+You must install Kibana’s *Visualize* tab in order to create visualizations and dashboards for monitoring container logs. 
 
 .Procedure
 

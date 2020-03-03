@@ -3,9 +3,9 @@
 // * logging/cluster-logging-curator.adoc
 
 [id="cluster-logging-curator-schedule_{context}"]
-= Configuring the Curator schedule
+= Configuring the log curation schedule
 
-You can specify the schedule for Curator using the cluster logging Custom Resource
+You can specify the schedule for log curation the cluster logging Custom Resource
 created by the cluster logging installation.
 
 .Prerequisites

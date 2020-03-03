@@ -1,0 +1,49 @@
+:context: cluster-logging-unsupported
+[id="cluster-logging-unsupported"]
+= Unsupported configurations
+include::modules/common-attributes.adoc[]
+
+
+
+
+The supported way of configuring {product-title} cluster logging is by configuring it using the options described in this documentumentation. *Do not use other configurations, as they are unsupported.* Configuration paradigms might change across {product-title} releases, and such cases can only be handled gracefully if all configuration possibilities are controlled. If you use configurations other than those described in this section, your changes will disappear because the cluster-monitoring-operator reconciles any differences. The operator reverses everything to the defined state by default and by design.
+
+You must set the Cluster Logging Operator to the unmanaged state in order to modify the following components:
+
+* the Curator CronJob,
+
+* the Elasticsearch CR,
+
+* the Kibana Deployment,
+
+* the log collector DaemonSet.
+
+You must set the Elasticsearch Operator to the unmanaged state in order to modify the following components:
+
+*  the Elasticsearch deployment files.
+
+[NOTE]
+====
+If you *must* perform configurations not described in the {product-title} documentation, you *must* set your Cluster Logging Operator or Elasticsearch Operator to *Unmanaged*. An unmanaged cluster logging environment is *not supported* and does not receive updates until you return cluster logging to Managed state. 
+====
+
+Explicitly unsupported cases include:
+
+* Configuring default log rotation*. You cannot modify the default log rotation configuration.
+
+* *Configuring the collected log location*. You cannot change the location of the log collector output file, by default `/var/log/fluentd/fluentd.log`.
+
+* *Throttling log collection*. You cannot throttle down the rate at which the logs are read in by the log collector
+
+* *Configuring log collection JSON parsing*. You cannot format log messages in *JSON*. 
+
+* *Configuring how the log collector normalizes logs*. You cannot modify default log normalization.
+
+* *Configuring the logging collector using environment variables*. You cannot use environment variables to modify the log collector.
+
+* *Configuring Curator in scripted deployments*. You cannot configure log curation in scripted deployments.
+
+* *Using the Curator Action file*. You cannot use *Curator* ConfigMap to modify the Curator *action* file.
+
+* *Deleting Curator Indices*. You cannot configure log curation to delete indices.
+

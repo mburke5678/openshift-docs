@@ -3,15 +3,19 @@
 // * logging/cluster-logging-elasticsearch
 
 [id="cluster-logging-elasticsearch-rules_{context}"]
-= About Elasticsearch alerting rules
+= About the log store alerting rules
 
-You can view these alerting rules in Prometheus.
+You can view these alerting rules on the *Alerting Rules* page in the {product-title} Alerting UI of the {product-title} web console.
 
 [cols="3,6,1",options="header"]
 |===
 |Alert
 |Description
 |Severity
+
+|ElasticsearchBulkRequestsRejectionJumps
+|High Bulk Rejection Ratio at node in cluster. This node may not be keeping up with the indexing speed.
+| warning
 
 |ElasticsearchClusterNotHealthy
 |Cluster health status has been RED for at least 2m. Cluster does not accept writes, shards may be missing or master
@@ -21,11 +25,11 @@ You can view these alerting rules in Prometheus.
 |ElasticsearchClusterNotHealthy
 |Cluster health status has been YELLOW for at least 20m. Some shard replicas are not allocated.
 |warning
- 
-|ElasticsearchBulkRequestsRejectionJumps
-|High Bulk Rejection Ratio at node in cluster. This node may not be keeping up with the indexing speed.
-| warning
 
+|ElasticsearchJVMHeapUseHigh
+|JVM Heap usage on the node in cluster is <value>
+|alert
+ 
 |ElasticsearchNodeDiskWatermarkReached
 |Disk Low Watermark Reached at node in cluster. Shards can not be allocated to this node anymore. You should
 consider adding more disk space to the node.
@@ -35,14 +39,6 @@ consider adding more disk space to the node.
 |Disk High Watermark Reached at node in cluster. Some shards will be re-allocated to different
 nodes if possible. Make sure more disk space is added to the node or drop old indices allocated to this node.
 |high
-
-|ElasticsearchJVMHeapUseHigh
-|JVM Heap usage on the node in cluster is <value>
-|alert
-
-|AggregatedLoggingSystemCPUHigh
-|System CPU usage on the node in cluster is <value>
-|alert
 
 |ElasticsearchProcessCPUHigh
 |ES process CPU usage on the node in cluster is <value>

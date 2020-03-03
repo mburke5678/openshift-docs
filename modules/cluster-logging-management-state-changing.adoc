@@ -5,18 +5,19 @@
 [id="cluster-logging-management-state-changing_{context}"]
 = Changing the cluster logging management state
 
-You must set the operator to the _unmanaged_ state in order to modify the components managed by the Cluster Logging Operator:
+You must set the Cluster Logging Operator to the unmanaged state in order to modify the following components:
 
-* the Curator CronJob, 
+* the Curator CronJob,
+
 * the Elasticsearch CR,
-* the log collector DaemonSet
-* the Kibana CR.
 
-If you make changes to these components in managed state, the Cluster Logging Operator reverts those changes. 
+* the log collector DaemonSet.
+
+* the Kibana CR.
 
 [NOTE]
 ====
-An unmanaged cluster logging environment does not receive updates until you return the Cluster Logging Operator to Managed state.
+If you *must* perform configurations not described in the {product-title} documentation, you *must* set your Cluster Logging Operator or Elasticsearch Operator to *Unmanaged*. An unmanaged cluster logging environment is *not supported* and does not receive updates until you return cluster logging to Managed state. 
 ====
 
 .Prerequisites
@@ -41,6 +42,32 @@ metadata:
 ....
 
 spec:
-  managementState: "Managed" <1>
+  managementState: "Unmanaged" <1>
 ---- 
 <1> Specify the management state as `Managed` or `Unmanaged`.
+
+. Edit the Elasticsearch Custom Resource (CR) in the `openshift-logging` project:
++
+----
+$ oc edit Elasticsearch elasticsearch
+----
++
+[source,yaml]
+----
+apiVersion: logging.openshift.io/v1
+kind: Elasticsearch
+metadata:
+  name: elasticsearch
+
+
+....
+
+spec:
+  managementState: "Unmanaged" <1>
+----
+<1> Specify the management state as `Managed` or `Unmanaged`.
+
+[NOTE]
+====
+If you set the Elasticsearch Operator (EO) to unmanaged and leave the Cluster Logging Operator (CLO) as managed, the CLO will revert changes you make to the EO, as the EO is managed by the CLO.
+====

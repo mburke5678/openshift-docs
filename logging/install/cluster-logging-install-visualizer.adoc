@@ -1,0 +1,27 @@
+:context: cluster-logging-install-visualizer
+[id="cluster-logging-install-visualizer"]
+= Installing the log visualizer
+include::modules/common-attributes.adoc[]
+
+toc::[]
+
+
+Kibana's *Visualize* tab enables you to create visualizations and dashboards for
+monitoring container logs, allowing administrator users (`cluster-admin` or
+`cluster-reader`) to view logs by deployment, namespace, pod, and container.
+
+////
+[NOTE]
+====
+The Event Router is not supported for the Rsyslog log collector.
+====
+////
+
+// The following include statements pull in the module files that comprise
+// the assembly. Include any combination of concept, procedure, or reference
+// modules required to cover the user story. You can also include other
+// assemblies.
+
+include::modules/cluster-logging-kibana-visualize.adoc[leveloffset=+1]
+
+

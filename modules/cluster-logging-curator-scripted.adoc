@@ -3,9 +3,9 @@
 // * logging/cluster-logging-curator.adoc
 
 [id="cluster-logging-curator-scripted_{context}"]
-= Configuring Curator in scripted deployments
+= Configuring log curation in scripted deployments
 
-Use the information in this section if you must configure Curator in scripted deployments.
+Use the information in this section if you must configure log curation in scripted deployments.
 
 .Prerequisites
 

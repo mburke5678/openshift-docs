@@ -3,14 +3,14 @@
 // * logging/cluster-logging-curator.adoc
 
 [id="configuration-cronjob_{context}"]
-= Modifying the Curator configuration
+= Modifying log curation
 
-You can configure the Curator cron schedule using the Cluster Logging Custom Resource
+You can configure the log curation cron schedule using the Cluster Logging Custom Resource
 created by the Cluster Logging Operator installation.
 The Cluster Logging Operator creates a ConfigMap with default configuration options,
 which you can further modify.
 
-You can edit or replace this ConfigMap to reconfigure Curator.
+You can edit or replace this ConfigMap to reconfigure log curation.
 
 [NOTE]
 ====
