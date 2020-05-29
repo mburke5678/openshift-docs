@@ -9,8 +9,8 @@ endif::[]
 [id="cluster-logging-about-components_{context}"]
 = Cluster logging components 
 
-The cluster logging components include a collector deployed to each node in the {product-title} cluster. 
-thta collects all node and container logs and writes them to a logstore. You can use a centralized web UI 
+The cluster logging components include a collector deployed to each node in the {product-title} cluster 
+that collects all node and container logs and writes them to a logstore. You can use a centralized web UI 
 to create rich visualizations and dashboards with the aggregated data.
 
 There are currently 5 different types of cluster logging components:
