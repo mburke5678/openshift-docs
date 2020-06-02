@@ -3,9 +3,9 @@
 // * logging/cluster-logging-elasticsearch-storage.adoc
 
 [id="cluster-logging-elasticsearch-persistent-storage-empty_{context}"]
-= Configuring the logstore for emptyDir storage
+= Configuring the log store for emptyDir storage
 
-You can use emptyDir with your logstore, which creates an ephemeral
+You can use emptyDir with your log store, which creates an ephemeral
 deployment in which all of a pod's data is lost upon restart.
 
 [NOTE]

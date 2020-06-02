@@ -3,9 +3,9 @@
 // * logging/cluster-logging-elasticsearch.adoc
 
 [id="cluster-logging-elasticsearch-status-comp_{context}"]
-= Viewing the status of the logstore components
+= Viewing the status of the log store components
 
-You can view the status for a number of the logstore components.
+You can view the status for a number of the log store components.
 
 Elasticsearch indices::
 You can view the status of the Elasticsearch indices.
@@ -41,8 +41,8 @@ green  open   .kibana_-1595131456_user1                                        g
 ----
 
 
-Logstore pods::
-You can view the status of the pods that host the logstore.
+Log store pods::
+You can view the status of the pods that host the log store.
 
 . Get the name of a pod:
 +
@@ -101,7 +101,7 @@ Events:          <none>
 ----
 
 Log storage Pod deployment configuration::
-You can view the status of the logstore deployment configuration.
+You can view the status of the log store deployment configuration.
 
 . Get the name of a deployment configuration:
 +
@@ -141,8 +141,8 @@ Conditions:
 Events:          <none>
 ----
 
-Logstore ReplicaSet::
-You can view the status of the logstore ReplicaSet.
+Log store ReplicaSet::
+You can view the status of the log store ReplicaSet.
 
 . Get the name of a replica set:
 +

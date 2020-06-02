@@ -3,11 +3,11 @@
 // * logging/cluster-logging-elasticsearch.adoc
 
 [id="cluster-logging-elasticsearch-exposing_{context}"]
-= Exposing the logstore service as a route
+= Exposing the log store service as a route
 
-By default, the logstore that is deployed with cluster logging is not
+By default, the log store that is deployed with cluster logging is not
 accessible from outside the logging cluster. You can enable a route with re-encryption termination
-for external access to the logstore service for those tools that access its data.
+for external access to the log store service for those tools that access its data.
 
 Externally, you can access the store by creating a reencrypt route, your {product-title} token and the installed
 log storage CA certificate. Then, access a node that hosts the log storage service with a cURL request that contains:
@@ -45,7 +45,7 @@ $ oc exec elasticsearch-cdm-oplnhinv-1-5746475887-fj2f8 -- curl -tlsv1.2 --insec
 
 .Procedure
 
-To expose  the logstore externally:
+To expose  the log store externally:
 
 . Change to the `openshift-logging` project:
 +
@@ -53,7 +53,7 @@ To expose  the logstore externally:
 $ oc project openshift-logging
 ----
 
-. Extract the CA certificate from the logstore and write to the *_admin-ca_* file:
+. Extract the CA certificate from the log store and write to the *_admin-ca_* file:
 +
 ----
 $ oc extract secret/elasticsearch --to=. --keys=admin-ca
@@ -61,7 +61,7 @@ $ oc extract secret/elasticsearch --to=. --keys=admin-ca
 admin-ca
 ----
 
-. Create the route for the logstore as a YAML file:
+. Create the route for the log store as a YAML file:
 +
 .. Create a YAML file with the following:
 +
@@ -81,9 +81,9 @@ spec:
     termination: reencrypt
     destinationCACertificate: | <1>
 ----
-<1> Add the logstore CA certifcate or use the command in the next step. You do not have to set the `spec.tls.key`, `spec.tls.certificate`, and `spec.tls.caCertificate` parameters required by some reencrypt routes.
+<1> Add the log store CA certifcate or use the command in the next step. You do not have to set the `spec.tls.key`, `spec.tls.certificate`, and `spec.tls.caCertificate` parameters required by some reencrypt routes.
 
-.. Run the following command to add the logstore CA certificate to the route YAML you created:
+.. Run the following command to add the log store CA certificate to the route YAML you created:
 +
 ----
 cat ./admin-ca | sed -e "s/^/      /" >> <file-name>.yaml

@@ -3,9 +3,9 @@
 // * logging/cluster-logging-elasticsearch.adoc
 
 [id="cluster-logging-elasticsearch-tolerations_{context}"]
-= Using tolerations to control the logstore Pod placement
+= Using tolerations to control the log store Pod placement
 
-You can control which nodes the logstore Pods runs on and prevent 
+You can control which nodes the log store Pods runs on and prevent 
 other workloads from using those nodes by using tolerations on the Pods.
 
 You apply tolerations to log storage Pods through the Cluster Logging Custom Resource (CR)

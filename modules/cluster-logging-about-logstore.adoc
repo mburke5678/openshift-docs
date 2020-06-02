@@ -3,7 +3,7 @@
 // * logging/cluster-logging.adoc
 
 [id="cluster-logging-about-logstore_{context}"]
-= About the logstore 
+= About the log store 
 
 {product-title} uses link:https://www.elastic.co/products/elasticsearch[Elasticsearch (ES)] to organize the log data from Fluentd into datastores, or _indices_. 
 

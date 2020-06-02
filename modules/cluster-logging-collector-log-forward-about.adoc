@@ -9,14 +9,14 @@ Forwarding cluster logs using the Log Forwarding API requires a combination of _
 
 [NOTE]
 ====
-If you want to use only the default internal {product-title} Elasticsearch logstore, do not configure any outputs and pipelines. 
+If you want to use only the default internal {product-title} Elasticsearch log store, do not configure any outputs and pipelines. 
 ==== 
 
 An _output_ is the destination for log data and a pipeline defines simple routing for one source to one or more outputs. 
 
 An output can be either:
 
-* `elasticsearch` to forward logs to an external Elasticsearch v5.x cluster, specified by server name or FQDN, and/or the internal {product-title} Elasticsearch logstore. 
+* `elasticsearch` to forward logs to an external Elasticsearch v5.x cluster, specified by server name or FQDN, and/or the internal {product-title} Elasticsearch log store. 
 * `forward` to forward logs to an external log aggregation solution. This option uses the Fluentd *forward* protocols.
 
 A _pipeline_ associates the type of data to an output. A type of data you can forward is one of the following:
@@ -29,7 +29,7 @@ To use the Log Forwarding API, you create a custom `logforwarding` configuration
 
 Note the following:
 
-* The internal {product-title} Elasticsearch logstore does not provide secure storage for audit logs. We recommend you ensure that the system to which you forward audit logs is compliant with your organizational and governmental regulations and is properly secured. {product-title} cluster logging does not comply with those regulations.
+* The internal {product-title} Elasticsearch log store does not provide secure storage for audit logs. We recommend you ensure that the system to which you forward audit logs is compliant with your organizational and governmental regulations and is properly secured. {product-title} cluster logging does not comply with those regulations.
 
 * An output supports TLS communication using a secret. Secrets must have keys of: *tls.crt*, *tls.key*, and *ca-bundler.crt* which point to the respective certificates for which they represent. Secrets must have the key *shared_key* for use when using forward in a secure manner.
 
@@ -37,14 +37,14 @@ Note the following:
 
 The following example creates three outputs: 
 
-* the internal {product-title} Elasticsearch logstore, 
-* an unsecured externally-managed Elasticsearch logstore, 
+* the internal {product-title} Elasticsearch log store, 
+* an unsecured externally-managed Elasticsearch log store, 
 * a secured external log aggregator using the *forward* protocol. 
 
 Three pipelines send:
 
-* the application logs to the internal {product-title} Elasticsearch logstore, 
-* the infrastructure logs to an external Elasticsearch logstore,
+* the application logs to the internal {product-title} Elasticsearch log store, 
+* the infrastructure logs to an external Elasticsearch log store,
 * the audit logs to the secured device over the *forward* protocol.
 
 .Sample log forwarding outputs and pipelines
@@ -92,7 +92,7 @@ spec:
 <3> Configuration for the outputs.
 <4> A name to describe the output.
 <5> The type of output, either `elasticsearch` or `forward`.
-<6> The log forwarding endpoint, either the server name or FQDN. For the internal {product-title} Elasticsearch logstore, specify `elasticsearch.openshift-logging.svc:9200`.
+<6> The log forwarding endpoint, either the server name or FQDN. For the internal {product-title} Elasticsearch log store, specify `elasticsearch.openshift-logging.svc:9200`.
 <7> Optional name of the secret required by the endpoint for TLS communication. The secret must exist in the `openshift-logging` project.
 <8> Optional setting if the endpoint does not use a secret, resulting in insecure communication. 
 <9> Configuration for the pipelines.

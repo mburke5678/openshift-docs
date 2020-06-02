@@ -1099,6 +1099,7 @@ Topics:
   - Name: About the cluster logging custom resource
     File: cluster-logging-configuring-cr
   - Name: Configuring the logstore 
+  - Name: Configuring the log store 
     File: cluster-logging-storage
   - Name: Configuring the logging collector
     File: cluster-logging-collector

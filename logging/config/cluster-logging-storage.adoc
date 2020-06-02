@@ -1,6 +1,6 @@
 :context: cluster-logging-storage
 [id="cluster-logging-storage"]
-= Configuring the logstore
+= Configuring the log store
 include::modules/common-attributes.adoc[]
 
 toc::[]
