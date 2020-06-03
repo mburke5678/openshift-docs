@@ -29,15 +29,8 @@ If you *must* perform configurations not described in the {product-title} docume
 
 Explicitly unsupported cases include:
 
-* Configuring default log rotation*. You cannot modify the default log rotation configuration.
 
 * *Configuring the collected log location*. You cannot change the location of the log collector output file, by default `/var/log/fluentd/fluentd.log`.
-
-* *Throttling log collection*. You cannot throttle down the rate at which the logs are read in by the log collector
-
-* *Configuring log collection JSON parsing*. You cannot format log messages in *JSON*. 
-
-* *Configuring how the log collector normalizes logs*. You cannot modify default log normalization.
 
 * *Configuring the logging collector using environment variables*. You cannot use environment variables to modify the log collector.
 
