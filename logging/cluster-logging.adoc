@@ -1,6 +1,6 @@
 :context: cluster-logging
 [id="cluster-logging"]
-= Understanding cluster logging and {product-title}
+= Understanding cluster logging
 include::modules/common-attributes.adoc[]
 
 toc::[]

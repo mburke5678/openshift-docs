@@ -1098,7 +1098,6 @@ Topics:
   Topics:
   - Name: About the cluster logging custom resource
     File: cluster-logging-configuring-cr
-  - Name: Configuring the logstore 
   - Name: Configuring the log store 
     File: cluster-logging-storage
   - Name: Configuring the logging collector
@@ -1129,7 +1128,6 @@ Topics:
   File: cluster-logging-external
   Distros: openshift-enterprise,openshift-webscale,openshift-origin
 - Name: Updating cluster logging
-  File: cluster-logging-upgrading
 - Name: Troubleshooting cluster logging
   Dir: troubleshooting
   Distros: openshift-enterprise,openshift-webscale,openshift-origin

@@ -7,6 +7,11 @@
 
 {product-title} uses Fluentd to collect container and node logs.
 
+By default, the log collector uses the following sources: 
+
+* journald for all system logs
+* `/var/log/containers/*.log` for all container logs
+
 The logging collector is deployed as a DaemonSet in {product-title} that deploys pods to each {product-title} node.
 `journald` is the system log source supplying log messages from the operating system, the container runtime, and {product-title}.
 
