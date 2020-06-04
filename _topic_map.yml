@@ -1118,12 +1118,15 @@ Topics:
     File: cluster-logging-maintenance-support
 - Name: Viewing cluster logs
   Dir: viewing
-  Distros: openshift-enterprise,openshift-webscale,openshift-origin,openshift-dedicated
+  Distros: openshift-enterprise,openshift-webscale,openshift-origin
   Topics:
   - Name: Viewing cluster logs in the console or CLI
     File: cluster-logging-viewing
   - Name: Viewing cluster logs using Kibana
     File: cluster-logging-kibana-interface
+- Name: Viewing cluster logs using Kibana
+  File: cluster-logging-kibana-interface
+  Distros: openshift-dedicated
 - Name: Forward logs to third party systems
   File: cluster-logging-external
   Distros: openshift-enterprise,openshift-webscale,openshift-origin
@@ -1138,8 +1141,9 @@ Topics:
     File: cluster-logging-troubleshooting
   - Name: Troubleshooting the log curator
     File: cluster-logging-troubleshooting-curator
-# - Name: Uninstalling cluster logging
-#  File: cluster-logging-uninstall
+- Name: Uninstalling cluster logging
+  File: cluster-logging-uninstall
+  Distros: openshift-dedicated
 - Name: Exported fields
   File: cluster-logging-exported-fields
   Distros: openshift-enterprise,openshift-webscale,openshift-origin

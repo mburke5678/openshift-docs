@@ -5,11 +5,9 @@
 [id="cluster-logging-about-logstore_{context}"]
 = About the log store 
 
-{product-title} uses link:https://www.elastic.co/products/elasticsearch[Elasticsearch (ES)] to organize the log data from Fluentd into datastores, or _indices_. 
+By default, {product-title} uses link:https://www.elastic.co/products/elasticsearch[Elasticsearch (ES)] to store log data. Optionally, you can use the log forwarding features to forward logs to external log stores using Fluentd protocols, syslsog protocols, and the {product-title} Log Forwarding API.
 
-Elasticsearch subdivides each index into multiple pieces called _shards_, which it spreads across a set of Elasticsearch nodes in an Elasticsearch cluster.
-You can configure Elasticsearch to make copies of the shards, called _replicas_. Elasticsearch also spreads these replicas across
-the Elasticsearch nodes. The *ClusterLogging* Custom Resource allows you to specify the replication policy to provide data redundancy and resilience to failure.
+Elasticsearch organizes the log data from Fluentd into datastores, or _indices_, then subdivides each index into multiple pieces called _shards_, which it spreads across a set of Elasticsearch nodes in an Elasticsearch cluster. You can configure Elasticsearch to make copies of the shards, called _replicas_. Elasticsearch also spreads these replicas across the Elasticsearch nodes. The Cluster Logging Custom Resource (CR) allows you to specify how the shards are replicated to provide data redundancy and resilience to failure. You can also specify how long the different types of logs are retained. 
 
 [NOTE]
 ====
@@ -17,11 +15,8 @@ The number of primary shards for the index templates is equal to the number of E
 ====
 
 The Cluster Logging Operator and companion Elasticsearch Operator ensure that each Elasticsearch node is deployed using a unique Deployment that includes its own storage volume.
-You can use the Cluster Logging Custom Resource (CR) to increase the number of Elasticsearch nodes.
-Refer to
-link:https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html[Elastic's
-documentation] for considerations involved in choosing storage and
-network location as directed below.
+You can use a Cluster Logging Custom Resource (CR) to increase the number of Elasticsearch nodes, as needed.
+Refer to link:https://www.elastic.co/guide/en/elasticsearch/guide/current/hardware.html[Elastic's documentation] for considerations involved in configuring storage.
 
 [NOTE]
 ====

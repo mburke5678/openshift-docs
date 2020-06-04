@@ -13,11 +13,11 @@ The cluster logging components include a collector deployed to each node in the 
 that collects all node and container logs and writes them to a log store. You can use a centralized web UI 
 to create rich visualizations and dashboards with the aggregated data.
 
-There are currently 3 different types of cluster logging components:
+There are three types of cluster logging components:
 
 * collection - This is the component that collects logs from the node, formats them, and forwards them to the log store. The current implementation is Fluentd.
-* log store - This is where the logs are stored. The current implementation is Elasticsearch.
-* visualization - This is the UI component used to view logs, graphs, charts, and so forth. The current implementation is Kibana.
+* log store - This is where the logs are stored. The default implementation is Elasticsearch. You can use the default Elasticsearch log store or forward logs to external log stores. 
+* visualization - This is the UI component you can use to view logs, graphs, charts, and so forth. The current implementation is Kibana.
 
 ifndef::virt-logging[]
 In this document, we may refer to log store or Elasticsearch, visualization or Kibana, collection or Fluentd, interchangeably, except where noted.
