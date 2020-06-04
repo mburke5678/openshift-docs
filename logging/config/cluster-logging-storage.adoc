@@ -42,7 +42,7 @@ include::modules/cluster-logging-elasticsearch-storage.adoc[leveloffset=+1]
 
 include::modules/cluster-logging-elasticsearch-persistent-storage-empty.adoc[leveloffset=+1]
 
-include::modules/cluster-logging-manual-rollout.adoc[leveloffset=+1]
+include::modules/cluster-logging-manual-rollout-rolling.adoc[leveloffset=+1]
 
 // modules/cluster-logging-elasticsearch-add-remove.adoc[leveloffset=+1]
 
