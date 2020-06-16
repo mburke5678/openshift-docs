@@ -9,8 +9,7 @@ toc::[]
 
 ifdef::openshift-enterprise,openshift-webscale,openshift-origin[]
 As a cluster administrator, you can deploy cluster logging to
-aggregate all the logs from your {product-title} cluster, such as node system logs, application container logs,
-and infrastructure logs.
+aggregate all the logs from your {product-title} cluster, such as node system audit logs (logs-audit), application container logs (logs-app), and infrastructure logs (logs-infra).
 endif::[]
 
 ifdef::openshift-dedicated[]
