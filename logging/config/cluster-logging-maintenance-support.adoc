@@ -16,7 +16,9 @@ You must set the Cluster Logging Operator to the unmanaged state in order to mod
 
 * the Kibana Deployment,
 
-* the log collector DaemonSet.
+* the `fluent.conf` file,
+
+* the Fluentd DaemonSet.
 
 You must set the Elasticsearch Operator to the unmanaged state in order to modify the following components:
 

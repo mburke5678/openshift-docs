@@ -13,7 +13,7 @@ The cluster logging components include a collector deployed to each node in the 
 that collects all node and container logs and writes them to a log store. You can use a centralized web UI 
 to create rich visualizations and dashboards with the aggregated data.
 
-There are three types of cluster logging components:
+The major components of cluster logging are:
 
 * collection - This is the component that collects logs from the node, formats them, and forwards them to the log store. The current implementation is Fluentd.
 * log store - This is where the logs are stored. The default implementation is Elasticsearch. You can use the default Elasticsearch log store or forward logs to external log stores. 

@@ -7,20 +7,15 @@ toc::[]
 
 {product-title} uses Fluentd to collect operations and application logs from your cluster and enriches the data with Kubernetes Pod and Namespace metadata.
 
-You can configure log location, use an external log aggregator, and make other configurations for the log collector.
+You can configure the CPU and memory limits for the log collector and xref:../../logging/config/cluster-logging-moving-nodes.adoc#cluster-logging-moving-nodes[move Fluentd to specific nodes]. All supported modification to Fluentd can be performed though the `spec.collection.log.fluentd` stanza in the Cluster Logging Custom Resource CR
 
 // The following include statements pull in the module files that comprise
 // the assembly. Include any combination of concept, procedure, or reference
 // modules required to cover the user story. You can also include other
 // assemblies.
 
-
 include::modules/cluster-logging-collector-pod-location.adoc[leveloffset=+1]
 
 include::modules/cluster-logging-collector-limits.adoc[leveloffset=+1]
-
-include::modules/nodes-cluster-overcommit-buffer-chunk.adoc[leveloffset=+1]
-
-include::modules/cluster-logging-collector-envvar.adoc[leveloffset=+1]
 
 include::modules/cluster-logging-collector-alerts.adoc[leveloffset=+1]

@@ -5,7 +5,7 @@
 [id="cluster-logging-about-logstore_{context}"]
 = About the log store 
 
-By default, {product-title} uses link:https://www.elastic.co/products/elasticsearch[Elasticsearch (ES)] to store log data. Optionally, you can use the log forwarding features to forward logs to external log stores using Fluentd protocols, syslsog protocols, and the {product-title} Log Forwarding API.
+By default, {product-title} uses link:https://www.elastic.co/products/elasticsearch[Elasticsearch (ES)] to store log data. Optionally, you can use the log forwarding features to forward logs to external log stores using Fluentd protocols, syslsog protocols, or the {product-title} Log Forwarding API.
 
 Elasticsearch organizes the log data from Fluentd into datastores, or _indices_, then subdivides each index into multiple pieces called _shards_, which it spreads across a set of Elasticsearch nodes in an Elasticsearch cluster. You can configure Elasticsearch to make copies of the shards, called _replicas_. Elasticsearch also spreads these replicas across the Elasticsearch nodes. The Cluster Logging Custom Resource (CR) allows you to specify how the shards are replicated to provide data redundancy and resilience to failure. You can also specify how long the different types of logs are retained. 
 
