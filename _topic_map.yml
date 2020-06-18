@@ -1131,6 +1131,10 @@ Topics:
   File: cluster-logging-external
   Distros: openshift-enterprise,openshift-webscale,openshift-origin
 - Name: Updating cluster logging
+  File: cluster-logging-upgrading
+- Name: Uninstalling cluster logging
+  File: cluster-logging-uninstall
+  Distros: openshift-dedicated
 - Name: Troubleshooting cluster logging
   Dir: troubleshooting
   Distros: openshift-enterprise,openshift-webscale,openshift-origin
