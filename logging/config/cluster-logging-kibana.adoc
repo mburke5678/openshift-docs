@@ -14,7 +14,7 @@ You can scale Kibana for redundancy and configure the CPU and memory for your Ki
 // modules required to cover the user story. You can also include other
 // assemblies.
 
-include::modules/cluster-logging-cpu-memory.adoc[leveloffset=+1]
+include::modules/cluster-logging-visualizer-limits.adoc[leveloffset=+1]
 
 include::modules/cluster-logging-kibana-scaling.adoc[leveloffset=+1]
 

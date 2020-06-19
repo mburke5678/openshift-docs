@@ -5,27 +5,29 @@
 [id="cluster-logging-updating-logging_{context}"]
 = Updating cluster logging
 
-After updating the {product-title} cluster, you can update cluster logging from 4.3 to 4.4 by updating the subscription for the Elasticsearch Operator and the Cluster Logging Operator.
+After updating the {product-title} cluster, you can update cluster logging from 4.4 to 4.5 by updating the subscription for the Elasticsearch Operator and the Cluster Logging Operator. You must update both the Elasticsearch Operator and the Cluster Logging Operator at the same time. Kibana is unusable when the Elasticsearch Operator has been upgraded but the Cluster Logging Operator has not been upgraded.
 
-ifdef::openshift-enterprise,openshift-webscale[]
 [IMPORTANT]
 ====
-Changes introduced by the new log forward feature modified the support for *out_forward* starting with the {product-title} 4.3 release. You create a ConfigMap to configure *out_forward*. Any updates to the `secure-forward.conf` section of the Fluentd ConfigMap are removed.
-
-If you use the *out_forward* plug-in, before updating, you can copy your current `secure-forward.conf` section from the Fluentd ConfigMap and use the copied data when you create the `secure-forward` ConfigMap.
+You must update the Elasticsearch Operator before updating the Cluster Logging Operator. 
 ====
-endif::[]
 
 .Prerequisites
 
-* Update the cluster from 4.3 to 4.4.
+* Update the cluster from 4.5 to 4.5.
 
 * Make sure the cluster logging status is healthy:
 +
 ** All Pods are `ready`.
 ** Elasticsearch cluster is healthy.
 
-* Optionally, copy your current `secure-forward.conf` section from the Fluentd ConfigMap for use if you want to create the `secure-forward` ConfigMap. See the note above.
+* Back up your Elasticsearch and Kibana indices.
++
+Use the following command to get a list of indices in your cluster:
++
+----
+$ oc exec <elasticsearch-pod> -- es_util --query='_cat/indices'
+----
 
 .Procedure
 
@@ -39,15 +41,15 @@ endif::[]
 
 .. Click *Subscription* -> *Channel*.
 
-.. In the *Change Subscription Update Channel* window, select *4.4* and click *Save*.
+.. In the *Change Subscription Update Channel* window, select *4.5* and click *Save*.
 
 .. Wait for a few seconds, then click *Operators* -> *Installed Operators*.
 +
-The Elasticsearch Operator is shown as 4.4. For example:
+The Elasticsearch Operator is shown as 4.5. For example:
 +
 ----
 Elasticsearch Operator
-4.4.0-201909201915 provided
+4.5.0-202005201915 provided
 by Red Hat, Inc
 ----
 
@@ -61,38 +63,38 @@ by Red Hat, Inc
 
 .. Click *Subscription* -> *Channel*.
 
-.. In the *Change Subscription Update Channel* window, select *4.4* and click *Save*.
+.. In the *Change Subscription Update Channel* window, select *4.5* and click *Save*.
 
 .. Wait for a few seconds, then click *Operators* -> *Installed Operators*.
 +
-The Cluster Logging Operator is shown as 4.4. For example:
+The Cluster Logging Operator is shown as 4.5. For example:
 +
 ----
 Cluster Logging
-4.4.0-201909201915 provided
+4.5.0-202005201915 provided
 by Red Hat, Inc
 ----
 
 . Check the logging components:
 
-.. Ensure that the Elasticsearch Pods are using a 4.4 image:
+.. Ensure that the Elasticsearch Pods are using a 4.5 image:
 +
 ----
 $ oc get pod -o yaml -n openshift-logging --selector component=elasticsearch |grep 'image:'
 ----
 +
 ----
-image: registry.redhat.io/openshift4/ose-logging-elasticsearch5@sha256:4e081ff048c3a56113bc672af5dfb8d29ea2ddca1fd79a3332a4446a461944f5
+image: registry.redhat.io/openshift4/ose-logging-elasticsearch6@sha256:4e081ff048c3a56113bc672af5dfb8d29ea2ddca1fd79a3332a4446a461944f5
+image: registry.redhat.io/openshift4/ose-oauth-proxy@sha256:5fe478210770b21c1eb26c1570bcbda40bc5a79011580ff5ebd4c701a5b04eb2
+image: registry.redhat.io/openshift4/ose-logging-elasticsearch6@sha256:4e081ff048c3a56113bc672af5dfb8d29ea2ddca1fd79a3332a4446a461944f5
 image: registry.redhat.io/openshift4/ose-oauth-proxy@sha256:5fe478210770b21c1eb26c1570bcbda40bc5a79011580ff5ebd4c701a5b04eb2
 image: registry.redhat.io/openshift4/ose-logging-elasticsearch5@sha256:4e081ff048c3a56113bc672af5dfb8d29ea2ddca1fd79a3332a4446a461944f5
 image: registry.redhat.io/openshift4/ose-oauth-proxy@sha256:5fe478210770b21c1eb26c1570bcbda40bc5a79011580ff5ebd4c701a5b04eb2
-image: registry.redhat.io/openshift4/ose-logging-elasticsearch5@sha256:4e081ff048c3a56113bc672af5dfb8d29ea2ddca1fd79a3332a4446a461944f5
+image: registry.redhat.io/openshift4/ose-logging-elasticsearch6@sha256:4e081ff048c3a56113bc672af5dfb8d29ea2ddca1fd79a3332a4446a461944f5
 image: registry.redhat.io/openshift4/ose-oauth-proxy@sha256:5fe478210770b21c1eb26c1570bcbda40bc5a79011580ff5ebd4c701a5b04eb2
-image: registry.redhat.io/openshift4/ose-logging-elasticsearch5@sha256:4e081ff048c3a56113bc672af5dfb8d29ea2ddca1fd79a3332a4446a461944f5
+image: registry.redhat.io/openshift4/ose-logging-elasticsearch6@sha256:4e081ff048c3a56113bc672af5dfb8d29ea2ddca1fd79a3332a4446a461944f5
 image: registry.redhat.io/openshift4/ose-oauth-proxy@sha256:5fe478210770b21c1eb26c1570bcbda40bc5a79011580ff5ebd4c701a5b04eb2
-image: registry.redhat.io/openshift4/ose-logging-elasticsearch5@sha256:4e081ff048c3a56113bc672af5dfb8d29ea2ddca1fd79a3332a4446a461944f5
-image: registry.redhat.io/openshift4/ose-oauth-proxy@sha256:5fe478210770b21c1eb26c1570bcbda40bc5a79011580ff5ebd4c701a5b04eb2
-image: registry.redhat.io/openshift4/ose-logging-elasticsearch5@sha256:4e081ff048c3a56113bc672af5dfb8d29ea2ddca1fd79a3332a4446a461944f5
+image: registry.redhat.io/openshift4/ose-logging-elasticsearch6@sha256:4e081ff048c3a56113bc672af5dfb8d29ea2ddca1fd79a3332a4446a461944f5
 image: registry.redhat.io/openshift4/ose-oauth-proxy@sha256:5fe478210770b21c1eb26c1570bcbda40bc5a79011580ff5ebd4c701a5b04eb2
 ----
 
@@ -120,7 +122,27 @@ oc exec -n openshift-logging -c elasticsearch elasticsearch-cdm-1pbrl44l-1-55b75
 
 ----
 
-.. Ensure that the logging collector Pods are using a 4.4 image:
+.. Ensure that the Elasticsearch CronJobs are using a 4.5 image::
++
+----
+$ oc get CronJob elasticsearch-*
+----
++
+----
+NAME                           SCHEDULE       SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+elasticsearch-delete-app       */15 * * * *   False     0        <none>          27s
+elasticsearch-delete-audit     */15 * * * *   False     0        <none>          27s
+elasticsearch-delete-infra     */15 * * * *   False     0        <none>          27s
+elasticsearch-rollover-app     */15 * * * *   False     0        <none>          27s
+elasticsearch-rollover-audit   */15 * * * *   False     0        <none>          27s
+elasticsearch-rollover-infra   */15 * * * *   False     0        <none>          27s
+----
++
+----
+$ oc get CronJob elasticsearch-rollover-infra -n openshift-logging -o yaml |grep 'image:'
+----
+
+.. Ensure that the logging collector Pods are using a 4.5 image:
 +
 ----
 $ oc get pod -n openshift-logging --selector logging-infra=fluentd -o yaml |grep 'image:'
@@ -141,7 +163,7 @@ image: registry.redhat.io/openshift4/ose-logging-fluentd@sha256:20f92b37685bc100
 image: registry.redhat.io/openshift4/ose-logging-fluentd@sha256:20f92b37685bc1003bb490002f7d8a1abee2dd2d157e8532afa3830ce8da3483
 ----
 
-.. Ensure that the Kibana Pods are using a 4.4 image:
+.. Ensure that the Kibana Pods are using a 4.5 image:
 +
 ----
 $ oc get pod -n openshift-logging --selector logging-infra=kibana -o yaml |grep 'image:'
@@ -154,7 +176,7 @@ image: registry.redhat.io/openshift4/ose-logging-kibana5@sha256:3d657e3b90fae604
 image: registry.redhat.io/openshift4/ose-oauth-proxy@sha256:5fe478210770b21c1eb26c1570bcbda40bc5a79011580ff5ebd4c701a5b04eb2
 ----
 
-.. Ensure that the Curator CronJob is using a 4.4 image:
+.. Ensure that the Curator CronJob is using a 4.5 image:
 +
 ----
 $ oc get CronJob curator -n openshift-logging -o yaml |grep 'image:'
@@ -163,3 +185,23 @@ $ oc get CronJob curator -n openshift-logging -o yaml |grep 'image:'
 ----
 image: registry.redhat.io/openshift4/ose-logging-curator5@sha256:330c3499e790d0e184414125a4843cd48849c601eb9f19ff82f30794c858b0bc
 ----
+
+.Post install
+
+After Cluster Logging and Elasticsearch Operators are fully updated to 4.5, you must perform the following actions to complete the upgrade.
+
+* Recreate your Kibana index patterns. Because of changes in Kibana, the cluster logging upgrade does not automatically create index patterns. 
+
+** Use the following command to get a list of new indices in your cluster:
++
+----
+$ oc exec <elasticsearch-pod> -- es_util --query='_cat/indices'
+----
+
+** Users must manually create index patterns to see logs for their projects. Because of the new Elasticsearch data model, all logs that were stored in an index prefixed with *project-* in {product-title} 4.4 are now co-located in a single index prefixed with *app-*. Users should create a new index patterns named `app-` and use the `@timestamp` time field.
+
+** Admin users need to create index patterns using the `app-`, *infra-* and *audit-* prefix with the `@timestamp` time field. The *infra-* indices were prviously *.opertions-*. The *audit-* indices are the audit logs.
+
+* Recreate your Kibana Visualizations to use the new index patterns. 
+
+

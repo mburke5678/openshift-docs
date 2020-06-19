@@ -5,7 +5,7 @@
 [id="cluster-logging-memory-limits_{context}"]
 = Configure CPU and memory limits
 
-The cluster logging components allow for adjustments to both the CPU and memory limits. 
+The log visualizer allows for adjustments to both the CPU and memory limits. 
 
 .Procedure
 
@@ -26,20 +26,6 @@ metadata:
 
 spec:
   managementState: "Managed"
-  logStore:
-    type: "elasticsearch"
-    elasticsearch:
-      nodeCount: 2
-      resources: <1>
-        limits:
-          memory: 2Gi
-        requests:
-          cpu: 200m
-          memory: 2Gi
-      storage:
-        storageClassName: "gp2"
-        size: "200G"
-      redundancyPolicy: "SingleRedundancy"
   visualization:
     type: "kibana"
     kibana:
@@ -57,16 +43,6 @@ spec:
             cpu: 100m
             memory: 100Mi
       replicas: 2
-  collection:
-    logs:
-      type: "fluentd"
-      fluentd:
-        resources: <3>
-          limits:
-            memory: 1Gi
-          requests:
-            cpu: 200m
-            memory: 1Gi
 ...
 ----
 <1> Specify the CPU and memory limits and requests for the log storage as needed. For Elasticsearch, you must adjust both the request value and the limit value.

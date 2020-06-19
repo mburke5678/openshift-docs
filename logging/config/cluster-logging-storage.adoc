@@ -5,7 +5,7 @@ include::modules/common-attributes.adoc[]
 
 toc::[]
 
-{product-title} uses Elasticsearch (ES) to store and organize the log data.
+{product-title} uses Elasticsearch 6 (ES) to store and organize the log data.
 
 Some of the modifications you can make to your log store include:
 
@@ -34,7 +34,9 @@ Each Elasticsearch node can operate with a lower memory setting though this is n
 // modules required to cover the user story. You can also include other
 // assemblies.
 
-include::modules/cluster-logging-cpu-memory.adoc[leveloffset=+1]
+include::modules/cluster-logging-logstore-limits.adoc[leveloffset=+1]
+
+include::modules/cluster-logging-elasticsearch-retention.adoc[leveloffset=+1]
 
 include::modules/cluster-logging-elasticsearch-ha.adoc[leveloffset=+1]
 
