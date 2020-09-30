@@ -12,11 +12,6 @@ When you forward logs externally, the Cluster Logging Operator creates or modifi
 
 If you want to forward logs to only the internal {product-title} Elasticsearch instance, do not configure the Log Forwarding API.
 
-[NOTE]
-====
-Because the internal {product-title} Elasticsearch log store does not provide secure storage for audit logs, audit logs are not stored in the internal Elasticsearch instance by default. If you want to send the audit logs to the internal log store, for example to view the audit logs in Kibana, you must use the Log Forward API as described in xref:../logging/config/cluster-logging-log-store.adoc#cluster-logging-elasticsearch-audit_cluster-logging-store[Forward audit logs to the log store].
-====
-
 Alternatively, you can create a ConfigMap to use the xref:../logging/cluster-logging-external.html#cluster-logging-collector-legacy-fluentd_cluster-logging-external[Fluentd *forward* protocol] or the xref:../logging/cluster-logging-external.html#cluster-logging-collector-legacy-syslog_cluster-logging-external[syslog protocol] to send logs to external systems. However, these methods for forwarding logs are deprecated in {product-title} and will be removed in a future release. 
 
 [IMPORTANT]
@@ -29,7 +24,6 @@ You cannot use the ConfigMap methods and the Log Forwarding API in the same clus
 // modules required to cover the user story. You can also include other
 // assemblies.
 
-
 include::modules/cluster-logging-collector-log-forwarding-about.adoc[leveloffset=+1]
 include::modules/cluster-logging-collector-log-forward-es.adoc[leveloffset=+2]
 include::modules/cluster-logging-collector-log-forward-fluentd.adoc[leveloffset=+2]
@@ -37,5 +31,4 @@ include::modules/cluster-logging-collector-log-forward-syslog.adoc[leveloffset=+
 include::modules/cluster-logging-collector-log-forward-kafka.adoc[leveloffset=+2]
 include::modules/cluster-logging-collector-legacy-fluentd.adoc[leveloffset=+2]
 include::modules/cluster-logging-collector-legacy-syslog.adoc[leveloffset=+2]
-// modules/cluster-logging-collector-log-forward-update.adoc[leveloffset=+2]
 
