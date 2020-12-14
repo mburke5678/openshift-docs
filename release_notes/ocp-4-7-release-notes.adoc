@@ -85,6 +85,27 @@ You can now remove or rotate the GCP admin-level credential that the xref:../ope
 === Machine API
 
 
+[id="ocp-4-7-mco"]
+=== Machine Config Operator
+
+==== [id="ocp-4-7-mco-reboot"]
+Reboots no longer required for some machine config changes
+
+For some changes made by the Machine Config Operator, {op-system-first} must reboot for the changes to take effect. 
+
+As of {product-title} {product-version} the following modifications do not trigger a node reboot:
+
+* changes to the SSH key in the `spec.config.ignition.passwd.users.sshAuthorizedKeys` parameter of a machine config
+* changes to the global pull secret or pull secret in the `openshift-config` namespace
+* changes to the `/etc/containers/registries.conf` file, such as adding an `ImageContentSourcePolicy` object
+
+When the MCO detects these changes, it drains corresponding nodes, applies the changes, and uncordons the nodes. 
+
+==== [id="ocp-4-7-mco-reboot"]
+Updates now blocked if a machine config pool is degraded
+
+{product-title} now prevents updates if any machine config pool is in degraded state. Previously, updates would proceed and fail. You can view the cause of the failure in the `machine-config` Cluster Operator`status fields.  
+
 [id="ocp-4-7-nodes"]
 === Nodes
 
