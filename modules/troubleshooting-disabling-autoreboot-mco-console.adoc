@@ -1,0 +1,88 @@
+// Module included in the following assemblies:
+//
+// * support/troubleshooting/troubleshooting-operator-issues.adoc
+
+[id="troubleshooting-disabling-autoreboot-mco-console_{context}"]
+= Disabling Machine Config Operator from automatically rebooting by using the console
+
+To avoid unwanted disruptions from changes made by the Machine Config Operator (MCO), you can use the {product-title} web console to modify the machine config pool (MCP) to prevent automatic rebooting after the Operator makes changes to the machine config.
+
+[NOTE]
+====
+Pausing a machine config pool stops all system reboot processes and all configuration changes from being applied.
+====
+
+.Prerequisites
+
+* You have access to the cluster as a user with the `cluster-admin` role.
+* You have root access in {product-title}.
+
+.Procedure
+
+To pause the autoreboot process after machine config changes are applied:
+
+. Log into the In the OpenShift Container Platform web console as a user with the `cluster-admin` role.
+
+. Click *Compute* -> *Machine Config Pools*.
+
+. On the *Machine Config Pools* page, click either *master* or *worker* depending upon which nodes you want to pause rebooting:
+
+. On the *master* or *worker* page, click *YAML*.
+
+. In the YAML field, update the `spec.paused` field to `true`.
++
+.Sample `MachineConfigPool` object 
+[source,yaml]
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfigPool
+...
+
+spec:
+
+...
+  paused: true <1>
+----
+<1> Update the `spec.paused` field to `true` to pause rebooting.
+
+. To verify that the machine config pool is paused, return to the *Machine Config Pools* page.
++
+On the *Machine Config Pools* page, the *Paused* column reports *True* for the MCP you modified.
+
+. To unpause the autoreboot process, click *Compute* -> *Machine Config Pools*.
+
+. On the *Machine Config Pools* page, click either *master* or *worker* depending upon which nodes you want to pause rebooting:
+
+. On the *master* or *worker* page, click *YAML*.
+
+. In the YAML field, update the `spec.paused` field to `false`.
++
+.Sample `MachineConfigPool` object 
+[source,yaml]
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfigPool
+...
+
+spec:
+
+...
+  paused: false <1>
+----
+<1> Update the `spec.paused` field to `false` to allow pausung.
++
+[NOTE]
+====
+By unpausing a machine config pool, all paused changes are applied at reboot.
+====
+
+. To verify that the machine config pool is paused, return to the *Machine Config Pools* page.
++
+On the *Machine Config Pools* page, the *Paused* column reports *False* for the MCP you modified.
+
+. To see if the machine config pool has pending changes, on the *Machine Config Pools* page, if *Updated* is *False* and *Updating* is *True*, there are pending changes. When *Updating* is *False*, there are no pending changes.
+
+[IMPORTANT]
+====
+It is recommended to schedule a maintenance window for a reboot as early as possible by setting `spec.paused` to `false` so that the queued changes since last reboot will take effect.
+====
