@@ -49,6 +49,15 @@ following conditions:
 |`Ready`
 |The node reports its own readiness to the API server by returning `True`.
 
+|`DiskPressure`
+|The disk capacity is low.
+
+|`MemoryPressure`
+|The node memory is low.
+
+|PIDPressure
+|There are too many processes on the node.
+
 |`NotReady`
 |One of the underlying components, such as the container runtime or network, is experiencing issues or is not yet configured.
 
