@@ -11,6 +11,11 @@ The descheduler is not available by default. To enable the descheduler, you must
 
 * Cluster administrator privileges.
 * Access to the {product-title} web console.
+ifdef::openshift-origin[]
+* You muast have downloaded the link:https://cloud.redhat.com/openshift/install/pull-secret[pull secret from the Red Hat OpenShift Cluster Manager site] as shown in the  xref:../../installing/installing_gcp/installing-gcp-customizations.adoc#installation-obtaining-installer_installing-gcp-customizations[installation procedure] to install this Operator.
++
+If you have the pull secret, edit the xref:../../post_installation_configuration/preparing-for-users.adoc#olm-installing-operators-from-operatorhub-configure_post-install-preparing-for-users[OperatorHub custom resource (CR) to add the `redhat-operators` catalog].
+endif::[]
 
 .Procedure
 
