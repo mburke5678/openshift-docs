@@ -37,34 +37,38 @@ $ oc get nodes -o wide
 $ oc get node <node>
 ----
 +
-The `STATUS` column in the output of these commands can show nodes with the
-following conditions:
+The `STATUS` column in the output of these commands can show nodes with one of the
+following statuses:
 +
-.Node Conditions [[node-conditions]]
+.Node Status [[node-status]]
 [cols="3a,8a",options="header"]
 |===
 
-|Condition |Description
+|Status |Description
 
 |`Ready`
-|The node reports its own readiness to the API server by returning `True`.
-
-|`DiskPressure`
-|The disk capacity is low.
-
-|`MemoryPressure`
-|The node memory is low.
-
-|PIDPressure
-|There are too many processes on the node.
+|If `true` the node is healthy and ready to accept pods. If `false` the node is not healthy and is not accepting pods. If `unknown`, the node controller has not received a heartbeat from the node for the `node-monitor-grace-period` (the default is 40 seconds).
 
 |`NotReady`
-|One of the underlying components, such as the container runtime or network, is experiencing issues or is not yet configured.
+|If `true` one of the underlying components, such as the container runtime or network, is experiencing issues or is not yet configured.
 
 |`SchedulingDisabled`
 |Pods cannot be scheduled for placement on the node.
 
 |===
+
+The following is a healthy node:
+
+.Example output
+----
+Conditions:
+  Type             Status  LastHeartbeatTime                 LastTransitionTime                Reason                       Message
+  ----             ------  -----------------                 ------------------                ------                       -------
+  MemoryPressure   False   Tue, 09 Mar 2021 16:54:58 -0500   Tue, 09 Mar 2021 08:32:45 -0500   KubeletHasSufficientMemory   kubelet has sufficient memory available
+  DiskPressure     False   Tue, 09 Mar 2021 16:54:58 -0500   Tue, 09 Mar 2021 08:32:45 -0500   KubeletHasNoDiskPressure     kubelet has no disk pressure
+  PIDPressure      False   Tue, 09 Mar 2021 16:54:58 -0500   Tue, 09 Mar 2021 08:32:45 -0500   KubeletHasSufficientPID      kubelet has sufficient PID available
+  Ready            True    Tue, 09 Mar 2021 16:54:58 -0500   Tue, 09 Mar 2021 08:33:25 -0500   KubeletReady                 kubelet is posting ready status
+----
 
 * The following command provides more detailed information about a specific node, including the reason for
 the current condition:
@@ -180,9 +184,44 @@ Events:     <11>
 <3> The labels applied to the node.
 <4> The annotations applied to the node.
 <5> The taints applied to the node.
-<6> Node conditions.
+<6> The node conditions, listed below.
 <7> The IP address and host name of the node.
 <8> The pod resources and allocatable resources.
 <9> Information about the node host.
 <10> The pods on the node.
 <11> The events reported by the node.
+
+The following are the node conditions. The `conditions` stanza lists the `Ready`, `NotReady` (`Ready=False`), and `SchedulingDisabled`.   
+
+.Node Conditions [[node-conditions]]
+[cols="3a,8a",options="header"]
+|===
+
+|Condition |Description
+
+|`Ready`
+|If `true` the node is healthy and ready to accept pods. If `false` the node is not healthy and is not accepting pods. If `unknown`, the node controller has not received a heartbeat from the node for the `node-monitor-grace-period` (the default is 40 seconds).
+
+|`DiskPressure`
+|If `true` the disk capacity is low.
+
+|`MemoryPressure`
+|If `true` the node memory is low.
+
+|`PIDPressure`
+|If `true` there are too many processes on the node.
+
+|`OutOfDisk`
+|If `true`, the node has insufficient free space on the node for adding new pods.
+
+|`NetworkUnavailable`
+| If `true` the network for the node is not correctly configured.
+
+|`NotReady`
+|If `true` one of the underlying components, such as the container runtime or network, is experiencing issues or is not yet configured.
+
+|`SchedulingDisabled`
+|Pods cannot be scheduled for placement on the node.
+
+|===
+
