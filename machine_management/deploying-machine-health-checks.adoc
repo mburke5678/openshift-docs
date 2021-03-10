@@ -16,8 +16,4 @@ include::modules/machine-health-checks-about.adoc[leveloffset=+1]
 
 include::modules/machine-health-checks-resource.adoc[leveloffset=+1]
 
-. Additional resources
-
-* For more information on node conditions you can define in a MachineHealthCheck CR, see xref:../nodes/nodes/nodes-nodes-viewing.html#nodes-nodes-viewing-listing_nodes-nodes-viewing[About listing all the nodes in a cluster].
-
 include::modules/machine-health-checks-creating.adoc[leveloffset=+1]

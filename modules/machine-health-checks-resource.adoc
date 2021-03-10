@@ -64,26 +64,82 @@ spec:
       machine.openshift.io/cluster-api-machine-type: <role> <2>
       machine.openshift.io/cluster-api-machineset: <cluster_name>-<label>-<zone> <3>
   unhealthyConditions:
-  - type:    "Ready"
-    timeout: "300s" <4>
+  - type:    "Ready" <4>
+    timeout: "300s" <5>
     status: "False"
   - type:    "Ready"
-    timeout: "300s" <4>
+    timeout: "300s"
     status: "Unknown"
-  maxUnhealthy: "40%" <5>
-  nodeStartupTimeout: "10m" <6>
+  - type:    "MemoryPressure"
+    timeout: "300s" 
+    status: "True"
+  - type:    "PIDPressure"
+    timeout: "300s" 
+    status: "True"
+  - type:    "OutofDisk"
+    timeout: "300s" 
+    status: "True"
+  - type:    "NetworkUnavailable"
+    timeout: "300s"
+    status: "True"
+  - type:    "NotReady"
+    timeout: "300s"
+    status: "True"
+  - type:    "SchedulingDisabled"
+    timeout: "300s"
+    status: "True"
+  maxUnhealthy: "40%" <6>
+  nodeStartupTimeout: "10m" <7>
 ----
 <1> Specify the name of the machine health check to deploy.
 <2> Specify a label for the machine pool that you want to check.
 <3> Specify the machine set to track in `<cluster_name>-<label>-<zone>` format. For example, `prod-node-us-east-1a`.
-<4> Specify the timeout duration for a node condition. If a condition is met for the duration of the timeout, the machine will be remediated. Long timeouts can result in long periods of downtime for a workload on an unhealthy machine.
-<5> Specify the amount of unhealthy machines allowed in the targeted pool. This can be set as a percentage or an integer.
-<6> Specify the timeout duration that a machine health check must wait for a node to join the cluster before a machine is determined to be unhealthy.
+<4> Specify the node conditions to check for. See the node conditions in the table below.
+<5> Specify the timeout duration for a node condition. If a condition is met for the duration of the timeout, the machine will be remediated. Long timeouts can result in long periods of downtime for the workload on an unhealthy machine.
+<6> Specify the amount of unhealthy machines allowed in the targeted pool. This can be set as a percentage or an integer.
+<7> Specify the timeout duration that a machine health check must wait for a node to join the cluster before a machine is determined to be unhealthy.
 
 [NOTE]
 ====
 The `matchLabels` are examples only; you must map your machine groups based on your specific needs.
 ====
+
+The following table lists and defines the node conditions you can use with machine health checks.
+
+[discrete]
+[id="machine-health-checks-resource-conditions"]
+.Node Conditions
+[cols="3a,8a",options="header"]
+|===
+
+|Condition |Description
+
+|`Ready`
+|If `true` the node is healthy and ready to accept pods. If `false` the node is not healthy and is not accepting pods. If `unknown`, the node controller has not received a heartbeat from the node for the `node-monitor-grace-period` (the default is 40 seconds).
+
+|`DiskPressure`
+|If `true` the disk capacity is low.
+
+|`MemoryPressure`
+|If `true` the node memory is low.
+
+|`PIDPressure`
+|If `true` there are too many processes on the node.
+
+|`OutOfDisk`
+|If `true`, the node has insufficient free space on the node for adding new pods.
+
+|`NetworkUnavailable`
+| If `true` the network for the node is not correctly configured.
+
+|`NotReady`
+|If `true` one of the underlying components, such as the container runtime or network, is experiencing issues or is not yet configured.
+
+|`SchedulingDisabled`
+|Pods cannot be scheduled for placement on the node.
+
+|===
+
 
 [id="machine-health-checks-short-circuiting_{context}"]
 == Short-circuiting machine health check remediation
@@ -129,3 +185,4 @@ If `maxUnhealthy` is set to `40%` and there are 6 machines being checked:
 ====
 The allowed number of machines is rounded down when the percentage of `maxUnhealthy` machines that are checked is not a whole number.
 ====
+

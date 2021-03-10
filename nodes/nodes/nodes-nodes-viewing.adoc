@@ -19,6 +19,10 @@ The master uses the information from node objects to validate nodes with health 
 
 include::modules/nodes-nodes-viewing-listing.adoc[leveloffset=+1]
 
+.Additional resources
+
+* For more information on node conditions, see xref:../../machine_management/deploying-machine-health-checks.html#machine-health-checks-resource-conditions[Node Conditions].
+
 include::modules/nodes-nodes-viewing-listing-pods.adoc[leveloffset=+1]
 
 include::modules/nodes-nodes-viewing-memory.adoc[leveloffset=+1]

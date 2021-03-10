@@ -56,9 +56,9 @@ following statuses:
 |Pods cannot be scheduled for placement on the node.
 
 |===
-
++
 The following is a healthy node:
-
++
 .Example output
 ----
 Conditions:
@@ -184,44 +184,10 @@ Events:     <11>
 <3> The labels applied to the node.
 <4> The annotations applied to the node.
 <5> The taints applied to the node.
-<6> The node conditions, listed below.
+<6> The node conditions and status. The `conditions` stanza lists the `Ready`, 'PIDPressure`, 'PIDPressure`, 'MemoryPressure`, 'DiskPressure` and `OutOfDisk`.
 <7> The IP address and host name of the node.
 <8> The pod resources and allocatable resources.
 <9> Information about the node host.
 <10> The pods on the node.
-<11> The events reported by the node.
-
-The following are the node conditions. The `conditions` stanza lists the `Ready`, `NotReady` (`Ready=False`), and `SchedulingDisabled`.   
-
-.Node Conditions [[node-conditions]]
-[cols="3a,8a",options="header"]
-|===
-
-|Condition |Description
-
-|`Ready`
-|If `true` the node is healthy and ready to accept pods. If `false` the node is not healthy and is not accepting pods. If `unknown`, the node controller has not received a heartbeat from the node for the `node-monitor-grace-period` (the default is 40 seconds).
-
-|`DiskPressure`
-|If `true` the disk capacity is low.
-
-|`MemoryPressure`
-|If `true` the node memory is low.
-
-|`PIDPressure`
-|If `true` there are too many processes on the node.
-
-|`OutOfDisk`
-|If `true`, the node has insufficient free space on the node for adding new pods.
-
-|`NetworkUnavailable`
-| If `true` the network for the node is not correctly configured.
-
-|`NotReady`
-|If `true` one of the underlying components, such as the container runtime or network, is experiencing issues or is not yet configured.
-
-|`SchedulingDisabled`
-|Pods cannot be scheduled for placement on the node.
-
-|===
+<11> The events reported by the node.   
 
