@@ -3,34 +3,69 @@
 // * logging/cluster-logging-viewing.adoc
 
 [id="cluster-logging-viewing-cli_{context}"]
-= Viewing cluster logs
+= Viewing pod logs in the CLI
 
-You can view cluster logs in the CLI. 
+Use the `oc logs` command to view the pod log for various resources in the {product-title} CLI. You can use the `-f` flag to follow what is being written into the logs.
 
 .Prerequisites
 
-* OpenShift Logging and Elasticsearch must be installed.
+* Access to the {product-title} Command-line Interface (CLI) also known as `oc`.
 
 .Procedure 
 
-To view cluster logs:
+To view pod logs:
 
-Use the `oc logs [-f] <pod_name>` command, where the `-f`
-is optional.
-
+* View the log for a specific pod using the pod name:
++
 [source,terminal]
 ----
-$ oc logs -f <any-fluentd-pod> -n openshift-logging <1>
+$ oc logs -f <pod_name> <1>
 ----
-<1> Specify the name of a log collector pod. Use the `-f` option to follow what is being written into the logs.
-
-For example
-
+<1> Specify the name of the pod.
++
+For example:
++
 [source,terminal]
 ----
-$ oc logs -f fluentd-ht42r -n openshift-logging
+$ oc logs ruby-58cd97df55-mww7r
+----
+
+* View the log for a specific resource:
++
+[source,terminal]
+----
+$ oc logs <object_type>/<resource_name> <1>
+----
+<1> Specify the resource type and name.
++
+For example:
++
+[source,terminal]
+----
+$ oc logs deployment/ruby
+----
+
+* View the log for a specific container:
++
+[source,terminal]
+----
+$ oc logs <pod_name> -c <container_name>
+----
++
+where:
++
+--
+<pod_name>:: Specifies the name of a pod. 
+<continer_name>:: Specifies the name of a container.
+--
++
+For example:
++
+[source,terminal]
+----
+$ oc logs -f ruby-58cd97df55-mww7r -c ruby
 ----
 
 The contents of log files are printed out.
 
-By default, Fluentd reads logs from the tail, or end, of the log. 
+By default, logs read from the tail, or end, of the log. 

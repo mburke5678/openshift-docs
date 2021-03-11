@@ -3,27 +3,28 @@
 // * logging/cluster-logging-viewing.adoc
 
 [id="cluster-logging-viewing-logs-console_{context}"]
-= Viewing cluster logs in the {product-title} web console 
+= Viewing pod logs in the web console 
 
-You can view cluster logs in the {product-title} web console . 
+You can view the pod log for various resources in the {product-title} web console. 
 
-.Prerequisites
-
-* OpenShift Logging and Elasticsearch must be installed.
+[NOTE]
+====
+Some resources, such as builds, do not have pods to query directly. Locate the *Logs* link on the *Details* page.
+====
 
 .Procedure 
 
-To view cluster logs:
+To view pod logs:
 
-. In the {product-title} console, navigate to *Workloads* -> *Pods*.
+. In the {product-title} console, navigate to *Workloads* -> *Pods* or navigate to the pod through the resource you want to investigate. 
 
-. Select the `openshift-logging` project from the drop-down menu.
+. Select a project from the drop-down menu.
 
-. Click one of the logging collector pods with the `fluentd` prefix.
+. Click one of the pods.
 
-. Click *Logs*.
+. Click *Logs*. 
 
-By default, Fluentd reads logs from the tail, or end, of the log. 
+By default, the logs read from the tail, or end, of the log. 
 
 ////
 Rsyslog reads from the head, or beginning, of the log. 

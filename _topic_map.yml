@@ -1685,7 +1685,7 @@ Topics:
     File: cluster-logging-curator
   - Name: Maintenance and support
     File: cluster-logging-maintenance-support
-- Name: Viewing cluster logs
+- Name: Viewing pod logs for a resource
   File: cluster-logging-viewing
 - Name: Viewing cluster logs in Kibana
   File: cluster-logging-visualizer
