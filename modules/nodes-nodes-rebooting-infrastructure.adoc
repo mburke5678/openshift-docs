@@ -3,12 +3,11 @@
 // * nodes/nodes-nodes-rebooting.adoc
 
 [id="nodes-nodes-rebooting-infrastructure_{context}"]
-= Understanding infrastructure node rebooting
+= Understanding how to reboot nodes running critical infrastructure
 
-Infrastructure nodes are nodes that are labeled to run pieces of the
-{product-title} environment. Currently, the easiest way to manage node reboots
-is to ensure that there are at least three nodes available to run
-infrastructure. The nodes to run the infrastructure are called *master* nodes.
+When rebooting nodes that host critical {product-title} infrastructure components,
+ensure that there are at least three nodes available to run the components. 
+The nodes that host the infrastructure components are called *master* nodes.
 
 The scenario below demonstrates a common mistake that can lead
 to service interruptions for the applications running on {product-title} when
