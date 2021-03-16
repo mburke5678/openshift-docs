@@ -3,7 +3,7 @@
 // * nodes/nodes-nodes-rebooting.adoc
 
 [id="nodes-nodes-rebooting-infrastructure_{context}"]
-= Understanding how to reboot master nodes running critical infrastructure
+= Understanding how to reboot nodes running critical infrastructure
 
 When rebooting nodes that host critical {product-title} infrastructure components, such as the router pods, the registry pods, and monitoring pods, ensure that there are at least three nodes available to run these components.
 

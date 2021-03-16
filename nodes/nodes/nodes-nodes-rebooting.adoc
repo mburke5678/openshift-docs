@@ -31,7 +31,7 @@ include::modules/nodes-nodes-rebooting-infrastructure.adoc[leveloffset=+1]
 
 .Additional information
 
-* For more information on pod anti-affinity, see xref:../../nodes/scheduling/nodes-scheduler-pod-affinity.adoc[Placing pods relative to other pods using affinity and anti-affinity rules].
+* For more information on pod anti-affinity, see xref:../../nodes/scheduling/nodes-scheduler-pod-affinity.adoc#nodes-scheduler-pod-affinity[Placing pods relative to other pods using affinity and anti-affinity rules].
 
 include::modules/nodes-nodes-rebooting-affinity.adoc[leveloffset=+1]
 
