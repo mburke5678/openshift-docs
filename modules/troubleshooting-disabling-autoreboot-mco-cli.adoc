@@ -5,11 +5,11 @@
 [id="troubleshooting-disabling-autoreboot-mco-cli_{context}"]
 = Disabling Machine Config Operator from automatically rebooting by using the CLI
 
-To avoid unwanted disruptions from changes made by the Machine Config Operator (MCO), you can use the CLI to modify the machine config pool (MCP) to prevent automatic rebooting after the Operator makes changes to the machine config.
+To avoid unwanted disruptions from changes made by the Machine Config Operator (MCO), you can use the CLI to modify the machine config pool (MCP) to prevent automatic rebooting after the Operator makes changes to the machine config. 
 
 [NOTE]
 ====
-Pausing a machine config pool stops all system reboot processes and all configuration changes from being applied.
+Pausing a machine config pool stops all updates to your {op-system} nodes, including updates to the operating system, security, certificate, and any other updates related to the machine config. Pausing should be done for short periods of time only.
 ====
 
 .Prerequisites
@@ -19,7 +19,7 @@ Pausing a machine config pool stops all system reboot processes and all configur
 * You have root access in {product-title}.
 
 .Procedure
-. To pause the autoreboot process after machine config changes are applied:
+. To pause the MCO from rebooting {op-system} nodes:
 
 * As root, update the `spec.paused` field to `true` in the `MachineConfigPool` custom resource.
 +
@@ -53,7 +53,7 @@ The `spec.paused` field is `true` and the machine config pool is paused.
 
 . Alternatively, to unpause the autoreboot process:
 
-* As root, update the `spec.paused` field to `false` in the MachineConfigPool CustomResourceDefinition (CRD).
+* As root, update the `spec.paused` field to `false` in the `MachineConfigPool` custom resource.
 +
 .Control plane (master) nodes
 [source,terminal]
@@ -88,7 +88,7 @@ By unpausing a machine config pool, all paused changes are applied at reboot.
 +
 The `spec.paused` field is `false` and the machine config pool is unpaused.
 
-. To see if the machine config pool has pending changes:
+. After unpausing, to see if the machine config pool has pending changes:
 +
 [source,terminal]
 ----
