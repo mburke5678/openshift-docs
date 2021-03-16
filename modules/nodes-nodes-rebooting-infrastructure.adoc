@@ -5,7 +5,7 @@
 [id="nodes-nodes-rebooting-infrastructure_{context}"]
 = Understanding how to reboot master nodes running critical infrastructure
 
-When rebooting nodes that host critical {product-title} infrastructure components, such as the routers, the registry, and monitoring, ensure that there are at least three nodes available to run these components.
+When rebooting nodes that host critical {product-title} infrastructure components, such as the router pods, the registry pods, and monitoring pods, ensure that there are at least three nodes available to run these components.
 
 The scenario below demonstrates the service interruptions that can occur with applications running on {product-title} when only two nodes are available:
 
