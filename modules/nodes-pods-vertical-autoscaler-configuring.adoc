@@ -23,20 +23,23 @@ kind: VerticalPodAutoscaler
 metadata:
   name: vpa-recommender
 spec:
+  recommenders:   <1>
+    - name: my-recommender
   targetRef:
     apiVersion: "apps/v1"
-    kind:       Deployment <1>
-    name:       frontend <2>
+    kind:       Deployment <2>
+    name:       frontend <3>
   updatePolicy:
-    updateMode: "Auto" <3>
+    updateMode: "Auto" <4>
   resourcePolicy: <4>
     containerPolicies:
     - containerName: my-opt-sidecar
       mode: "Off"
 ----
-<1> Specify the type of workload object you want this VPA to manage: `Deployment`, `StatefulSet`, `Job`, `DaemonSet`, `ReplicaSet`, or `ReplicationController`.
-<2> Specify the name of an existing workload object you want this VPA to manage.
-<3> Specify the VPA mode:
+<1> Optional. Specify the name of a custom recommender.
+<2> Specify the type of workload object you want this VPA to manage: `Deployment`, `StatefulSet`, `Job`, `DaemonSet`, `ReplicaSet`, or `ReplicationController`.
+<3> Specify the name of an existing workload object you want this VPA to manage.
+<4> Specify the VPA mode:
 * `auto` to automatically apply the recommended resources on pods associated with the controller. The VPA terminates existing pods and creates new pods with the recommended resource limits and requests.
 * `recreate` to automatically apply the recommended resources on pods associated with the workload object. The VPA terminates existing pods and creates new pods with the recommended resource limits and requests. The `recreate` mode should be used rarely, only if you need to ensure that the pods are restarted whenever the resource request changes. 
 * `initial` to automatically apply the recommended resources when pods associated with the workload object are created. The VPA does not update the pods as it learns new resource recommendations.
