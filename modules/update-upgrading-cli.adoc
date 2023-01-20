@@ -50,7 +50,6 @@ VERSION IMAGE
 4.9.29  quay.io/openshift-release-dev/ocp-release@sha256:b04ca01d116f0134a102a57f86c67e5b1a3b5da1c4a580af91d521b8fa0aa6ec
 4.9.31  quay.io/openshift-release-dev/ocp-release@sha256:2a28b8ebb53d67dd80594421c39e36d9896b1e65cb54af81fbb86ea9ac3bf2d7
 4.9.32  quay.io/openshift-release-dev/ocp-release@sha256:ecdb6d0df547b857eaf0edb5574ddd64ca6d9aff1fa61fd1ac6fb641203bedfa
-
 ----
 +
 [NOTE]
