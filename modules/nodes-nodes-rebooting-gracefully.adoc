@@ -119,14 +119,14 @@ After the reboot, SSH into any Windows node on AWS and add the route by running 
 +
 [source,terminal]
 ----
-C:\> route add <address_mask> mask <network_mask> <gateway_ip>
+C:\> route add 169.254.169.254 mask 255.255.255.255 <gateway_ip>
 ----
 +
 where:
 +
 --
-`<address_mask>`:: Specifies the address mask of the EC2 instance metadata endpoint.
-`<network_mask>`:: Specifies the network mask of the EC2 instance metadata endpoint.
+`169.254.169.254`:: Specifies the address mask of the EC2 instance metadata endpoint.
+`255.255.255.255`:: Specifies the network mask of the EC2 instance metadata endpoint.
 `<gateway_ip>`:: Specifies the corresponding IP address of the gateway in Windows instance, which you can find by running the following command:
 +
 [source,terminal]
