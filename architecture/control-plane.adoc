@@ -22,7 +22,8 @@ include::snippets/rosa-classic-support.adoc[]
 endif::openshift-rosa[]
 
 // This module does not apply to OSD/ROSA
-include::modules/architecture-machine-config-pools-custom.adoc[leveloffset=+2]
+ifndef::openshift-dedicated,openshift-rosa[]
+include::modules/architecture-machine-config-pools.adoc[leveloffset=+1]
 
 [role="_additional-resources"]
 .Additional resources
@@ -34,6 +35,13 @@ ifndef::openshift-dedicated,openshift-rosa[]
 * xref:../machine_configuration/machine-config-pool-custom.adoc#machine-config-pool-custom[Using custom machine config pools to configure nodes]
 * xref:../machine_configuration/index.adoc#machine-config-drift-detection_machine-config-overview[Understanding configuration drift detection]
 * xref:../nodes/nodes/nodes-nodes-creating-infrastructure-nodes.adoc#nodes-nodes-creating-infrastructure-nodes[Creating infrastructure nodes]
+endif::openshift-dedicated,openshift-rosa[]
+
+include::modules/machine-config-pool-custom.adoc[leveloffset=+2]
+
+ifndef::openshift-dedicated,openshift-rosa[]
+[role="_additional-resources"]
+.Additional resources
 * xref:../machine_configuration/machine-config-pool-custom.adoc#machine-config-pool-custom[About using custom machine config pools to configure nodes]
 endif::openshift-dedicated,openshift-rosa[]
 
