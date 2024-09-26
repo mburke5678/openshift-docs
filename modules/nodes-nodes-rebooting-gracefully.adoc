@@ -115,7 +115,7 @@ C:\>  Restart-Computer -Force
 
 . Windows nodes on Amazon Web Services (AWS) do not return to `READY` state after a graceful reboot due to an inconsistency with the EC2 instance metadata routes and the Host Network Service (HNS) networks.
 +
-After the reboot, SSH into any Windows node on AWS and add the route by running the following command in a command prompt:
+After the reboot, SSH into any Windows node on AWS and add the route by running the following command in a shell prompt:
 +
 [source,terminal]
 ----
