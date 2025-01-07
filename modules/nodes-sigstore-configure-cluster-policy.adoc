@@ -6,13 +6,13 @@
 [id="nodes-sigstore-configure-cluster-policy_{context}"]
 = Creating a cluster image policy CR
 
-A `ClusterImagePolicy` custom resource (CR) enables a cluster administrator to configure a Sigstore signature verification policy for the entire cluster. When enabled, the Machine Config Operator (MCO) watches the `ClusterImagePolicy` object and updates the `/etc/containers/policy.json` file in the `99-<pool>-generated-registries` machine config. 
+A `ClusterImagePolicy` custom resource (CR) enables a cluster administrator to configure a Sigstore signature verification policy for the entire cluster. When enabled, the Machine Config Operator (MCO) watches the `ClusterImagePolicy` object and updates the `/etc/containers/policy.json` file in the cluster.
 
-The following example shows general guidelines on how to configure a `ClusterImagePolicy` object. For more details on the parameters, see _Configuring sigstore support_. 
+The following example shows general guidelines on how to configure a `ClusterImagePolicy` object. For more details on the parameters, see "Configuring Sigstore support".
 
 .Prerequisites
 // Taken from https://issues.redhat.com/browse/OCPSTRAT-918
-* You have a Sigstore supported public key infrastructure (PKI), or provide Cosign public and private key pairs for signing operations. 
+* You have a Sigstore supported public key infrastructure (PKI), or provide Cosign public and private key pairs for signing operations.
 * You have a signing process in place to sign your images.
 * You have access to a registry that supports Cosign signatures.
 * You enabled the required Technology Preview features for your cluster by editing the `FeatureGate` CR named `cluster`:
@@ -40,13 +40,13 @@ Enabling the `TechPreviewNoUpgrade` feature set on your cluster cannot be undone
 ====
 +
 After you save the changes, new machine configs are created, the machine config pools are updated, and scheduling on each node is disabled while the change is being applied.
-	
+
 .Procedure
 
-. Create a cluster image policy object similar to the following examples. See "About image policy parameters" for specifiec details on these parameters.
+. Create a cluster image policy object similar to the following examples. See "About image policy parameters" for specific details on these parameters.
 +
 --
-.Example cluster image policy object with a public key policy 
+.Example cluster image policy object with a public key policy
 [source,yaml]
 ----
 apiVersion: config.openshift.io/v1alpha1
@@ -73,10 +73,10 @@ spec:
 <6> For a public key policy, specifies a base64-encoded public key in the PEM format. The maximum length is 8192 characters.
 <7> Optional: Specifies a base64-encoded Rekor public key in the PEM format. The maximum length is 8192 characters.
 <8> Optional: Specifies one of the following processes to verify the identity in the signature and the actual image identity:
-* `matchRepoDigestOrExact` 
-* `matchRepository`.
-* `exactRepository`
-* `remapIdentity`
+* `MatchRepoDigestOrExact`
+* `MatchRepository`.
+* `ExactRepository`. The `exactRepository` parameter must be specified.
+* `RemapIdentity`. The `prefix` and `signedPrefix` parameters must be specified.
 --
 +
 --
@@ -115,11 +115,11 @@ spec:
 * `fulcioSubject`: Specifies the OIDC issuer and the email of the Fulcio authentication configuration.
 <7> Specifies a base64-encoded Rekor public key in the PEM format. This parameter is required when when the `policyType` is `FulcioCAWithRekor`. The maximum length is 8192 characters.
 <8> Optional: Specifies one of the following processes to verify the identity in the signature and the actual image identity.
-* `matchRepoDigestOrExact` 
-* `matchRepository`.
-* `exactRepository`
-* `remapIdentity`
-<9> For the `remapIdentity` match policy, specifies the prefix that should be matched against the image prefix. If the two match, the iamge prefix is replaced with the value of `signedPrefix`.
+* `MatchRepoDigestOrExact`
+* `MatchRepository`.
+* `ExactRepository`. The `exactRepository` parameter must be specified.
+* `RemapIdentity`. The `prefix` and `signedPrefix` parameters must be specified.
+<9> For the `remapIdentity` match policy, specifies the prefix that should be matched against the image prefix. If the two match, the image prefix is replaced with the value of `signedPrefix`.
 <10> For the `remapIdentity` match policy, specifies the image prefix to be remapped, if needed.
 --
 
@@ -130,7 +130,7 @@ spec:
 $ oc create -f <file-name>.yaml
 ----
 +
-Scheduling is disabled on each node as it is updated.
+The Machine Config Operator (MCO) updates the machine config pools (MCP) in your cluster.
 
 .Verification
 
@@ -150,18 +150,19 @@ $ oc debug node/<node_name>
 sh-5.1# chroot /host/
 ----
 
-.. Examine the `policy.json` file  by running the following command: 
+.. Examine the `policy.json` file  by running the following command:
 +
 [source,terminal]
 ----
 sh-5.1# cat /etc/containers/policy.json
 ----
 +
-.Example output for the cluster image policy object with a public key
+.Example output for the cluster image policy object with a public key showing the new cluster image policy
 [source,json]
 ----
 # ...
   "transports": {
+# ...
     "docker": {
       "example.com": [
         {
@@ -176,7 +177,7 @@ sh-5.1# cat /etc/containers/policy.json
 # ...
 ----
 +
-.Example output for the cluster image policy object with a Fulcio certificate
+.Example output for the cluster image policy object with a Fulcio certificate showing the new cluster image policy
 [source,json]
 ----
 # ...
@@ -201,7 +202,7 @@ sh-5.1# cat /etc/containers/policy.json
 # ...
 ----
 
-. Examine the `sigstore-registries.yaml` file  by running the following command: 
+.. Examine the `sigstore-registries.yaml` file  by running the following command:
 +
 [source,terminal]
 ----
@@ -213,23 +214,6 @@ sh-5.1# cat /etc/containers/registries.d/sigstore-registries.yaml
 ----
 docker:
   example.com:
-    use-sigstore-attachments: true
-  quay.io/openshift-release-dev/ocp-release:
-    use-sigstore-attachments: true
-----
-
-. Examine the `sigstore-registries.yaml` file  by running the following command: 
-+
-[source,terminal]
-----
-sh-5.1# cat /etc/containers/registries.d/sigstore-registries.yaml
-----
-+
-.Example output
-[source,yaml]
-----
-docker:
-  example.io/crio/signed:
     use-sigstore-attachments: true
   quay.io/openshift-release-dev/ocp-release:
     use-sigstore-attachments: true
