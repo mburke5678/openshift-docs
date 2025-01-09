@@ -8,7 +8,7 @@
 
 The Sigstore project enables developers to sign-off on what they build and administrators to verify signatures and monitor workflows at scale. With the Sigstore project, signatures can be stored in the same registry as the build images. A second server is not needed. The identity piece of a signature is tied to the OpenID Connect (OIDC) identity through the Fulcio certificate authority, which simplifies the signature process by allowing key-less signing. Additionally, Sigstore includes Rekor, which records signature metadata to an immutable, tamper-resistant ledger.
 
-You can use the `ClusterImagePolicy` and `ImagePolicy` custom resource definition (CRD) objects to enable and configure Sigstore support at the cluster or namespace scope. These objects specify the images and repositories to be verified and their policy.
+You can use the `ClusterImagePolicy` and `ImagePolicy` custom resource definition (CRD) objects to enable and configure Sigstore support at the cluster or namespace scope. These objects specify the images and repositories to be verified and how the signatures must be verified.
 
 * Cluster image policy. A cluster image policy object enables a cluster administrator to configure Sigstore support for the entire cluster.
 

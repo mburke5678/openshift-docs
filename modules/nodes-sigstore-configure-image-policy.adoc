@@ -6,18 +6,18 @@
 [id="nodes-sigstore-configure-image-policy_{context}"]
 = Creating an image policy CR
 
-An `ImagePolicy` custom resource (CR) enables a cluster administrator or application developer to configure a Sigstore signature verification policy for a specific namespace. The MCO watches `ImagePolicy` instance in different namespaces and merges the instances for each namespace into an `/etc/crio/policies/<NAMESPACE>.json` file in the `99-<pool>-generated-registries machine-config`.
+An `ImagePolicy` custom resource (CR) enables a cluster administrator or application developer to configure a Sigstore signature verification policy for a specific namespace. The MCO watches `ImagePolicy` instances in different namespaces and updates the `/etc/crio/policies/<namespace>.json` and `/etc/containers/registries.d/sigstore-registries.yaml` files on all the nodes in the cluster.
 
 [NOTE]
 ====
-If a scoped image or repository in an image policy is nested under one of the scoped images or repositories in a cluster image policy, only the policy from cluster image policy is applied. However, the image policy object is created. For example, if an image policy specifies `example.com/global/image`, and the cluster image policy specifies `example.com/global`, the namespace inherits the policy from the cluster image policy.
+If a scoped image or repository in an image policy is nested under one of the scoped images or repositories in a cluster image policy, only the policy from cluster image policy is applied. However, the image policy object is created with an error message. For example, if an image policy specifies `example.com/global/image`, and the cluster image policy specifies `example.com/global`, the namespace inherits the policy from the cluster image policy.
 ====
 
-The following example shows general guidelines on how to configure an `ImagePolicy` object. For more details on the parameters, see "Configuring sigstore support".
+The following example shows general guidelines on how to configure an `ImagePolicy` object. For more details on the parameters, see "About cluster and image policy parameters".
 
 .Prerequisites
 // Taken from https://issues.redhat.com/browse/OCPSTRAT-918
-* You have a Sigstore supported public key infrastructure (PKI), or provide Cosign public and private key pairs for signing operations.
+* You have a Sigstore-supported public key infrastructure (PKI), or provide link:https://docs.sigstore.dev/cosign/[Cosign public and private key pair] for signing operations.
 * You have a signing process in place to sign your images.
 * You have access to a registry that supports Cosign signatures.
 * You enabled the required Technology Preview features for your cluster by editing the `FeatureGate` CR named `cluster`:
@@ -48,10 +48,10 @@ After you save the changes, new machine configs are created, the machine config 
 
 .Procedure
 
-. Create an image policy object similar to the following examples. See "About image policy parameters" for specific details on these parameters.
+. Create an image policy object similar to the following examples. See "About cluster and image policy parameters" for specific details on these parameters.
 +
 --
-.Example image policy object with a public key policy and the an exact repository match policy
+.Example image policy object with a public key policy and the `MatchRepository` match policy
 [source,yaml]
 ----
 apiVersion: config.openshift.io/v1alpha1
@@ -61,7 +61,7 @@ metadata:
   namespace: mynamespace <2>
 spec:
   scopes: <3>
-    - quay.io/crio/signed
+    - example.io/crio/signed
   policy: <4>
     rootOfTrust: <5>
       policyType: PublicKey <6>
@@ -73,10 +73,10 @@ spec:
 ----
 <1> Creates an `ImagePolicy` object.
 <2> Specifies the namespace where the image policy is applied.
-<3> Defines a list of image scopes assigned to this policy.
+<3> Defines a list of repositories or images assigned to this policy.
 <4> Specifies the parameters that define how the images are verified.
 <5> Defines a root of trust for the policy.
-<6> Specifies the policy types that define the root of trust: here, a public key with Rekor verification.
+<6> Specifies the policy types that define the root of trust, either a public key or a link:https://docs.sigstore.dev/certificate_authority/overview/[Fulcio certification]. Here, a public key with Rekor verification.
 <7> For a public key policy, specifies a base64-encoded public key in the PEM format. The maximum length is 8192 characters.
 <8> Optional: Specifies a base64-encoded Rekor public key in the PEM format. The maximum length is 8192 characters.
 <9> Optional: Specifies one of the following processes to verify the identity in the signature and the actual image identity:
@@ -87,7 +87,7 @@ spec:
 --
 +
 --
-.Example image policy object with a Fulcio certificate policy and the `matchRepository` match policy
+.Example image policy object with a Fulcio certificate policy and the `ExactRepository` match policy
 [source,yaml]
 ----
 apiVersion: config.openshift.io/v1alpha1
@@ -114,10 +114,10 @@ spec:
 ----
 <1> Creates an `ImagePolicy` object.
 <2> Specifies the namespace where the image policy is applied.
-<3> Defines a list of image scopes assigned to this policy.
+<3> Defines a list of repositories or images assigned to this policy.
 <4> Specifies the parameters that define how the images are verified.
 <5> Defines a root of trust for the policy.
-<6> Specifies the policy types that define the root of trust. Here, a Fulcio certification with required Rekor verification.
+<6> Specifies the policy types that define the root of trust, either a public key or a link:https://docs.sigstore.dev/certificate_authority/overview/[Fulcio certification]. Here, a Fulcio certification with required Rekor verification.
 <7> For a Fulcio certificate policy, the following parameters are required:
 * `fulcioCAData`: Specifies a base64-encoded Fulcio certificate in the PEM format. The maximum length is 8192 characters.
 * `fulcioSubject`: Specifies the OIDC issuer and the email of the Fulcio authentication configuration.
@@ -169,6 +169,7 @@ sh-5.1# cat /etc/crio/policies/<namespace>.json
 ----
 # ...
  "transports": {
+# ...
   "docker": {
    "example.io/crio/signed": [
     {
@@ -176,9 +177,10 @@ sh-5.1# cat /etc/crio/policies/<namespace>.json
      "keyData": "a2V5RGF0YQ==",
      "rekorPublicKeyData": "cmVrb3JLZXlEYXRh",
      "signedIdentity": {
-      "type": "exactRepository",
-      "dockerRepository": "quay.io/crio/signed"
+      "type": "matchRepository",
+      "dockerRepository": "example.org/crio/signed"
      }
+# ...
 ----
 +
 .Example output for the image policy object with a Fulcio certificate showing the new image policy
@@ -186,22 +188,23 @@ sh-5.1# cat /etc/crio/policies/<namespace>.json
 ----
 # ...
  "transports": {
+# ...
   "docker": {
    "example.io/crio/signed": [
-	{
- 	"type": "sigstoreSigned",
- 	"fulcio": {
-  	 "caData": "a2V5RGF0YQ==",
-  	 "oidcIssuer": "https://expected.OIDC.issuer/",
-  	 "subjectEmail": "expected-signing-user@example.com"
- 	},
-        "rekorPublicKeyData": "cmVrb3JLZXlEYXRh",
-        "signedIdentity": {
-    	 "type": "exactRepository",
-         "dockerRepository": "quay.io/crio/signed"
-       }
-      }
-     ],
+    {
+     "type": "sigstoreSigned",
+     "fulcio": {
+      "caData": "a2V5RGF0YQ==",
+      "oidcIssuer": "https://expected.OIDC.issuer/",
+      "subjectEmail": "expected-signing-user@example.com"
+     },
+     "rekorPublicKeyData": "cmVrb3JLZXlEYXRh",
+     "signedIdentity": {
+      "type": "exactRepository",
+      "dockerRepository": "quay.io/crio/signed"
+     }
+    }
+   ],
 # ...
 ----
 
@@ -212,15 +215,16 @@ sh-5.1# cat /etc/crio/policies/<namespace>.json
 sh-5.1# cat /etc/containers/registries.d/sigstore-registries.yaml
 ----
 +
-.Example output
+.Example output showing that the scoped registry was added
 [source,yaml]
 ----
 docker:
   example.com:
-    use-sigstore-attachments: true
+    use-sigstore-attachments: true <1>
   quay.io/openshift-release-dev/ocp-release:
     use-sigstore-attachments: true
 ----
+<1> When `true`, specifies that sigstore signatures are going to be read along with the image.
 
 ..  Check the crio log for Sigstore signature verification by running the following command. 
 +
@@ -243,5 +247,5 @@ msg="Found a Sigstore attachment manifest with 1 layers" file="docker/docker_ima
 msg="Fetching Sigstore attachment 1/1: sha256:8276724a208087e73ae5d9d6e8f872f67808c08b0acdfdc73019278807197c45" file="docker/docker_image_src.go:644"
 # ...
 ----
-<1> The `IsRunningImageAllowed` line confirms that Sigstore verification is allowed.
-<2> The `Using transport \"docker\" specific policy section \"quay.io/crio\"" file="signature/policy_eval.go:150` line confirms that the image policy has been applied.
+<1> The `IsRunningImageAllowed` line confirms that image is allowed by the configured Sigstore verification policy. 
+<2> The `Using transport \"docker\" specific policy section \"example.io/crio/signed\"" file="signature/policy_eval.go:150` line confirms that the image policy has been applied.
