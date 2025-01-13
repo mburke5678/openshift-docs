@@ -6,9 +6,44 @@
 [id="checking-mco-node-status_{context}"]
 = Checking machine config node status
 
-During the update of a  machine config pool (MCP), you can monitor the progress of individual nodes in case issues arise and you need to troubleshoot a node.
+During the update of a machine config pool (MCP) object, you can monitor the progress of individual nodes in case issues arise and you need to troubleshoot a node.
 
-To see the status of the Machine Config Operator (MCO) updates to your cluster, use the following `oc` commands:
+.Basic machine config node fields
+[cols="1,4",options="header"]
+|===
+|Field |Meaning 
+|`NAME` |The name of the node.
+|`POOLNAME` |The name of the MCP associated with that node.
+|`DESIREDCONFIG` |The name of the new machine configuration that the node is updating to.
+|`CURRENTCONFIG` |The name of the current machine configuration associated with that node. After the node is updated, the `CURRENTCONFIG` matches the `DESIREDCONFIG`. 
+|`TRUE` |The phase is complete.
+|`FALSE` |The phase is either being executed, will not be executed, or has errored. If the phase has errored, use the `oc describe machineconfignodes` command for more information.
+|`UNKNOWN` |The phase has not started during the most recent upgrade process.
+|===
+
+In addition to the fields defined in the previous table, the `-o wide` output displays the following fields:
+
+.Machine config nodes fields in the `-o wide` output
+[cols="1,4",options="header"]
+|===
+|Phase Name |Definition
+|`UPDATED` |Indicates if the MCO has applied the current machine config to the node.
+|`UPDATEPREPARED` |Indicates if the MCO is preparing to update the node.
+|`UPDATEEXECUTED` |Indicates if the MCO has completed the body of the update on the node. 
+|`UPDATEPOSTACTIONCOMPLETE` |Indicates whether the MCO has executed its post-update actions on the node.   
+|`UPDATECOMPLETE` |Indicates if the MCO has completed the core parts of the update on the node.  
+|`RESUMED` |Indicates if the node has resumed normal processes.
+|`UPDATECOMPATIBLE` |Indicates if the MCO has determined it can execute the update on the node.
+|`UPDATEDFILESANDOS` |Indicates if the MCO has updated the nodes file and operating system configuration.
+|`CORDONEDNODE` |Indicates if the MCO has marked the node as not schedulable. 
+|`DRAINEDNODE` |Indicates if the MCO has drained the node.
+|`REBOOTEDNODE` |Indicates if the MCO has restarted the node.
+|`RELOADEDCRIO` |Indicates if the MCO has restarted the CRI-O service. 
+|`UNCORDONEDNODE` |Indicates if the MCO has marked the node as schedulable.  
+|===
+
+
+To see the status of the Machine Config Operator (MCO) updates to your cluster, use the following `oc` command
 
 :FeatureName: Improved MCO state reporting
 include::snippets/technology-preview.adoc[]
@@ -17,7 +52,10 @@ include::snippets/technology-preview.adoc[]
 * You set `featureSet: TechPreviewNoUpgrade` in your `FeatureGate` custom resource (CR) to enable the feature set capability for your cluster.
 
 .Procedure
-. Get a summary of update statuses for all nodes in all machine config pools (MCP) by running the following command:
+
+. View a summary of update statuses for all nodes in the default machine config pools (MCP):
++
+* View the current and desired machine configurations by running the following command:
 +
 [source,terminal]
 ----
@@ -34,14 +72,26 @@ ci-ln-mdb23yt-72292-kzdsg-master-2         master     rendered-master-1abc053eec
 ci-ln-mdb23yt-72292-kzdsg-worker-a-gfqjr   worker     rendered-worker-d0130cd74e9e576d7ba78ce166272bfb   rendered-worker-8f61bf839898a4487c3b5263a430e94a   False
 ci-ln-mdb23yt-72292-kzdsg-worker-b-gknq4   worker     rendered-worker-8f61bf839898a4487c3b5263a430e94a   rendered-worker-8f61bf839898a4487c3b5263a430e94a   True
 ci-ln-mdb23yt-72292-kzdsg-worker-c-mffrx   worker     rendered-worker-8f61bf839898a4487c3b5263a430e94a   rendered-worker-8f61bf839898a4487c3b5263a430e94a   True
+----
+
+* View all machine config node status fields by running the following command:
 +
-where:
+[source,terminal]
+----
+$ oc get machineconfignodes -o wide
+----
 +
-NAME:: The name of the node.
-POOLNAME:: The name of the MCP associated with that node.
-DESIREDCONFIG:: The name of the new machine configuration that the node is updating to.
-CURRENTCONFIG:: The name of the current machine configuration associated with that node. After the node is updated, the `CURRENTCONFIG` matches the `DESIREDCONFIG`. 
-UPDATED:: The `True` status indicates that the MCO has applied the current machine config to that particular node. The `False` status indicates that the node is currently updating
+.Example output
+[source,text]
+----
+NAME                                       POOLNAME   DESIREDCONFIG                                      CURRENTCONFIG                                      UPDATED   UPDATEPREPARED   UPDATEEXECUTED   UPDATEPOSTACTIONCOMPLETE   UPDATECOMPLETE   RESUMED   UPDATECOMPATIBLE   UPDATEDFILESANDOS   CORDONEDNODE   DRAINEDNODE   REBOOTEDNODE   RELOADEDCRIO   UNCORDONEDNODE
+ci-ln-g6dr34b-72292-g9btv-master-0         master     rendered-master-d4e122320b351cdbe1df59ddb63ddcfc   rendered-master-6f2064fcb36d2a914de5b0c660dc49ff   False     True             Unknown          False                      False            False     True               Unknown             False          False         False          False          False
+ci-ln-g6dr34b-72292-g9btv-master-1         master     rendered-master-6f2064fcb36d2a914de5b0c660dc49ff   rendered-master-6f2064fcb36d2a914de5b0c660dc49ff   True      False            False            False                      False            False     False              False               False          False         False          False          False
+ci-ln-g6dr34b-72292-g9btv-master-2         master     rendered-master-6f2064fcb36d2a914de5b0c660dc49ff   rendered-master-6f2064fcb36d2a914de5b0c660dc49ff   True      False            False            False                      False            False     False              False               False          False         False          False          False
+ci-ln-g6dr34b-72292-g9btv-worker-a-sjh5r   worker     rendered-worker-671b88c8c569fa3f60dc1a27cf9c91f2   rendered-worker-d5534cb730e5e108905fc285c2a42b6c   False     True             Unknown          False                      False            False     True               Unknown             False          False         False          False          False
+ci-ln-g6dr34b-72292-g9btv-worker-b-xthbz   worker     rendered-worker-d5534cb730e5e108905fc285c2a42b6c   rendered-worker-d5534cb730e5e108905fc285c2a42b6c   True      False            False            False                      False            False     False              False               False          False         False          False          False
+ci-ln-g6dr34b-72292-g9btv-worker-c-gnpd6   worker     rendered-worker-d5534cb730e5e108905fc285c2a42b6c   rendered-worker-d5534cb730e5e108905fc285c2a42b6c   True      False            False            False                      False            False     False              False               False          False         False          False          False
+----
 
 . Check the update status of nodes in a specific machine config pool by running the following command:
 +
@@ -108,7 +158,7 @@ Status:
     Type:                  PinnedImageSetsDegraded
   Config Version:
     Current:            rendered-master-8110974a5cea69dff5b263237b58abd8
-    Desired:            rendered-master-8110974a5cea69dff5b263237b58abd8
+    Desired:            rendered-worker-823ff8dc2b33bf444709ed7cd2b9855b <2>
   Observed Generation:  6
 ----
 <1> The desired configuration specified in the `spec.configversion.desired` field updates immediately when a new configuration is detected on the node.
