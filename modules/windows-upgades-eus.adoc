@@ -1,0 +1,55 @@
+// Module included in the following assemblies:
+//
+// * windows_containers/windows-node-upgrades.adoc
+
+[id="wmco-upgrades-eus_{context}"]
+= Windows Machine Config Operator Control Plane Only upgrade
+
+{product-title} and Windows Machine Config Operator (WMCO) support updating from one EUS version to another EUS version of OCP(https://access.redhat.com/support/policy/updates/openshift-eus), in a process called a _Control Plane Only update_. After upgrading the cluster, the Windows nodes will be upgraded from the staring EUS to the new EUS version while keeping the Windows workloads in a healthy state with no disruptions.
+
+[IMPORTANT]
+====
+This update was previously known as an *EUS-to-EUS* update and is now referred to as a *Control Plane Only* update. These updates are only viable between *even-numbered minor versions* of {product-title}.
+====
+
+.Prerequisites
+* The cluster must be running on a supported EUS version of OCP
+* All Windows nodes must be in a healthy state
+* All Windows nodes must be running on the same version of WMCO
+* All the of the [prerequisites of the Control Plane Only upgrade](https://docs.openshift.com/container-platform/latest/updating/updating_a_cluster/eus-eus-update.html)
+
+.Procedure
+
+// Step 1 to uninstall WMCO
+include::snippets/wmco-upgrades-uninstall.adoc[]
+
+. Upgrade {product-title} by following the steps in "Performing a Control Plane Only update."
+
+. After the upgrade is complete, reinstall the WMCO by using the following the steps:
+.. Log in to the {product-title} web console.
+.. Navigate to *Operators -> OperatorHub*.
+.. Use the *Filter by keyword* box to search for `Windows Machine Config Operator` in the catalog. 
+.. Click the *Windows Machine Config Operator* tile.
+.. Review the information about the Operator and click *Install*.
+.. On the *Install Operator* page:
+.. Select the *stable* channel as the *Update Channel*. The *stable* channel enables the latest stable release of the WMCO to be installed.
+.. The *Installation Mode* is preconfigured because the WMCO must be available in a single namespace only.
+.. Choose the *Installed Namespace* for the WMCO. The default Operator recommended namespace is `openshift-windows-machine-config-operator`.
+.. Click the *Enable Operator recommended cluster monitoring on the Namespace* checkbox to enable cluster monitoring for the WMCO.
+.. Select an *Approval Strategy*.
++
+* The *Automatic* strategy allows Operator Lifecycle Manager (OLM) to automatically update the Operator when a new version is available.
++
+* The *Manual* strategy requires a user with appropriate credentials to approve the Operator update.
+.. Click *Install*. The WMCO is now listed on the *Installed Operators* page.
++
+[NOTE]
+====
+The WMCO is installed automatically into the namespace you defined, like `openshift-windows-machine-config-operator`.
+====
+
+
+.Verification 
+
+* Verify that the *Status* shows *Succeeded* to confirm successful installation of the WMCO.
+
