@@ -203,8 +203,9 @@ include::modules/coreos-layering-configuring-on-extensions.adoc[leveloffset=+2]
 
 // Not in 4.18; maybe 4.19
 // include::modules/coreos-layering-configuring-on-rebuild.adoc[leveloffset=+2] 
-
 include::modules/coreos-layering-configuring-on-revert.adoc[leveloffset=+2]
+
+include::modules/coreos-layering-configuring-on-rebuild.adoc[leveloffset=+2]
 
 include::modules/coreos-layering-configuring-on-remove.adoc[leveloffset=+2]
 
