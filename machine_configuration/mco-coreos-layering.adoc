@@ -189,7 +189,7 @@ include::modules/coreos-layering-configuring-on-extensions.adoc[leveloffset=+2]
 
 [role="_additional-resources"]
 .Additional resources
-For more information on extensions, see xref:../machine_configuration/machine-configs-configure.html#rhcos-add-extensions_machine-configs-configure[Adding extensions to RHCOS]. If you used the procedure in the previous section to install the  extensions, you do not need to perform the steps in the 
+For more information on extensions, see xref:../machine_configuration/machine-configs-configure.adoc#rhcos-add-extensions_machine-configs-configure[Adding extensions to RHCOS]. If you used the procedure in the previous section to install the  extensions, you do not need to perform the steps in the 
 
 include::modules/coreos-layering-configuring-on-rebuild.adoc[leveloffset=+2]
 include::modules/coreos-layering-configuring-on-revert.adoc[leveloffset=+2]
