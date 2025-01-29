@@ -1,0 +1,65 @@
+// Module included in the following assemblies:
+//
+// * machine_configuration/coreos-layering.adoc
+
+:_mod-docs-content-type: PROCEDURE
+[id="coreos-layering-configuring-on-extensions_{context}"]
+= Installing extensions into an on-cluster custom layered image
+
+You can install :op-system-first: extensions into your on-cluster custom layered image by creating a machine config that lists the extensions that you want to install. The Machine Config Operator (MCO) installs the extensions into the nodes associated with a specific machine config pool (MCP).
+
+include::snippets/mco-rhcos-extensions-info.adoc[]
+
+.Prerequisites
+
+* You have opted-in to on-cluster layering by creating a `MachineOSConfig` object.
+
+.Procedure
+
+. Create a YAML file for the custom machine config pool similar to the following example: 
++
+[source,terminal]
+----
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: layered
+  name: 80-worker-extensions
+spec:
+  config:
+    ignition:
+      version: 3.2.0
+  extensions: <1>
+    - usbguard
+    - kerberos
+----
+<1> List the :op-system-first: extensions that you want to install.
+
+. Create the MCP object:
++
+[source,terminal]
+----
+$ oc create -f <file_name>.yaml
+----
+
+.Verification
+
+. Wait for the new MCP to be ready with the `UPDATED` status as `TRUE` by using the following command:
++
+[source,terminal]
+====
+$ oc get mcp
+====
++
+. Example output
+[source,terminal]
+====
+NAME      CONFIG                                              UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
+layered   rendered-layered-aa27c092482ddff1f620c90f4bd24626   True      False      False      1              1                   1                     0                      3m46s
+master    rendered-master-ae9a1835800a28718e29afabf6df9f91    True      False      False      3              3                   3                     0                      103m
+worker    rendered-worker-aa27c092482ddff1f620c90f4bd24626    True      False      False      2              2                   2                     0                      103m
+====
+
+oc label node ci-ln-f00pb4b-72292-fgbxl-worker-a-dnfdb node-role.kubernetes.io/layered=""
+oc create -f mcp-layered
