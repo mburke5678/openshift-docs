@@ -13,7 +13,7 @@ To apply a custom layered image to your cluster by using the on-cluster build pr
 * where the final image should be pushed and pulled from
 * the push and pull secrets to use
 
-When you create the object, the Machine Config Operator (MCO) creates a `MachineOSBuild` object and a `machine-os-builder` pod. The build process also creates transient objects, such as config maps, which are cleaned up after the build is complete.
+When you create the object, the Machine Config Operator (MCO) 	creates a `MachineOSBuild` object and a `machine-os-builder` pod. The build process also creates transient objects, such as config maps, which are cleaned up after the build is complete.
 
 When the build is complete, the MCO pushes the new custom layered image to your repository for use when deploying new nodes. You can see the digested image pull spec for the new custom layered image in the `MachineOSBuild` object and `machine-os-builder` pod.
 

@@ -45,21 +45,65 @@ $ oc create -f <file_name>.yaml
 
 .Verification
 
-. Wait for the new MCP to be ready with the `UPDATED` status as `TRUE` by using the following command:
+. When the node is back in the `Ready` state, check that the extensions were installed:
+
+.. Open an `oc debug` session to the node by running the following command:
 +
 [source,terminal]
-====
-$ oc get mcp
-====
+----
+$ oc debug node/<node_name>
+----
+
+.. Set `/host` as the root directory within the debug shell by running the following command:
++
+[source,terminal]
+----
+sh-5.1# chroot /host
+----
+
+.. Use an appropriate command to verify that the extension is installed. For example:
++
+[source,terminal]
+----
+sh-5.1# rpm -qa |grep usbguard
+----
 +
 . Example output
 [source,terminal]
-====
-NAME      CONFIG                                              UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
-layered   rendered-layered-aa27c092482ddff1f620c90f4bd24626   True      False      False      1              1                   1                     0                      3m46s
-master    rendered-master-ae9a1835800a28718e29afabf6df9f91    True      False      False      3              3                   3                     0                      103m
-worker    rendered-worker-aa27c092482ddff1f620c90f4bd24626    True      False      False      2              2                   2                     0                      103m
-====
+----
+usbguard-selinux-1.0.0-15.el9.noarch
+usbguard-1.0.0-15.el9.x86_64
+----
 
-oc label node ci-ln-f00pb4b-72292-fgbxl-worker-a-dnfdb node-role.kubernetes.io/layered=""
-oc create -f mcp-layered
+///
+.. Use the appropriate commands to start the extension and view the status. For example:
++
+[source,terminal]
+----
+sh-5.1# systemctl enable --now usbguard
+----
++
+[source,terminal]
+----
+sh-5.1# systemctl status usbguard
+----
++
+. Example output
+[source,terminal]
+----
+● usbguard.service - USBGuard daemon
+     Loaded: loaded (/usr/lib/systemd/system/usbguard.service; enabled; preset: disabled)
+     Active: active (running) since Thu 2025-01-30 17:57:45 UTC; 1s ago
+       Docs: man:usbguard-daemon(8)
+    Process: 46338 ExecStart=/usr/sbin/usbguard-daemon -f -s -K -c /etc/usbguard/usbguard-daemon.conf (code=exited, status=0/SUCCESS)
+   Main PID: 46340 (usbguard-daemon)
+      Tasks: 3 (limit: 99986)
+     Memory: 3.0M
+        CPU: 101ms
+     CGroup: /system.slice/usbguard.service
+             └─46340 /usr/sbin/usbguard-daemon -f -s -K -c /etc/usbguard/usbguard-daemon.conf
+
+Jan 30 17:57:44 ip-10-0-4-252 systemd[1]: Starting USBGuard daemon...
+Jan 30 17:57:45 ip-10-0-4-252 systemd[1]: Started USBGuard daemon.
+----
+////
