@@ -75,6 +75,7 @@ spec:
   machineConfigPool:
     name: <mcp_name> <1>
   buildInputs:
+<<<<<<< HEAD
     containerFile: # <2>
     - containerfileArch: noarch <3>
       content: |-
@@ -102,6 +103,33 @@ spec:
 <7> Specifies the image registry to push the newly-built custom layered image to. This can be any registry that your cluster has access to. This example uses the internal {product-title} registry.
 <8> Specifies the name of the push secret that the MCO needs in order to push the newly-built custom layered image to the registry.
 <9> Specifies the secret required by the image registry that the nodes need in order to pull the newly-built custom layered image. This should be a different secret than the one used to push the image to your repository.
+=======
+    containerFile: <2>
+    - containerfileArch: noarch <3>
+      content: |-
+        FROM configs AS final
+        RUN rpm-ostree install tree && \
+          ostree container commit
+    imageBuilder: <4>
+      imageBuilderType: PodImageBuilder
+    baseImagePullSecret: <5>
+      name: global-pull-secret-copy
+    renderedImagePushspec: image-registry.openshift-image-registry.svc:5000/openshift-machine-config-operator/os-images:latest <6>
+    renderedImagePushSecret: <7>
+      name: builder-dockercfg-7lzwl
+  buildOutputs: <8>
+    currentImagePullSecret:
+      name: builder-dockercfg-7lzwl
+----
+<1> Specifies the name of the machine config pool associated with the nodes where you want to deploy the custom layered image.
+<2> Specifies the Containerfile to configure the custom layered image.
+<3> Specifies the architecture this containerfile is to be built for. This must be `noarch`, which defines a Containerfile that can be applied to any architecture. 
+<4> Specifies the name of the image builder to use. This must be `PodImageBuilder`.
+<5> Specifies the name of the pull secret that the MCO needs to pull the base operating system image from the registry. By default, the global pull secret is used. 
+<6> Specifies the image registry to push the newly-built custom layered image to. This can be any registry that your cluster has access to in the the `host[:port][/namespace]/name` or `svc_name.namespace.svc[:port]/repository/name:<tag>` format. This example uses the internal {product-title} registry. You can specify a mirror registry if you cluster is properly configured to use a mirror registry.
+<7> Specifies the name of the push secret that the MCO needs to push the newly-built custom layered image to that registry.
+<8> Specifies the name of the push secret that the MCO needs to push the newly-built custom layered image to that registry.
+>>>>>>> revert changes
 
 .. Create the `MachineOSConfig` object:
 +
