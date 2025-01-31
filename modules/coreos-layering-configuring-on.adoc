@@ -49,7 +49,11 @@ Note the following limitations when working with the on-cluster layering feature
 
 * You have enabled the `TechPreviewNoUpgrade` feature set by using the feature gates. For more information, see "Enabling features using feature gates".
 
+<<<<<<< HEAD
 * You have a copy of the pull secret in the `openshift-machine-config-operator` namespace that the MCO needs to pull the base operating system image. If you are using the global pull secret, the MCO automatically creates a copy when you first create a `MachineOSconfig` object.
+=======
+* You have a copy of the global pull secret in the `openshift-machine-config-operator` namespace that the MCO needs to pull the base operating system image.
+>>>>>>> further edits from testing
 
 * You have the push secret that the MCO needs to push the new custom layered image to your registry.
 
@@ -167,7 +171,7 @@ where:
 node-role.kubernetes.io/<mcp_name>=:: Specifies a node selector that identifies the nodes to deploy the custom layered image. 
 --
 +
-When you save the changes, the MCO drains, cordons, and reboots the nodes. After the reboot, the node will be using the new custom layered image.
+When you save the changes, the MCO drains, cordons, and reboots the nodes. After the reboot, the node uses the new custom layered image.
 
 .Verification
 
@@ -186,7 +190,7 @@ build-rendered-layered-ad5a3cad36303c363cf458ab0524e7c0           2/2     Runnin
 # ...
 machine-os-builder-6fb66cfb99-zcpvq                               1/1     Running   0          2m42s # <2>
 ----
-<1> This is the build pod where the custom layered image is building.
+<1> This is the build pod where the custom layered image is building. The MCO removes this pod after the build is complete.
 <2> This pod can be used for troubleshooting.
 
 . Verify that the `MachineOSConfig` object contains a reference to the new custom layered image by running the following command:
@@ -199,8 +203,46 @@ $ oc get machineosbuilds
 .Example output
 [source,terminal]
 ----
+<<<<<<< HEAD
 NAME                                                                PREPARED   BUILDING   SUCCEEDED   INTERRUPTED   FAILED
 layered-rendered-layered-ef6460613affe503b530047a11b28710-builder   False      True       False       False         False
+=======
+Name:         layered
+Namespace:    
+Labels:       <none>
+Annotations:  machineconfiguration.openshift.io/current-machine-os-build: layered-1b0d98b4e70535aacdbb5b601924516f
+API Version:  machineconfiguration.openshift.io/v1
+Kind:         MachineOSConfig
+Metadata:
+  Creation Timestamp:  2025-01-29T17:18:26Z
+  Generation:          1
+  Resource Version:    67952
+  UID:                 7ad6a965-24c8-486b-9c26-c4bfe2a9704b
+Spec:
+  Build Inputs:
+    Base Image Pull Secret:
+      Name:  global-pull-secret-copy
+    Container File:
+      Containerfile Arch:  noarch
+      Content:             FROM configs AS final
+RUN rpm-ostree install tree && \
+  ostree container commit
+    Image Builder:
+      Image Builder Type:  PodImageBuilder
+    Rendered Image Push Secret:
+      Name:                   builder-dockercfg-k85lt
+    Rendered Image Pushspec:  image-registry.openshift-image-registry.svc:5000/openshift-machine-config-operator/os-images:latest
+  Build Outputs:
+    Current Image Pull Secret:
+      Name:  builder-dockercfg-k85lt
+  Machine Config Pool:
+    Name:  layered
+ # ...
+Status:
+  Current Image Pullspec:  image-registry.openshift-image-registry.svc:5000/openshift-machine-config-operator/os-images@sha256:efe5ca166c2b0d75c76958fac7c259a33f9c897c38164f7c7e6e6abca940b28e
+  Observed Generation:     1
+# ...
+>>>>>>> further edits from testing
 ----
 
 . Verify that the `MachineOSBuild` object contains a reference to the new custom layered image by running the following command:
@@ -213,6 +255,7 @@ $ oc describe machineosbuild <object_name>
 .Example output
 [source,yaml]
 ----
+<<<<<<< HEAD
 apiVersion: machineconfiguration.openshift.io/v1alpha1
 kind: MachineOSBuild
 metadata:
@@ -232,6 +275,42 @@ status:
       status: "True"
       type: Succeeded
   finalImagePullspec: image-registry.openshift-image-registry.svc:5000/openshift-machine-config-operator/os-image@sha256:f636fa5b504e92e6faa22ecd71a60b089dab72200f3d130c68dfec07148d11cd # <1>
+=======
+Name:         layered-1b0d98b4e70535aacdbb5b601924516f
+Namespace:    
+Labels:       machineconfiguration.openshift.io/machine-os-config=layered
+              machineconfiguration.openshift.io/rendered-machine-config=rendered-layered-f48d821c77690669a307a333f1000ee0
+              machineconfiguration.openshift.io/target-machine-config-pool=layered
+Annotations:  <none>
+API Version:  machineconfiguration.openshift.io/v1
+Kind:         MachineOSBuild
+# ...
+Spec:
+  Config Generation:  1
+  Desired Config:
+    Name:  rendered-layered-708c652868f7597eaa1e2622edc366ef
+  Machine OS Config:
+    Name:                   layered
+  Rendered Image Pushspec:  image-registry.openshift-image-registry.svc:5000/openshift-machine-config-operator/os-images:layered-ab22a5ff77a42f81044aaa5abea65aeb
+  Version:                  1
+Status:
+  Build End:    2025-01-29T17:34:08Z
+  Build Start:  2025-01-29T17:18:47Z
+  Builder Reference:
+    Build Pod:
+      Group:             
+      Name:              build-layered-ab22a5ff77a42f81044aaa5abea65aeb
+      Namespace:         openshift-machine-config-operator
+      Resource:          68802
+    Image Builder Type:  PodImageBuilder
+# ... 
+    Last Transition Time:  2025-01-31T17:32:47Z
+    Message:               Build Ready
+    Reason:                Ready
+    Status:                True
+    Type:                  Succeeded
+  Final Image Pullspec:    image-registry.openshift-image-registry.svc:5000/openshift-machine-config-operator/os-images@sha256:efe5ca166c2b0d75c76958fac7c259a33f9c897c38164f7c7e6e6abca940b28e <1>
+>>>>>>> further edits from testing
 ----
 <1> Digested image pull spec for the new custom layered image.
 
@@ -263,8 +342,8 @@ sh-5.1# rpm-ostree status
 ----
 # ...
 Deployments:
-* ostree-unverified-registry:quay.io/openshift-release-dev/os-image@sha256:f636fa5b504e92e6faa22ecd71a60b089dab72200f3d130c68dfec07148d11cd # <1>
-                   Digest: sha256:bcea2546295b2a55e0a9bf6dd4789433a9867e378661093b6fdee0031ed1e8a4
-                  Version: 416.94.202405141654-0 (2024-05-14T16:58:43Z)
+* ostree-unverified-registry:image-registry.openshift-image-registry.svc:5000/openshift-machine-config-operator/os-images@sha256:efe5ca166c2b0d75c76958fac7c259a33f9c897c38164f7c7e6e6abca940b28e
+                   Digest: sha256:efe5ca166c2b0d75c76958fac7c259a33f9c897c38164f7c7e6e6abca940b28e
+                  Version: 418.94.202501300706-0 (2025-01-31T17:32:10Z)
 ----
 <1> Digested image pull spec for the new custom layered image.

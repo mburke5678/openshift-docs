@@ -13,6 +13,8 @@ You can revert an on-cluster custom layered image from nodes by removing the lab
 If the node where the custom layered image is deployed uses a custom machine config pool, when you remove the label, make sure the node is associated with another MCP.
 ====
 
+You can reapply the custom layered image to the node by using the `oc label node/<node_name> 'node-role.kubernetes.io/<mcp_name>='` label.
+
 .Prerequisites
 
 * You have opted-in to on-cluster layering by creating a `MachineOSConfig` object.
@@ -25,6 +27,8 @@ If the node where the custom layered image is deployed uses a custom machine con
 ----
 $ oc label node/<node_name> node-role.kubernetes.io/<mcp_name>-
 ----
++
+When you save the changes, the MCO drains, cordons, and reboots the nodes. After the reboot, the node uses the cluster base {op-system-first} image.
 
 .Verification
 
@@ -81,7 +85,7 @@ $ oc debug node/ip-10-0-155-125.us-west-1.compute.internal
 sh-5.1# chroot /host
 ----
 
-.. Run the `rpm-ostree status` command to view that the custom layered image is in use:
+.. Run a `rpm-ostree status` command to view that the custom layered image is in use:
 +
 [source,terminal]
 ----
@@ -93,7 +97,7 @@ sh-5.1# rpm-ostree status
 ----
 State: idle
 Deployments:
-* ostree-unverified-registry:registry.build05.ci.openshift.org/ci-ln-qd0hmqk/stable@sha256:a8bd32573f787f6d1c23e1d669abbefd1e31339826d06e750c0ca632ad6c414f
-                   Digest: sha256:a8bd32573f787f6d1c23e1d669abbefd1e31339826d06e750c0ca632ad6c414f
-                  Version: 419.96.202501202201-0 (2025-01-20T22:06:13Z)
+* ostree-unverified-image:containers-storage:quay.io/openshift-release-dev/ocp-v4.0-art-dev@sha256:76721c875a2b79688be46b1dca654c2c6619a6be28b29a2822cd86c3f9d8e3c1
+                   Digest: sha256:76721c875a2b79688be46b1dca654c2c6619a6be28b29a2822cd86c3f9d8e3c1
+                  Version: 418.94.202501300706-0 (2025-01-30T07:10:58Z)
 ----

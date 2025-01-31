@@ -6,7 +6,7 @@
 [id="coreos-layering-removing_{context}"]
 = Reverting an out-of-cluster node
 
-You can revert an out-of-cluster image layering from the nodes in specific machine config pools. The Machine Config Operator (MCO) reboots those nodes with the cluster base {op-system-first} image, overriding the custom layered image.
+You can revert an out-of-cluster custom layered image from the nodes in specific machine config pools. The Machine Config Operator (MCO) reboots those nodes with the cluster base {op-system-first} image, overriding the custom layered image.
 
 To remove a {op-system-first} custom layered image from your cluster, you need to delete the machine config that applied the image.
 
