@@ -9,6 +9,14 @@
 
 Currently, the following extensions are available:
 
-* **usbguard**: Adding the `usbguard` extension protects {op-system} systems from attacks from intrusive USB devices. See link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/security_hardening/index#usbguard_protecting-systems-against-intrusive-usb-devices[USBGuard] for details.
+* **usbguard**: The `usbguard` extension protects {op-system} systems from attacks from intrusive USB devices. See link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/security_hardening/index#usbguard_protecting-systems-against-intrusive-usb-devices[USBGuard] for details.
 
-* **kerberos**: Adding the `kerberos` extension provides a mechanism that allows both users and machines to identify themselves to the network to receive defined, limited access to the areas and services that an administrator has configured. See link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/using_kerberos[Using Kerberos] for details, including how to set up a Kerberos client and mount a Kerberized NFS share.
+* **kerberos**: The `kerberos` extension provides a mechanism that allows both users and machines to identify themselves to the network to receive defined, limited access to the areas and services that an administrator has configured. See link:https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system-level_authentication_guide/using_kerberos[Using Kerberos] for details, including how to set up a Kerberos client and mount a Kerberized NFS share.
+
+* **sandboxed-containers**: The `sandboxed-containers` extension contains RPMs for Kata, QEMU, and its dependencies.
+
+* **ipsec**: The `ipsec` extension contains RPMs for libreswan and NetworkManager-libreswan.
+
+* **wasm**: The `wasm` extension enables Developer Preview functionality in OpenShift Container Platform (OCP) for users who want to utilize WASM-supported workloads.   
+
+* **sysstat**: The `sysstat` extension enable collection of performance monitoring tools. 

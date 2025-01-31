@@ -185,14 +185,15 @@ include::modules/coreos-layering-configuring-on.adoc[leveloffset=+1]
 .Additional resources
 * xref:../nodes/clusters/nodes-cluster-enabling-features.adoc#nodes-cluster-enabling[Enabling features using feature gates]
 
+include::modules/coreos-layering-configuring-on-modifying.yaml[leveloffset=+2]
 include::modules/coreos-layering-configuring-on-extensions.adoc[leveloffset=+2]
 
 [role="_additional-resources"]
 .Additional resources
 For more information on extensions, see xref:../machine_configuration/machine-configs-configure.adoc#rhcos-add-extensions_machine-configs-configure[Adding extensions to RHCOS]. If you used the procedure in the previous section to install the  extensions, you do not need to perform the steps in the 
 
-include::modules/coreos-layering-configuring-on-extensions.adoc[leveloffset=+2]
-# include::modules/coreos-layering-configuring-on-rebuild.adoc[leveloffset=+2]
+// include::modules/coreos-layering-configuring-on-rebuild.adoc[leveloffset=+2]
+
 include::modules/coreos-layering-configuring-on-revert.adoc[leveloffset=+2]
 
 include::modules/coreos-layering-configuring.adoc[leveloffset=+1]
@@ -209,4 +210,6 @@ https://docs.google.com/document/d/1Eow2IReNWqnIh5HvCfcKV2MWgHUmFKSnBkt2rH6_V_M/
 https://hackmd.io/OKc5ZnN7SQm3myHaGqksBg
 https://github.com/openshift/enhancements/blob/master/enhancements/ocp-coreos-layering/ocp-coreos-layering.md
 https://docs.google.com/document/d/1RbfCJuL_NBaWvUmd9nmiG8-7MwzsvWHjrIS2LglCYM0/edit
-////
+//// 
+
+

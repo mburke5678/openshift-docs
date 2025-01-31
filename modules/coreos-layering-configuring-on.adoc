@@ -342,7 +342,7 @@ sh-5.1# rpm-ostree status
 ----
 # ...
 Deployments:
-* ostree-unverified-registry:image-registry.openshift-image-registry.svc:5000/openshift-machine-config-operator/os-images@sha256:efe5ca166c2b0d75c76958fac7c259a33f9c897c38164f7c7e6e6abca940b28e
+* ostree-unverified-registry:image-registry.openshift-image-registry.svc:5000/openshift-machine-config-operator/os-images@sha256:efe5ca166c2b0d75c76958fac7c259a33f9c897c38164f7c7e6e6abca940b28e <1>
                    Digest: sha256:efe5ca166c2b0d75c76958fac7c259a33f9c897c38164f7c7e6e6abca940b28e
                   Version: 418.94.202501300706-0 (2025-01-31T17:32:10Z)
 ----

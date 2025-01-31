@@ -75,7 +75,7 @@ usbguard-selinux-1.0.0-15.el9.noarch
 usbguard-1.0.0-15.el9.x86_64
 ----
 
-///
+////
 .. Use the appropriate commands to start the extension and view the status. For example:
 +
 [source,terminal]
