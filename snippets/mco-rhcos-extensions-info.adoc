@@ -17,6 +17,6 @@ Currently, the following extensions are available:
 
 * **ipsec**: The `ipsec` extension contains RPMs for libreswan and NetworkManager-libreswan.
 
-* **wasm**: The `wasm` extension enables Developer Preview functionality in OpenShift Container Platform (OCP) for users who want to utilize WASM-supported workloads.   
+* **wasm**: The `wasm` extension enables Developer Preview functionality in {product-title} for users who want to use WASM-supported workloads.   
 
 * **sysstat**: The `sysstat` extension enable collection of performance monitoring tools. 
