@@ -5,4 +5,4 @@
 
 :_mod-docs-content-type: SNIPPET
 
-Making changes to a Containerfile in a `MachineOSConfig` object triggers an automatic rebuild of the associated custom layered image. You can mitigate the effects of the rebuild by pausing the machine config pool where the custom layered image is applied as described in "Pausing the machine config pools."
+Making changes to a `MachineOSConfig` object triggers an automatic rebuild of the associated custom layered image. You can mitigate the effects of the rebuild by pausing the machine config pool where the custom layered image is applied as described in "Pausing the machine config pools." For example, if you want to remove and replace a `MachineOSCOnfig` object, pausing the machine config pools prevents the MCO from reverting the associated nodes to the base image, reducing the number of reboots needed. 

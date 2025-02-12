@@ -24,7 +24,7 @@ include::snippets//coreos-layering-configuring-on-pause.adoc[]
 +
 [source,terminal]
 ----
-apiVersion: machineconfiguration.openshift.io/v1
+apiVersion: machineconfiguration.openshift.io/v1alpha1
 kind: MachineConfig
 metadata:
   labels:
@@ -50,7 +50,7 @@ $ oc create -f <file_name>.yaml
 
 .Verification
 
-. When the node is back in the `Ready` state, check that the extensions were installed:
+. When the associates machine config pool is updated, check that the extensions were installed:
 
 .. Open an `oc debug` session to the node by running the following command:
 +

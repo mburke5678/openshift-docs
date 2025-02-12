@@ -193,7 +193,8 @@ include::modules/coreos-layering-configuring-on-modifying.adoc[leveloffset=+2]
 
 include::modules/coreos-layering-configuring-on-extensions.adoc[leveloffset=+2]
 
-include::modules/coreos-layering-configuring-on-rebuild.adoc[leveloffset=+2] 
+// Not in 4.18; maybe 4.19
+// include::modules/coreos-layering-configuring-on-rebuild.adoc[leveloffset=+2] 
 
 .Additional resources
 * xref:../updating/updating_a_cluster/update-using-custom-machine-config-pools.adoc#update-using-custom-machine-config-pools-pause_update-using-custom-machine-config-pools[Pausing the machine config pools]

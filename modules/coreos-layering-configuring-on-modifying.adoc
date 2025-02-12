@@ -29,35 +29,39 @@ include::snippets//coreos-layering-configuring-on-pause.adoc[]
 apiVersion: machineconfiguration.openshift.io/v1alpha1
 kind: MachineOSConfig
 metadata:
-  name: layered
+  name: layered-alpha1
 spec:
   machineConfigPool:
-    name: mcp_name
+    name: layered
   buildInputs:
-    containerFile:
+    containerFile: 
     - containerfileArch: noarch
       content: |- <1>
         FROM configs AS final
-
+  
         RUN rpm-ostree install rng-tools && \
             systemctl enable rngd && \
             rpm-ostree cleanup -m && \
             ostree container commit
-
+  
         RUN rpm-ostree install tree && \
-          ostree container commit
-    imageBuilder:
+            ostree container commit        
+    imageBuilder: 
       imageBuilderType: PodImageBuilder
-    baseImagePullSecret:
+    baseImagePullSecret: 
       name: global-pull-secret-copy <2>
     renderedImagePushspec: image-registry.openshift-image-registry.svc:5000/openshift-machine-config-operator/os-images:latest <3>
-    renderedImagePushSecret:
-      name: builder-dockercfg-7lzwl <4>
+    renderedImagePushSecret:  <4>
+      name: new-secret-name
+  buildOutputs: 
+    currentImagePullSecret:
+      name: new-secret-name <5>
 ----
 <1> Optional: Modify the containerFile, for example to add or remove packages. 
 <2> Optional: Update the secret needed to pull pull the base operating system image from the registry.
 <3> Optional: Modify the image registry to push the newly-built custom layered image to.
-<4> Optional: Update the secret needed to push the base operating system image from the registry.
+<4> Optional: Update the secret needed to push the base operating system image to the registry.
+<5> Optional: Update the secret needed to pull the base operating system image from the registry.
 +
 When you save the changes, the MCO drains, cordons, and reboots the nodes. After the reboot, the node uses the cluster base {op-system-first} image.
 
