@@ -1,0 +1,121 @@
+// Module included in the following assemblies:
+//
+// * machine_configuration/coreos-layering.adoc
+
+:_mod-docs-content-type: PROCEDURE
+[id="coreos-layering-configuring-on-modifying_{context}"]
+= Modifying a custom layered image
+
+You can modify an on-cluster custom layered image, as needed. This allows you to install additional packages, remove existing packages, change the pull or push repositories, update secrets, or other similar changes. You can edit the `MachineOSConfig` object, apply changes to the YAML file that created the `MachineOSConfig` object, or create a new YAML file for that purpose.
+
+If you modify and apply the `MachineOSConfig` object YAML or create a new YAML file, it overwrites any changes you made directly to the `MachineOSConfig` object itself.
+
+After you make the change, the MCO reboots the nodes associated with the specified machine config pool.
+
+include::snippets//coreos-layering-configuring-on-pause.adoc[]
+
+.Prerequisites
+
+* You have opted-in to on-cluster layering by creating a `MachineOSConfig` object.
+
+.Procedures
+
+* Modify an object to update the associated custom layered image:
+
+.. Optional: Edit the `MachineOSConfig` object to modify the custom layered image. The following example adds the rngd daemon to nodes that already have the tree package installed by using a custom layered image.
++
+[source,yaml]
+----
+apiVersion: machineconfiguration.openshift.io/v1alpha1
+kind: MachineOSConfig
+metadata:
+  name: layered
+spec:
+  machineConfigPool:
+    name: mcp_name
+  buildInputs:
+    containerFile:
+    - containerfileArch: noarch
+      content: |- <1>
+        FROM configs AS final
+
+        RUN rpm-ostree install rng-tools && \
+            systemctl enable rngd && \
+            rpm-ostree cleanup -m && \
+            ostree container commit
+
+        RUN rpm-ostree install tree && \
+          ostree container commit
+    imageBuilder:
+      imageBuilderType: PodImageBuilder
+    baseImagePullSecret:
+      name: global-pull-secret-copy <2>
+    renderedImagePushspec: image-registry.openshift-image-registry.svc:5000/openshift-machine-config-operator/os-images:latest <3>
+    renderedImagePushSecret:
+      name: builder-dockercfg-7lzwl <4>
+----
+<1> Optional: Modify the containerFile, for example to add or remove packages. 
+<2> Optional: Update the secret needed to pull pull the base operating system image from the registry.
+<3> Optional: Modify the image registry to push the newly-built custom layered image to.
+<4> Optional: Update the secret needed to push the base operating system image from the registry.
++
+When you save the changes, the MCO drains, cordons, and reboots the nodes. After the reboot, the node uses the cluster base {op-system-first} image.
+
+.Verification
+
+. Verify that the new `MachineOSBuild` object was created by using the following command:
++
+[source,terminal]
+----
+$ oc get machineosbuild
+----
++
+.Example output
+[source,terminal]
+----
+NAME                                       PREPARED   BUILDING   SUCCEEDED   INTERRUPTED   FAILED
+layered-a5457b883f5239cdcb71b57e1a30b6ef   False      False      True        False         False
+layered-f91f0f5593dd337d89bf4d38c877590b   False      True       False       False         False <1>
+----
+<1> The value `True` in the `BUILDING` column indicates that the `MachineOSBuild` object is building. When the field becomes `False`, the new custom layered image has rolled out.
+
+. When the node is back in the `Ready` state, check that the changes were applied:
+
+.. Open an `oc debug` session to the node by running the following command:
++
+[source,terminal]
+----
+$ oc debug node/<node_name>
+----
+
+.. Set `/host` as the root directory within the debug shell by running the following command:
++
+[source,terminal]
+----
+sh-5.1# chroot /host
+----
+
+.. Use an appropriate command to verify that change was applied. The following example shows that the rngd daemon was installed:
++
+[source,terminal]
+----
+sh-5.1# rpm -qa |grep rng-tools
+----
++
+.Example output
+[source,terminal]
+----
+rng-tools-6.17-3.fc41.x86_64
+----
++
+[source,terminal]
+----
+sh-5.1# rngd -v
+----
++
+.Example output
+[source,terminal]
+----
+rngd 6.16
+----
+
