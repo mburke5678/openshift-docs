@@ -1,0 +1,8 @@
+// Text snippet included in the following modules:
+//
+// * modules/coreos-layering-configuring-on.adoc
+// * modules/coreos-layering-configuring-on-modifying.adoc
+
+:_mod-docs-content-type: SNIPPET
+
+Making changes to a Containerfile in a `MachineOSConfig` object triggers an automatic rebuild of the associated custom layered image. You can mitigate the effects of the rebuild by pausing the machine config pool where the custom layered image is applied as described in "Pausing the machine config pools."

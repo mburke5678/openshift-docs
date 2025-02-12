@@ -6,9 +6,11 @@
 [id="coreos-layering-configuring-on-rebuild_{context}"]
 = Rebuilding an on-cluster custom layered image
 
-In situations where you want to rebuild a custom layered image, you can add an annotation to the `MachineOSConfig` object to trigger an automatic rebuild. For example, you could perform a rebuild if the you change the Containerfile or need to update the `osimageurl` location in a machine config.
+In situations where you want to rebuild an on-cluster custom layered image, you can add an annotation to the `MachineOSConfig` object to trigger an automatic rebuild. You might want to rebuild the custom layered image if the build failed due to a communication issue with your repositories.
 
 After you add the annotation, the Machine Config Operator (MCO) deletes the current `MachineOSBuild` object and creates a new one in its place. When the build process is complete, the MCO automatically removes the annotation.
+
+include::snippets//coreos-layering-configuring-on-pause.adoc[]
 
 .Prerequisites
 
@@ -38,6 +40,8 @@ metadata:
 # ...
 ----
 <1> Add this annotation to trigger a rebuild of the custom layered image.
++
+When you save the changes, the MCO drains, cordons, and reboots the nodes. After the reboot, the node uses the cluster base {op-system-first} image.
 
 .Verification
 
@@ -54,9 +58,10 @@ $ oc get machineosbuild
 NAME                                             PREPARED   BUILDING   SUCCEEDED   INTERRUPTED   FAILED   AGE
 layered-image-d6b929a29c6dbfa8e4007c8069a2fd08   False      True       False       False         False    2m41s <1>
 ----
-<1> The value `True` in the `BUILDING` column indicates that the `MachineOSBuild` object is building.
++
+<1> The value `True` in the `BUILDING` column indicates that the `MachineOSBuild` object is building. When the field becomes `False`, the new custom layered image has rolled out.
 
-* Edit the `MachineOSConfig` object to verify that the MCO removed the `machineconfiguration.openshift.io/rebuild` annotation by using the following command:
+. Edit the `MachineOSConfig` object to verify that the MCO removed the `machineconfiguration.openshift.io/rebuild` annotation by using the following command:
 +
 [source,terminal]
 ----

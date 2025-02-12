@@ -10,6 +10,10 @@ You can install :op-system-first: extensions into your on-cluster custom layered
 
 include::snippets/mco-rhcos-extensions-info.adoc[]
 
+After you make the change, the MCO reboots the nodes associated with the specified machine config pool.
+
+include::snippets//coreos-layering-configuring-on-pause.adoc[]
+
 .Prerequisites
 
 * You have opted-in to on-cluster layering by creating a `MachineOSConfig` object.
@@ -24,7 +28,7 @@ apiVersion: machineconfiguration.openshift.io/v1
 kind: MachineConfig
 metadata:
   labels:
-    machineconfiguration.openshift.io/role: layered
+    machineconfiguration.openshift.io/role: layered <1>
   name: 80-worker-extensions
 spec:
   config:
@@ -34,7 +38,8 @@ spec:
     - usbguard
     - kerberos
 ----
-<1> List the :op-system-first: extensions that you want to install.
+<1> Specifies the machine config pool to apply to `MachineConfig` object.
+<2> Lists the :op-system-first: extensions that you want to install.
 
 . Create the MCP object:
 +
@@ -61,49 +66,16 @@ $ oc debug node/<node_name>
 sh-5.1# chroot /host
 ----
 
-.. Use an appropriate command to verify that the extension is installed. For example:
+.. Use an appropriate command to verify that the extensions were installed. The following example shows that the usbguard extension was installed:
 +
 [source,terminal]
 ----
 sh-5.1# rpm -qa |grep usbguard
 ----
 +
-. Example output
+.Example output
 [source,terminal]
 ----
 usbguard-selinux-1.0.0-15.el9.noarch
 usbguard-1.0.0-15.el9.x86_64
 ----
-
-////
-.. Use the appropriate commands to start the extension and view the status. For example:
-+
-[source,terminal]
-----
-sh-5.1# systemctl enable --now usbguard
-----
-+
-[source,terminal]
-----
-sh-5.1# systemctl status usbguard
-----
-+
-. Example output
-[source,terminal]
-----
-● usbguard.service - USBGuard daemon
-     Loaded: loaded (/usr/lib/systemd/system/usbguard.service; enabled; preset: disabled)
-     Active: active (running) since Thu 2025-01-30 17:57:45 UTC; 1s ago
-       Docs: man:usbguard-daemon(8)
-    Process: 46338 ExecStart=/usr/sbin/usbguard-daemon -f -s -K -c /etc/usbguard/usbguard-daemon.conf (code=exited, status=0/SUCCESS)
-   Main PID: 46340 (usbguard-daemon)
-      Tasks: 3 (limit: 99986)
-     Memory: 3.0M
-        CPU: 101ms
-     CGroup: /system.slice/usbguard.service
-             └─46340 /usr/sbin/usbguard-daemon -f -s -K -c /etc/usbguard/usbguard-daemon.conf
-
-Jan 30 17:57:44 ip-10-0-4-252 systemd[1]: Starting USBGuard daemon...
-Jan 30 17:57:45 ip-10-0-4-252 systemd[1]: Started USBGuard daemon.
-----
-////
