@@ -20,7 +20,7 @@ You can use the {oc-first} to perform a Control Plane Only upgrade of the Window
 +
 [IMPORTANT]
 ====
-Delete the Operator only. Do not delete the Windows namespace or any Windows objects.
+Delete the Operator only. Do not delete the Windows namespace or any Windows workloads.
 ====
 
 . Upgrade {product-title} by following the steps in "Performing a Control Plane Only update."
