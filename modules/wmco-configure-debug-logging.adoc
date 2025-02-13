@@ -1,0 +1,37 @@
+// Module included in the following assemblies:
+//
+// windows_containers/enabling-windows-container-workloads.adoc
+
+:_mod-docs-content-type: CONCEPT
+[id="wmco-configure-debug-logging_{context}"]
+= Configuring debug-level logging for the Windows Machine Config Operator
+
+By default, the Windows Machine Config Operator (WMCO) is configured to use the `info` log level. You can change the log level to `debug` by editing the WMCO subscription object. 
+
+.Procedure
+
+. Edit the `windows-machine-config-operator` subscription in the `windows-machine-config-operator` namespace by using the following command:
++
+[source,terminal]
+----
+$ oc edit subscription windows-machine-config-operator -n openshift-windows-machine-config-operator
+----
+
+. Add the folllwing parameters to the `.spec.config.env` stanza:
++
+[source,yaml]
+----
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+# ...
+  name: windows-machine-config-operator
+  namespace: openshift-windows-machine-config-operator
+# ...
+spec:
+# ...
+  config:
+    env:
+    - name: ARGS
+      value: --debugLogging <1>
+----
+<1> Optional: Specifies the debug level of verbosity for log messages.
