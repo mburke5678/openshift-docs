@@ -2,6 +2,8 @@
 //
 // * machine_configuration/coreos-layering.adoc
 
+// PEER REVIEW: No need to review at this time. Feature planned to be added in 4.19.
+
 :_mod-docs-content-type: PROCEDURE
 [id="coreos-layering-configuring-on-rebuild_{context}"]
 = Rebuilding an on-cluster custom layered image
