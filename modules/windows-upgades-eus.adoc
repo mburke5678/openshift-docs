@@ -24,8 +24,10 @@ This update was previously known as an *EUS-to-EUS* update and is now referred t
 // Step 1 to uninstall WMCO
 include::snippets/wmco-upgrades-uninstall.adoc[]
 
+// Step 2 to upgrade {product-title} 
 . Upgrade {product-title} by following the steps in "Performing a Control Plane Only update."
 
+// Step 3 to re-install WMCO
 . After the upgrade is complete, reinstall the WMCO by using the following the steps:
 .. Log in to the {product-title} web console.
 .. Navigate to *Operators -> OperatorHub*.
