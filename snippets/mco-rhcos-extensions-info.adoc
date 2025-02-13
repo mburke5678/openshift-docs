@@ -19,4 +19,4 @@ Currently, the following extensions are available:
 
 * **wasm**: The `wasm` extension enables Developer Preview functionality in {product-title} for users who want to use WASM-supported workloads.   
 
-* **sysstat**: The `sysstat` extension enable collection of performance monitoring tools. 
+* **sysstat**: Adding the `sysstat` extension provides additional performance monitoring for {product-title} nodes, including the system activity reporter (`sar`) command for collecting and reporting information. See link:https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/monitoring_and_managing_system_status_and_performance/index#proc_providing-feedback-on-red-hat-documentation_monitoring-and-managing-system-status-and-performance[Monitoring and managing system status and performance] for details.

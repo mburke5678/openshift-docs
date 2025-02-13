@@ -9,8 +9,6 @@
 
 include::snippets/mco-rhcos-extensions-info.adoc[]
 
-* **sysstat**: Adding the `sysstat` extension provides additional performance monitoring for {product-title} nodes, including the system activity reporter (`sar`) command for collecting and reporting information. See link:https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/monitoring_and_managing_system_status_and_performance/index#proc_providing-feedback-on-red-hat-documentation_monitoring-and-managing-system-status-and-performance[Monitoring and managing system status and performance] for details.
-
 The following procedure describes how to use a machine config to add one or more extensions to your {op-system} nodes.
 
 .Prerequisites
