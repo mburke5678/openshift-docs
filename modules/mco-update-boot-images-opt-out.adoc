@@ -4,28 +4,23 @@
 // * nodes/nodes-nodes-managing.adoc
 
 :_mod-docs-content-type: PROCEDURE
-[id="mco-update-boot-images-configuring_{context}"]
-= Opting into updated boot images
+[id="mco-update-boot-images-opt-out_{context}"]
+= Opting out of updated boot images
 
-For Google Cloud Platform (GCP) and Amazon Web Services (AWS) clusters, the Machine Config Operator (MCO) manages and updates the boot image on the nodes in your cluster. This means that the MCO updates the boot images whenever you update your cluster.
+To opt out of the updated boot image feature, edit the `MachineConfiguration` object to remove the `managedBootImages` stanza.
 
-If you opted out of this behavior, where the boot images are not updated, you can revert to the default behavior by editing the `MachineConfiguration` object.
-
-[NOTE]
-====
-The ability to configure this behavior is available for only Google Cloud Platform (GCP) and Amazon Web Services (AWS) clusters. It is not supported for clusters managed by the {cluster-capi-operator}.
-====
+If you disable this feature after some nodes have been created with the new boot image version, any existing nodes retain their current boot image. Turning off this feature does not rollback the nodes or machine sets to the originally-installed boot image. The machine sets retain the boot image version that was present when the feature was enabled and is not updated again when the cluster is upgraded to a new {product-title} version in the future.
 
 .Procedure
 
-. Edit the `MachineConfiguration` object, named `cluster`, to enable the updating of boot images by running the following command:
+. Edit the `MachineConfiguration` object to opt out some or all of your nodes:
 +
 [source,terminal]
 ----
 $ oc edit MachineConfiguration cluster
 ----
 
-* Optional: Opt into the boot image update feature for all machine sets:
+* Optional: Opt out of the boot image update feature for all machine sets:
 +
 [source,yaml]
 ----
@@ -41,14 +36,14 @@ spec:
     - apiGroup: machine.openshift.io <2>
       resource: machinesets <3>
       selection:
-        mode: All <4>
+        mode: None <4>
 ----
 <1> Configures the boot image update feature.
-<2> Specifies the API group. This must be `machine.openshift.io`. 
+<2> Specifies an API group. This must be `machine.openshift.io`.
 <3> Specifies the resource within the specified API group to apply the change to. This must be `machinesets`.
 <4> Specifies that nodes in all machine sets in the cluster are opted in.
 
-* Optional: Opt into the boot image update feature for specific machine sets:
+* Optional: Opt out of the boot image update feature for specific machine sets:
 +
 [source,yaml]
 ----
@@ -71,19 +66,10 @@ spec:
               region: "east"
 ----
 <1> Configures the boot image update feature.
-<2> Specifies the API group. This must be `machine.openshift.io`.
+<2> Specifies an API group. This must be `machine.openshift.io`.
 <3> Specifies the resource within the specified API group to apply the change to. This must be `machinesets`.
-<4> Specifies that a set of nodes in the cluster is opted in.
+<4> Specifies that a set of nodes in the cluster is opted out.
 <5> Specifies that any machine set with this label is to be updated.
-+
-[TIP]
-====
-If an appropriate label is not present on the machine set, add a key/value pair by running a command similar to following:
-
-----
-$ oc label machineset.machine ci-ln-hmy310k-72292-5f87z-worker-a region: "east" -n openshift-machine-api
-----
-====
 
 .Verification
 
@@ -120,7 +106,8 @@ spec:
           disks:
           - autoDelete: true
             boot: true
-            image: projects/rhcos-cloud/global/images/rhcos-9-6-20250402-0-gcp-x86-64 <1>
+            image: projects/rhcos-cloud/global/images/rhcos-416-92-202402201450-0-gcp-x86-64 <1>
 # ...
 ----
 <1> This boot image is the same as the current {product-title} version.
+
