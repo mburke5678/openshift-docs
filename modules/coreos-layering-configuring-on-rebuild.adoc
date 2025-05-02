@@ -75,6 +75,3 @@ metadata:
   name: layered-image
 # ...
 ----
-<1> Add this annotation to trigger a rebuild of the custom layered image.
-Footer
-
