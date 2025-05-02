@@ -205,7 +205,6 @@ NAME                                             PREPARED   BUILDING   SUCCEEDED
 layered-image-ad5a3cad36303c363cf458ab0524e7c0   False      True       False       False         False <1>
 ----
 <1> The `MachineOSBuild` is named in the `<MachineOSConfig_CR_name>-<hash>` format.
-=======
 
 . Verify that the `MachineOSBuild` object contains a reference to the new custom layered image by running the following command:
 +
