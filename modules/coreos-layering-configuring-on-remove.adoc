@@ -1,0 +1,13 @@
+// Module included in the following assemblies:
+//
+// * machine_configuration/coreos-layering.adoc
+
+:_mod-docs-content-type: PROCEDURE
+[id="coreos-layering-configuring-on-remove_{context}"]
+= Removing an on-cluster custom layered image
+
+In order to prevent the custom layered images from taking up excessive space in your registry, you can automatically remove an on-cluster custom layered image from the repository by deleting the `MachineOSBuild` object that created the image. 
+
+In order to automatically delete custom layered image, the credentials provided by the secret that you use to access your push registry must grant permission to delete an image from the registry. If the delete permission is not present, the image is not deleted when you delete the `MachineOSBuild` object.
+
+The custom layered image is also not deleted if the image is either currently rolled out to a node or is desired by the nodes, as indicated by the `machineconfiguration.openshift.io/currentConfig` or `machineconfiguration.openshift.io/desiredConfig` annotation on the node. 

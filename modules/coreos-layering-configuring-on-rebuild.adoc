@@ -37,6 +37,7 @@ metadata:
 # ...
 ----
 <1> Add this annotation to trigger a rebuild of the custom layered image.
+
 .Verification
 
 . Check that the `MachineOSBuild` object is building by using the following command:
