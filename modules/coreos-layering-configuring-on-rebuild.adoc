@@ -3,7 +3,7 @@
 // * machine_configuration/coreos-layering.adoc
 
 :_mod-docs-content-type: PROCEDURE
-[id="coreos-layering-on-rebuild_{context}"]
+[id="coreos-layering-configuring-on-rebuild_{context}"]
 = Rebuilding an on-cluster custom layered image
 
 In situations where you want to rebuild a custom layered image, you can add an annotation to the `MachineOSConfig` object to trigger an automatic rebuild. For example, you could perform a rebuild if the you change the Containerfile or need to update the `osimageurl` location in a machine config.
@@ -13,7 +13,6 @@ After you add the annotation, the Machine Config Operator (MCO) deletes the curr
 .Prerequisites
 
 * You have opted-in to on-cluster layering by creating a `MachineOSConfig` object.
-
 .Procedure
 
 * Edit the `MachineOSConfig` object to add the `machineconfiguration.openshift.io/rebuild` annotation by using the following command:
@@ -38,7 +37,6 @@ metadata:
 # ...
 ----
 <1> Add this annotation to trigger a rebuild of the custom layered image.
-
 .Verification
 
 . Check that the `MachineOSBuild` object is building by using the following command:
@@ -76,3 +74,6 @@ metadata:
   name: layered-image
 # ...
 ----
+<1> Add this annotation to trigger a rebuild of the custom layered image.
+Footer
+
