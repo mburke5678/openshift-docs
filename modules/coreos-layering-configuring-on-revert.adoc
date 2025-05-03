@@ -8,11 +8,11 @@
 
 If you used a custom machine config node (MCP) to apply an on-cluster layered image to a node, you can remove the custom layered image from the node and revert to the base image. 
 
-To revert the node, remove the node from the custom MCP by removing the custom machine config pool label from the node. After you remove the label, the Machine Config Operator (MCO) reboots the nodes in that MCP with the cluster base {op-system-first} image, overriding the custom layered image.
+To revert the node, remove the node from the custom MCP by removing the custom machine config pool label from the node. After you remove the label, the Machine Config Operator (MCO) reboots the node with the cluster base {op-system-first} image, overriding the custom layered image.
 
 [IMPORTANT]
 ====
-If the node where the custom layered image is deployed uses a custom machine config pool, when you remove the label, make sure the node is associated with another MCP.
+When you remove the label, make sure the node is associated with another MCP.
 ====
 
 .Prerequisites
@@ -33,7 +33,7 @@ $ oc label node/<node_name> node-role.kubernetes.io/<mcp_name>-
 
 You can verify that the custom layered image is removed by performing any of the following checks:
 
-. Check that the worker machine config pool is updating with the previous machine config:
+* Check that the worker machine config pool is updating with the previous machine config:
 +
 [source,terminal]
 ----
@@ -51,7 +51,7 @@ worker    rendered-worker-e8c8bc1de69777325003e80bc0c04b82    True      False   
 <1> The custom machine config pool no longer has any nodes.
 <2> When the `UPDATING` field is `True`, the machine config pool is updating with the previous machine config. When the field becomes `False`, the worker machine config pool has rolled out to the previous machine config.
 
-. Check the nodes to see that scheduling on the nodes is disabled. This indicates that the change is being applied:
+* Check the nodes to see that scheduling on the nodes is disabled. This indicates that the change is being applied:
 +
 [source,terminal]
 ----
