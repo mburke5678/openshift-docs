@@ -38,7 +38,11 @@ You should not need to interact with these new objects or the `machine-os-builde
 You can test a `MachineOSBuild` object to make sure it builds correctly without rolling out the custom layered image to active nodes by using a custom machine config pool that contains non-production nodes. Alternatively, you can use a custom machine config pool that has no nodes. The `MachineOSBuild` object builds even if there are no nodes for the MCO to deploy the custom layered image onto.
 ====
 
+<<<<<<< HEAD
 You need a separate `MachineOSConfig` CR for each machine config pool where you want to use a custom layered image.
+=======
+You need a separate `MachineOSConfig` CR for each machine config pool where you want to use a distinct custom layered image. You can apply a custom layered image by using any machine config pool in your cluster, including the control plane, worker, or custom pool.
+>>>>>>> edit
 
 [NOTE]
 ====
