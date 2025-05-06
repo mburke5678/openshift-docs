@@ -18,8 +18,8 @@ When you create the object, the Machine Config Operator (MCO) creates a `Machine
 .Example `MachineOSBuild` object
 [source,terminal]
 ----
-NAME                                       PREPARED   BUILDING   SUCCEEDED   INTERRUPTED   FAILED   AGE
-layered-c8765e26ebc87e1e17a7d6e0a78e8bae   False      False      True        False         False     43
+NAME                                       PREPARED   BUILDING   SUCCEEDED   INTERRUPTED   FAILED
+layered-c8765e26ebc87e1e17a7d6e0a78e8bae   False      False      True        False         False
 ----
 
 .Example builder pod
@@ -29,9 +29,13 @@ NAME                                                READY   STATUS      RESTARTS
 build-layered-c8765e26ebc87e1e17a7d6e0a78e8bae      2/2     Running     0               11m
 ----
 
+<<<<<<< HEAD
 When the build is complete, the MCO pushes the new custom layered image to your repository and rolls the image out to the nodes in the associated machine config pool. You can see the digested image pull spec for the new custom layered image in the `MachineOSBuild` object and `machine-os-builder` pod.
 
 You should not need to interact with these new objects or the `machine-os-builder` pod. However, you can use all of these resources for troubleshooting, if necessary. Also, you can automatically remove an on-cluster custom layered image from the repository by deleting the `MachineOSBuild` object that created the image. For more information, see "Removing an on-cluster custom layered image". 
+=======
+When the build is complete, the MCO pushes the new custom layered image to your repository and rolled out to the nodes in the associated machine config pool. You can see the digested image pull spec for the new custom layered image in the `MachineOSBuild` object and `machine-os-builder` pod.
+>>>>>>> Merge error
 
 [TIP]
 ====
@@ -39,10 +43,16 @@ You can test a `MachineOSBuild` object to make sure it builds correctly without 
 ====
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 You need a separate `MachineOSConfig` CR for each machine config pool where you want to use a custom layered image.
 =======
 You need a separate `MachineOSConfig` CR for each machine config pool where you want to use a distinct custom layered image. You can apply a custom layered image by using any machine config pool in your cluster, including the control plane, worker, or custom pool.
 >>>>>>> edit
+=======
+You should not need to interact with these new objects or the `machine-os-builder` pod. However, you can use all of these resources for troubleshooting, if necessary.
+
+You need a separate `MachineOSConfig` CR for each machine config pool where you want to use a custom layered image.
+>>>>>>> Merge error
 
 [NOTE]
 ====
@@ -56,11 +66,11 @@ In the case of a build failure, for example due to network issues or an invalid 
 .Example failed `MachineOSBuild` object
 [source,terminal]
 ----
-NAME                                       PREPARED   BUILDING   SUCCEEDED   INTERRUPTED   FAILED   AGE
-layered-c8765e26ebc87e1e17a7d6e0a78e8bae   False      False      False        False        True     48s
+NAME                                       PREPARED   BUILDING   SUCCEEDED   INTERRUPTED   FAILED
+layered-c8765e26ebc87e1e17a7d6e0a78e8bae   False      False      False        False        True
 ----
 
-You can manually rebuild your custom layered image by either modifying your `MachineOSConfig` object or applying an annotation to the `MachineOSConfig` object as discussed in "Rebuilding an on-cluster custom layered image".
+You can manually rebuild your custom layered image by either modifying your `MachineOSConfig` object or applying an annotation to the `MachineOSConfig` object as discussed in the following section.
 
 [discrete]
 [id="coreos-layering-configuring-on-limitations_{context}"]
@@ -76,11 +86,15 @@ Note the following limitations when working with the on-cluster layering feature
 ** Changing SSH keys
 ** Removing mirroring rules from `ICSP`, `ITMS`, and `IDMS` objects
 ** Changing the trusted CA, by updating the `user-ca-bundle` configmap in the `openshift-config` namespace
+<<<<<<< HEAD
 * The images used in creating custom layered images take up space in your push registry. Always be aware of the free space in your registry and prune the images as needed. You can automatically remove an on-cluster custom layered image from the repository by deleting the `MachineOSBuild` object that created the image. Note that the credentials provided by the registry push secret must also grant permission to delete an image from the registry. For more information, see "Removing an on-cluster custom layered image".
+=======
+* The images used in creating custom layered images take up space in your push registry. Always be aware of the free space in your registry and prune the images as needed. You can automatically remove an on-cluster custom layered image from the repository by deleting the `MachineOSBuild` object that created the image. For more information, see "Removing an on-cluster custom layered image".
+>>>>>>> Merge error
 
 .Prerequisites
 
-* You have the global pull secret in the `openshift-machine-config-operator` namespace that the MCO needs to pull the base operating system image. You can optionally add your pull secret to the {product-title} global pull secret, because the MCO automatically creates a copy of the global pull secret and uses that by default. For information on modifying the global pull secret, see "Updating the global cluster pull secret".
+* You have the global pull secret in the `openshift-machine-config-operator` namespace that the MCO needs to pull the base operating system image. You can optionally add your pull secret to the {product-title} global pull secret, as the MCO automatically creates a copy of the global pull secret and use that by default. For information on modifying the global pull secret, see "Updating the global cluster pull secret".
 
 * You have the push secret of the registry that the MCO needs to push the new custom layered image to.
 +
@@ -156,8 +170,8 @@ $ oc get machineosbuild
 .Example output showing that the `MachineOSBuild` object is ready
 [source,terminal]
 ----
-NAME                                                     PREPARED   BUILDING   SUCCEEDED   INTERRUPTED   FAILED   AGE
-layered-image-ad5a3cad36303c363cf458ab0524e7c0-builder   False      False      True        False         False    43s
+NAME                                               PREPARED   BUILDING   SUCCEEDED   INTERRUPTED   FAILED
+layered-ad5a3cad36303c363cf458ab0524e7c0-builder   False      False      True        False         False
 ----
 
 .. Edit the nodes where you want to deploy the custom layered image by adding a label for the machine config pool you specified in the `MachineOSConfig` object:
@@ -205,8 +219,8 @@ $ oc get machineosbuilds
 .Example output
 [source,terminal]
 ----
-NAME                                             PREPARED   BUILDING   SUCCEEDED   INTERRUPTED   FAILED   AGE
-layered-image-ad5a3cad36303c363cf458ab0524e7c0   False      True       False       False         False    12m <1> 
+NAME                                             PREPARED   BUILDING   SUCCEEDED   INTERRUPTED   FAILED
+layered-image-ad5a3cad36303c363cf458ab0524e7c0   False      True       False       False         False <1>
 ----
 <1> The `MachineOSBuild` is named in the `<MachineOSConfig_CR_name>-<hash>` format.
 
