@@ -13,6 +13,7 @@ After you add the annotation, the Machine Config Operator (MCO) deletes the curr
 .Prerequisites
 
 * You have opted-in to on-cluster layering by creating a `MachineOSConfig` object.
+
 .Procedure
 
 * Edit the `MachineOSConfig` object to add the `machineconfiguration.openshift.io/rebuild` annotation by using the following command:
@@ -40,7 +41,7 @@ metadata:
 
 .Verification
 
-. Check that the `MachineOSBuild` object is building by using the following command:
+* Check that the `MachineOSBuild` object is building by using the following command:
 +
 [source,terminal]
 ----
