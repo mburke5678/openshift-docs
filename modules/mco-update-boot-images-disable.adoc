@@ -7,7 +7,7 @@
 [id="mco-update-boot-images-disable_{context}"]
 = Disabling updated boot images
 
-To disable the updated boot image feature, edit the `MachineConfiguration` object to remove the `managedBootImages` parameters.
+To disable the updated boot image feature, edit the `MachineConfiguration` object to have an empty list for the `machineMangers` field.
 
 If you disable this feature after some nodes have been created with the new boot image version, any existing nodes retain their current boot image. Turning off this feature does not rollback the nodes or machine sets to the originally-installed boot image. The machine sets retain the boot image version that was present when the feature was enabled and is not updated again when the cluster is upgraded to a new {product-title} version in the future.
 
@@ -20,7 +20,7 @@ If you disable this feature after some nodes have been created with the new boot
 $ oc edit MachineConfiguration cluster
 ----
 
-. Remove the `managedBootImages` stanza:
+. Make the `machineManagers` parameter an empty array:
 +
 [source,yaml]
 ----
@@ -34,4 +34,4 @@ spec:
   managedBootImages: <1>
     machineManagers: []
 ----
-<1> Remove the parameters under `machineManagers` to disable updated boot images.
+<1> Remove the parameters under `machineManagers` and add the `[]` to disable updated boot images.
