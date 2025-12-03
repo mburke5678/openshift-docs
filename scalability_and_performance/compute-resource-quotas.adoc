@@ -7,7 +7,7 @@ include::_attributes/common-attributes.adoc[]
 toc::[]
 
 [role="_abstract"]
-As a cluster administrator, you can use quotas and limit ranges to set constraints. These constraints limit the number of objects or the amount of compute resources that are used in your project. 
+As a cluster administrator, you can use quotas and limit ranges to set constraints. These constraints limit the number of objects or the amount of compute resources that are used in your project.
 
 By using quotes and limits, you can better manage and allocate resoures across all projects. You can also ensure that no projects use more resources than is appropriate for the cluster size.
 
@@ -24,8 +24,8 @@ include::modules/setting-resource-quota-extended-resources.adoc[leveloffset=+1]
 
 include::modules/quota-scopes.adoc[leveloffset=+1]
 
-[role="_additional-resources"]
 [id="additional-resources_{context}"]
+[role="_additional-resources"]
 == Additional resources
 
 * xref:../applications/quotas/quotas-setting-per-project.adoc#quotas-setting-per-project_quotas-setting-per-project[Resources managed by quotas]
