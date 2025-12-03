@@ -14,7 +14,7 @@ You can use an Amazon CloudFront to add a Web Application Firewall (WAF) to your
 
 [NOTE]
 ====
-WAFv1, WAF classic, is no longer supported. Use WAFv2. 
+WAFv1, WAF classic, is no longer supported. Use WAFv2.
 ====
 
 == Prerequisites
@@ -34,4 +34,4 @@ include::modules/cloud-experts-using-cloudfront-and-waf-test-waf.adoc[leveloffse
 [id="additional-resources_{context}"]
 == Additional resources
 
-* link:https://youtu.be/-HorEsl2ho4[Adding Extra Security with AWS WAF, CloudFront and ROSA | Amazon Web Services on YouTube] 
+* link:https://youtu.be/-HorEsl2ho4[Adding Extra Security with AWS WAF, CloudFront and ROSA | Amazon Web Services on YouTube]
