@@ -18,7 +18,6 @@ The MCO applies updates for pools independently; for example, if there is an upd
 For information on configuring nodes by using machine config objects, see xref:../machine_configuration/machine-configs-configure.adoc#machine-configs-configure[Configure nodes by using machine config objects]
 
 include::modules/checking-mco-status.adoc[leveloffset=+1]
-include::modules/checking-mco-node-status.adoc[leveloffset=+1]
 include::modules/machine-config-pools-custom.adoc[leveloffset=+1]
 include::modules/machine-config-pools-custom-configure.adoc[leveloffset=+2]
 include::modules/machine-config-pools-custom-modify.adoc[leveloffset=+2]
