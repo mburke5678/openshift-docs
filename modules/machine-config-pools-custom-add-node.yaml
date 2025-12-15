@@ -1,0 +1,67 @@
+// Module included in the following assemblies:
+//
+// * machine_configuration/machine-config-pools-about.adoc
+
+:_mod-docs-content-type: PROCEDURE
+[id="machine-config-pools-custom-add-node_{context}"]
+= Adding a node to a custom machine config pool
+
+You can add a node to a custom machine config pool by adding a label to the node spec. Adding a node to a custom machine config pools gives you the ability to deploy changes only targeted at the nodes in that custom pool.
+
+.Procedure
+
+. Add a custom role label to the node by using a command similar to the following:
++
+[source,terminal]
+----
+$ oc label node ip-10-0-130-218.us-west-1.compute.internal node-role.kubernetes.io/infra= <1>
+----
+<1> This command add an `infra` label to the node, which adds the node to the `infra` custom machine config pool.
+
+. Optional: To remove the `worker` role label, for example:
++
+[source,terminal]
+----
+$ oc label node ip-10-0-130-218.us-west-1.compute.internal node-role.kubernetes.io/worker-
+----
+
+.Verification
+
+* View that the new machine config pool is updating by using the following command:
++
+[source,terminal]
+----
+$ oc get mcp
+----
++
+.Example output
+[source,terminal]
+----
+NAME     CONFIG                                             UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
+infra    rendered-infra-b5250cb9e8c4a0b9d3e16da185ba4bad    False     True       False      1              1                   1                     0                      2m <1>
+master   rendered-master-b1d4b6196a18869d63518e57b8b335d1   True      False      False      3              3                   3                     0                      156m
+worker   rendered-worker-c48ef626ff01f0a445979a4245dc7bdd   True      False      False      2              2                   2                     0                      156m
+----
+<1> The `infra` custom machine config pool now reports having one node, which you just added.
+
+* View that the node is in the new machine config pool:
++
+[source,terminal]
+----
+$ oc get nodes
+----
++
+.Example output
+[source,terminal]
+----
+NAME                                         STATUS    ROLES          AGE   VERSION
+ci-ln-4wib8b2-72292-qfjz6-master-0         Ready    control-plane,master   100m   v1.34.2
+ci-ln-4wib8b2-72292-qfjz6-master-1         Ready    control-plane,master   101m   v1.34.2
+ci-ln-4wib8b2-72292-qfjz6-master-2         Ready    control-plane,master   100m   v1.34.2
+ci-ln-4wib8b2-72292-qfjz6-worker-a-f4mf5   Ready    infra                  81m    v1.34.2 <1>
+ci-ln-4wib8b2-72292-qfjz6-worker-b-6z4rx   Ready    worker                 81m    v1.34.2
+ci-ln-4wib8b2-72292-qfjz6-worker-c-h6khl   Ready    worker                 81m    v1.34.2
+
+----
+<1> The node is in the `infra` machine config pool.
+

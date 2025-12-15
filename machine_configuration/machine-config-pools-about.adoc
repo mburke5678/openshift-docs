@@ -20,5 +20,6 @@ For information on configuring nodes by using machine config objects, see xref:.
 include::modules/checking-mco-status.adoc[leveloffset=+1]
 include::modules/machine-config-pools-custom.adoc[leveloffset=+1]
 include::modules/machine-config-pools-custom-configure.adoc[leveloffset=+2]
+include::modules/machine-config-pools-custom-add-node.yaml[leveloffset=+2]
 include::modules/machine-config-pools-custom-modify.adoc[leveloffset=+2]
 include::modules/machine-config-pools-custom-removing.adoc[leveloffset=+2]

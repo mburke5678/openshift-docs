@@ -4,7 +4,7 @@
 
 :_mod-docs-content-type: CONCEPT
 [id="machine-config-pools-custom_{context}"]
-= About using custom machine config pools to configure nodes
+= About configuring nodes by using custom machine config pools 
 
 You can apply machine configuration changes to specific sets of worker nodes by using _custom machine config pools_. A custom machine config pool manages its own sets of nodes, which are indicated with a node label. One example of this is a set of infrastructure nodes that host infrastructure components, such as the router or the image registry.
 

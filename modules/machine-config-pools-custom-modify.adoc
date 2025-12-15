@@ -6,77 +6,124 @@
 [id="machine-config-pools-custom-modify_{context}"]
 = Modifying a custom machine config pool
 
-To deploy changes to a custom pool, create a `MachineConfig` object that uses the custom pool as the label, for example:
+To deploy changes to the nodes in a custom pool, create a `MachineConfig` object that uses the custom pool as the label. For example the following procedure disables `chronyd`.
 
-[source,yaml,subs="attributes+"]
+Changes made to the custom machine config are not applied to the `worker` machine config. However, if you make a change to the `worker` machine config pool, the change is applied to the `worker` and custom machine config pools and their associated nodes.
+
+.Procedure
+
+. Create the `MachineConfig` CR that disables `chronyd` for the specified node role.
++
+[source,yaml]
 ----
 apiVersion: machineconfiguration.openshift.io/v1
 kind: MachineConfig
 metadata:
   labels:
-    machineconfiguration.openshift.io/role: infra
-  name: 51-infra
+    machineconfiguration.openshift.io/role: <node_role> <1>
+  name: disable-chronyd
 spec:
   config:
     ignition:
-      version: {ign-config-version}
-    storage:
-      files:
-      - contents:
-          source: data:,infra
-        filesystem: root
-        mode: 0644
-        path: /etc/infratest
+      version: 3.2.0
+    systemd:
+      units:
+        - contents: |
+            [Unit]
+            Description=NTP client/server
+            Documentation=man:chronyd(8) man:chrony.conf(5)
+            After=ntpdate.service sntp.service ntpd.service
+            Conflicts=ntpd.service systemd-timesyncd.service
+            ConditionCapability=CAP_SYS_TIME
+            [Service]
+            Type=forking
+            PIDFile=/run/chrony/chronyd.pid
+            EnvironmentFile=-/etc/sysconfig/chronyd
+            ExecStart=/usr/sbin/chronyd $OPTIONS
+            ExecStartPost=/usr/libexec/chrony-helper update-daemon
+            PrivateTmp=yes
+            ProtectHome=yes
+            ProtectSystem=full
+            [Install]
+            WantedBy=multi-user.target
+          enabled: false
+          name: "chronyd.service"
+----
+<1> Node role where you want to disable `chronyd`, for example, `master`.
+
+. Create the `MachineConfig` CR by running the following command:
++
+[source,terminal]
+----
+$ oc create -f disable-chronyd.yaml
 ----
 
-After a node returns to the `Ready` state, you can see that the machine config pool has been applied:
+.Verification
 
+* You can see that the machine config pool is being updated by using the following commands:
++
 [source,terminal]
 ----
 $ oc get mcp
 ----
-
++
 .Example output
 [source,terminal]
 ----
 NAME     CONFIG                                             UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
-infra    rendered-custom-11f6e3ee8704373add6d3c3d8399b3fa   True      False      False      1              1                   1                     0                      11m
+infra    rendered-custom-11f6e3ee8704373add6d3c3d8399b3fa   False     True       False      1              1                   1                     0                      11m
 master   rendered-master-94cafd2f05c7cd9a3fce4877e699fa45   True      False      False      3              3                   3                     0                      119m
 worker   rendered-worker-93ac02b5fc2e2526b8b15758df3d8472   True      False      False      2              2                   2                     0                      119m
 ----
-
-Changes made to the custom machine config are not applied to the `worker` machine config.
-
-However, if you make a change to the `worker` machine config pool, the change is applied to the `worker` and custom machine config pools and their associated nodes.
-
-[source,terminal]
-----
-$ oc get mcp
-----
-
-.Example output
-[source,terminal]
-----
-NAME     CONFIG                                             UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
-infra    rendered-custom-e7c94136ebb9f655bb20d7da14eb6c1f   False     True       False      1              0                   0                     0                      74m
-master   rendered-master-6e3f6a6544848b5e1d8fccf57283263d   True      False      False      3              3                   3                     0                      113m
-worker   rendered-worker-0a1b442474e43fee1d60a4b9aeb79ca0   False     True       False      2              0                   0                     0                      113m
-----
-
++
 [source,terminal]
 ----
 $ oc get mc
 ----
-
++
+.Example output
 [source,terminal]
 ----
-rendered-infra-2ac5bfa5ab0950a344feb9d994f7eafd    b29dceb12638f3d7f30f339729344de69824a09b   3.2.0             5s <1>
-rendered-infra-70be77bfe06c59869c66b64c12be9524    b29dceb12638f3d7f30f339729344de69824a09b   3.2.0             47m
-rendered-infra-b5250cb9e8c4a0b9d3e16da185ba4bad    b29dceb12638f3d7f30f339729344de69824a09b   3.2.0             37m
-rendered-infra-cb73231c08063f313b42225013ee909b    b29dceb12638f3d7f30f339729344de69824a09b   3.2.0             11m
-rendered-master-142c359bb4f3b4f6f31c5ec154219ea4   b29dceb12638f3d7f30f339729344de69824a09b   3.2.0             77m
-rendered-worker-70be77bfe06c59869c66b64c12be9524   b29dceb12638f3d7f30f339729344de69824a09b   3.2.0             77m
-rendered-worker-d177d1547e6d6d5820876783942b6fc9   b29dceb12638f3d7f30f339729344de69824a09b   3.2.0             5s <2>
+#...
+disable-chronyd                                                                               3.2.0             83s <1>
+rendered-infra-0607ee792b74e1521379d7e7c6038037    4a8a503c3a969e948fb4dbeab19a5d3f0727d1c6   3.5.0             78s <2>
+#...
 ----
-<1> New rendered custom machine config in response to the change.
-<2> New rendered worker machine config in response to the change.
+<1> New machine config that you created.
+<2> Rendered machine config created by the MCO to integrate the changes introduced by your machine config. The rendered machine config is applied to the nodes in the machine config pool.
+
+* You can see that the node in that machine config pool is being updated by using the following commands:
++
+.Example output
+[source,terminal]
+----
+NAME                                       STATUS                         ROLES                  AGE    VERSION
+ci-ln-4wib8b2-72292-qfjz6-master-0         Ready                          control-plane,master   116m   v1.34.2
+ci-ln-4wib8b2-72292-qfjz6-master-1         Ready                          control-plane,master   117m   v1.34.2
+ci-ln-4wib8b2-72292-qfjz6-master-2         Ready                          control-plane,master   117m   v1.34.2
+ci-ln-4wib8b2-72292-qfjz6-worker-a-f4mf5   NotReady,SchedulingDisabled    infra                  97m    v1.34.2 <1>
+ci-ln-4wib8b2-72292-qfjz6-worker-b-6z4rx   Ready                          worker                 97m    v1.34.2
+ci-ln-4wib8b2-72292-qfjz6-worker-c-h6khl   Ready                          worker                 97m    v1.34.2
+----
+<1> Scheduling is disabled on the node as this change is being applied. Different changes yeild different states on the node.
+
+* You can see that the new rendered machine config has been applied to the node by using a the following command:
++
+[source,terminal]
+----
+$ oc get machineconfignode
+----
++
+.Example output
+[source,terminal]
+----
+NAME                                       POOLNAME   DESIREDCONFIG                                      CURRENTCONFIG                                      UPDATED   AGE
+ci-ln-4wib8b2-72292-qfjz6-master-0         master     rendered-master-166650f7af20cd3169d980c7a1aee6c0   rendered-master-166650f7af20cd3169d980c7a1aee6c0   True      125m
+ci-ln-4wib8b2-72292-qfjz6-master-1         master     rendered-master-166650f7af20cd3169d980c7a1aee6c0   rendered-master-166650f7af20cd3169d980c7a1aee6c0   True      125m
+ci-ln-4wib8b2-72292-qfjz6-master-2         master     rendered-master-166650f7af20cd3169d980c7a1aee6c0   rendered-master-166650f7af20cd3169d980c7a1aee6c0   True      125m
+ci-ln-4wib8b2-72292-qfjz6-worker-a-f4mf5   infra      rendered-infra-0607ee792b74e1521379d7e7c6038037    rendered-infra-0607ee792b74e1521379d7e7c6038037    True      109m <1>
+ci-ln-4wib8b2-72292-qfjz6-worker-b-6z4rx   worker     rendered-worker-2dba3548b2ed650f561a9185c090dcf9   rendered-worker-2dba3548b2ed650f561a9185c090dcf9   True      109m
+ci-ln-4wib8b2-72292-qfjz6-worker-c-h6khl   worker     rendered-worker-2dba3548b2ed650f561a9185c090dcf9   rendered-worker-2dba3548b2ed650f561a9185c090dcf9   True      109m
+----
+<1> The node in the `infra` machine config pool is now using the new rendered machine config.
+
