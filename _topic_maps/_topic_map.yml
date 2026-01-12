@@ -3633,10 +3633,14 @@ Topics:
   Topics:
   - Name: Jobset Operator overview
     File: index
-  - Name: Installing the JobSet Operator
-    File: jobset-install
   - Name: JobSet Operator release notes
     File: jobset-release-notes
+  - Name: Installing the JobSet Operator
+    File: jobset-install
+  - Name: Managing workloads with the JobSet Operator
+    File: managing-jobset
+  - Name: Uninstalling the JobSet Operator
+    File: jobset-uninstall
 ---
 Name: Edge computing
 Dir: edge_computing
