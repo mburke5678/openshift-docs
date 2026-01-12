@@ -3,8 +3,8 @@
 // * network_observability/network-observability-alerts.adoc
 
 :_mod-docs-content-type: PROCEDURE
-[id="network-observability-creating-custom-alert-rules_{context}"]
-= Creating custom alert rules
+[id="network-observability-custom-health-rule-configuration_{context}"]
+= Custom health rule configuration
 
 [role="_abstract"]
 Use the Prometheus Query Language (`PromQL`) to define a custom `AlertingRule` resource to trigger alerts based on specific network metrics (e.g., traffic surges).
@@ -12,7 +12,7 @@ Use the Prometheus Query Language (`PromQL`) to define a custom `AlertingRule` r
 .Prerequisites
 
 * Familiarity with `PromQL`.
-* You have installed {product-title} 4.14 or later.
+* You have installed {product-title} 4.16 or later.
 * You have access to the cluster as a user with the `cluster-admin` role.
 * You have installed the Network Observability Operator.
 

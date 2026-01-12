@@ -3,13 +3,13 @@
 // * network_observability/network-observability-alerts.adoc
 
 :_mod-docs-content-type: REFERENCE
-[id="network-observability-alerts-about-promql-expression_{context}"]
-= About the PromQL expression for alerts
+[id="network-observability-health-rules-promql-expressions-metadata_{context}"]
+= PromQL expressions and metadata for health rules
 
 [role="_abstract"]
 Learn about the base query for Prometheus Query Language (`PromQL`), and how to customize it so you can configure network observability alerts for your specific needs.
 
-The alerting API in the network observability `FlowCollector` custom resource (`CR`) is mapped to the Prometheus Operator API, generating a `PrometheusRule`. You can see the `PrometheusRule` in the default `netobserv` namespace by running the following command:
+The health rule API in the network observability `FlowCollector` custom resource (`CR`) is mapped to the Prometheus Operator API, generating a `PrometheusRule`. You can see the `PrometheusRule` in the default `netobserv` namespace by running the following command:
 
 [source,terminal]
 ----
@@ -64,7 +64,7 @@ Together, the complete expression for the `PrometheusRule` looks like the follow
 
 The Network Observability Operator uses components from other {product-title} features, such as the monitoring stack, to enhance visibility into network traffic. For more information, see: "Monitoring stack architecture".
 
-Some metadata must be configured for the alert definitions. This metadata is used by Prometheus and the `Alertmanager` service from the monitoring stack, or by the *Network Health* dashboard.
+Some metadata must be configured for the rule definitions. This metadata is used by Prometheus and the `Alertmanager` service from the monitoring stack, or by the *Network Health* dashboard.
 
 The following example shows an `AlertingRule` resource with the configured metadata:
 
@@ -128,6 +128,14 @@ The `netobserv_io_network_health` annotation is a JSON string consisting of the 
 | List of strings
 | One or more labels that hold node names. When provided, the alert appears under the *Nodes* tab.
 
+|`workloadLabels`:
+| List of strings
+| One or more labels that hold owner/workload names. When provided alongside with `kindLabels`, the alert will show up under the "Owners" tab.
+
+|`kindLabels`:
+| List of strings
+| One or more labels that hold owner/workload kinds. When provided alongside with `workloadLabels`, the alert will show up under the "Owners" tab.
+
 | `threshold`
 | String
 | The alert threshold, expected to match the threshold defined in the `PromQL` expression.
@@ -144,9 +152,25 @@ The `netobserv_io_network_health` annotation is a JSON string consisting of the 
 | List of objects
 | A list of links to display contextually with the alert. Each link requires a `name` (display name) and `url`.
 
-| `trafficLinkFilter`
+| `trafficLink`
 | String
-| An additional filter to inject into the URL for the *Network Traffic* page.
+| Information related to the link to the *Network Traffic* page, for URL building. Some filters will be set automatically, such as the `node` or `namespace` filter.
+|===
+
+.`trafficLink` fields
+[cols="1,3",options="header"]
+|===
+| Field
+| Description
+
+| `extraFilter`
+| Additional filter to inject (for example, a DNS response code for DNS-related alerts).
+
+| `backAndForth`
+| Whether the filter should include return traffic (`true` or `false`).
+
+| `filterDestination`
+| Whether the filter should target the destination of the traffic instead of the source (`true` or `false`).
 |===
 
 The `namespaceLabels` and `nodeLabels` are mutually exclusive. If neither is provided, the alert appears under the *Global* tab.
