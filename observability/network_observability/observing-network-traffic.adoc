@@ -25,6 +25,8 @@ include::modules/network-observability-pktdrop-overview.adoc[leveloffset=+2]
 
 include::modules/network-observability-dns-overview.adoc[leveloffset=+2]
 
+//02-12-2026: adding comment here for JTBD for DNS. May make sense to revisit dns-overview for DNS resolution analysis. Might all be a JTBD. modules/network-observability-dns-tracking.adoc part of DNS resolution analysis now. Addressing this is outside scope of no-1.11 release but came up so making a note. This comment will be removed with JTBD.
+
 [role="_additional-resources"]
 .Additional resources
 * xref:../../observability/network_observability/observing-network-traffic.adoc#network-observability-dns-tracking_nw-observe-network-traffic[Working with DNS tracking]
@@ -80,6 +82,7 @@ include::modules/network-observability-working-with-conversations.adoc[leveloffs
 include::modules/network-observability-packet-drops.adoc[leveloffset=+2]
 
 include::modules/network-observability-dns-tracking.adoc[leveloffset=+2]
+//02-12-2026 adding comment as dns-tracking must be addressed as part of JTBD post no-1.11 release. Commenting out include breaks a number of xrefs, and addressing the IA to fix that is outside the scope of no-1.11.
 
 include::modules/network-observability-RTT.adoc[leveloffset=+2]
 
