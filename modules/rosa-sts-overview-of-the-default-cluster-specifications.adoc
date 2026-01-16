@@ -24,6 +24,7 @@ endif::[]
 [id="rosa-sts-overview-of-the-default-cluster-specifications_{context}"]
 = Overview of the default cluster specifications
 
+[role="_abstract"]
 You can quickly create a {product-title} cluster by using the default installation options.
 
 The following summary describes the default cluster specifications.
