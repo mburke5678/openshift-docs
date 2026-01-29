@@ -35,20 +35,20 @@ spec:
       {
         "type": "cnv-bridge",
         "bridge": "br1",
-        "vlan": 1 <1>
+        "vlan": 1
       },
       {
-        "type": "cnv-tuning" <2>
+        "type": "cnv-tuning"
       }
     ]
   }'
 ----
-<1> Optional: The VLAN tag.
-<2> The `cnv-tuning` plugin provides support for custom MAC addresses.
+** `spec.config.vlan` is an optional VLAN tag. No additional VLAN configuration is required on the node network configuration policy.
+** `spec.config.type` specifies the `cnv-tuning` plugin that provides support for custom MAC addresses.
 +
 [NOTE]
 ====
-The virtual machine instance will be attached to the bridge `br1` through an access port with the requested VLAN.
+The virtual machine instance is attached to the bridge `br1` through an access port with the requested VLAN.
 ====
 
 . Create the network attachment definition by using the file you created in the previous step:

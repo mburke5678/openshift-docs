@@ -14,7 +14,7 @@ If you have previously run a checkup, skip to step 5 of the procedure because th
 
 .Prerequisites
 
-* You installed the OpenShift CLI (`oc`).
+* You installed the {oc-first}.
 * The cluster has at least two worker nodes.
 * The Multus Container Network Interface (CNI) plugin is installed on the cluster.
 * You configured a network attachment definition for a namespace.
@@ -23,7 +23,8 @@ If you have previously run a checkup, skip to step 5 of the procedure because th
 
 . Create a manifest file that contains the `ServiceAccount`, `Role`, and `RoleBinding` objects with permissions that the checkup requires for cluster access:
 +
-.Example role manifest file
+Example role manifest file:
++
 [%collapsible]
 ====
 [source,yaml]
@@ -88,13 +89,17 @@ roleRef:
 +
 [source,terminal]
 ----
-$ oc apply -n <target_namespace> -f <latency_roles>.yaml <1>
+$ oc apply -n <target_namespace> -f <latency_roles>.yaml
 ----
-<1> `<target_namespace>` is the namespace where the checkup is to be run. This must be an existing namespace where the `NetworkAttachmentDefinition` object resides.
++
+where:
++
+`<target_namespace>`:: Specifies the namespace where the checkup is to be run. This must be an existing namespace where the `NetworkAttachmentDefinition` object resides.
 
 . Create a `ConfigMap` manifest that contains the input parameters for the checkup. The config map provides the input for the framework to run the checkup and also stores the results of the checkup.
 +
-.Example input config map
+Example input config map:
++
 [source,yaml]
 ----
 apiVersion: v1
@@ -104,17 +109,20 @@ metadata:
 data:
   spec.timeout: 5m
   spec.param.network_attachment_definition_namespace: <target_namespace>
-  spec.param.network_attachment_definition_name: "blue-network" <1>
-  spec.param.max_desired_latency_milliseconds: "10" <2>
-  spec.param.sample_duration_seconds: "5" <3>
-  spec.param.source_node: "worker1" <4>
-  spec.param.target_node: "worker2" <5>
+  spec.param.network_attachment_definition_name: "blue-network"
+  spec.param.max_desired_latency_milliseconds: "10"
+  spec.param.sample_duration_seconds: "5"
+  spec.param.source_node: "worker1"
+  spec.param.target_node: "worker2"
 ----
-<1> The name of the `NetworkAttachmentDefinition` object.
-<2> Optional: The maximum desired latency, in milliseconds, between the virtual machines. If the measured latency exceeds this value, the checkup fails.
-<3> Optional: The duration of the latency check, in seconds.
-<4> Optional: When specified, latency is measured from this node to the target node. If the source node is specified, the `spec.param.target_node` field cannot be empty.
-<5> Optional: When specified, latency is measured from the source node to this node.
++
+where:
++
+`spec.param.network_attachment_definition_name`:: Specifies the name of the `NetworkAttachmentDefinition` object.
+`data.spec.param.max_desired_latency_milliseconds`:: Optional: Specifies the maximum desired latency, in milliseconds, between the virtual machines. If the measured latency exceeds this value, the checkup fails.
+`spec.param.sample_duration_seconds`:: Optional: Specifies the duration of the latency check, in seconds.
+`spec.param.source_node`:: Optional: When specified, latency is measured from this node to the target node. If the source node is specified, the `spec.param.targetNode` field cannot be empty.
+`spec.param.target_node`:: Optional: When specified, latency is measured from the source node to this node.
 
 . Apply the config map manifest in the target namespace:
 +
@@ -125,7 +133,8 @@ $ oc apply -n <target_namespace> -f <latency_config_map>.yaml
 
 . Create a `Job` object to run the checkup:
 +
-.Example job manifest
+Example job manifest:
++
 [source,yaml]
 ----
 apiVersion: batch/v1
@@ -176,7 +185,8 @@ $ oc wait job kubevirt-vm-latency-checkup -n <target_namespace> --for condition=
 $ oc get configmap kubevirt-vm-latency-checkup-config -n <target_namespace> -o yaml
 ----
 +
-.Example output config map (success)
+Example output config map (success):
++
 [source,yaml]
 ----
 apiVersion: v1
@@ -197,13 +207,16 @@ data:
   status.completionTimestamp: "2022-01-01T09:00:00Z"
   status.startTimestamp: "2022-01-01T09:00:07Z"
   status.result.avgLatencyNanoSec: "177000"
-  status.result.maxLatencyNanoSec: "244000" <1>
+  status.result.maxLatencyNanoSec: "244000"
   status.result.measurementDurationSec: "5"
   status.result.minLatencyNanoSec: "135000"
   status.result.sourceNode: "worker1"
   status.result.targetNode: "worker2"
 ----
-<1> The maximum measured latency in nanoseconds.
++
+where:
++
+`data.status.result.maxLatencyNanoSec`:: Specifies the maximum measured latency in nanoseconds.
 
 . Optional: To view the detailed job log in case of checkup failure, use the following command:
 +
