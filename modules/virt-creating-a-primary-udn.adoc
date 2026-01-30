@@ -32,8 +32,8 @@ spec:
     subnets:
       - "10.0.0.0/24"
       - "2001:db8::/60" 
-  ipam:
-    lifecycle: Persistent # <5>
+    ipam:
+      lifecycle: Persistent # <5>
 ----
 <1> Specifies the name of the `UserDefinedNetwork` custom resource. 
 <2> Specifies the namespace in which the VM is located. The namespace must have the `k8s.ovn.org/primary-user-defined-network` label. The namespace must not be `default`, an `openshift-*` namespace, or match any global namespaces that are defined by the Cluster Network Operator (CNO).
