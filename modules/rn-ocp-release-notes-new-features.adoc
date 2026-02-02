@@ -4,8 +4,8 @@
 
 This release adds improvements related to the following components and concepts:
 
-// [id="ocp-release-notes-api_{context}"]
-// == API server
+[id="ocp-release-notes-api_{context}"]
+== API server
 
 ////
 Instructions: Add entries in the following format:
