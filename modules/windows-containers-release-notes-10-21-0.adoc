@@ -8,7 +8,7 @@
 
 Issued: 03 February 2026
 
-// The components of the Red Hat Windows Machine Config Operator (WMCO) 10.21.0 were released in TBD.
+The components of the Red Hat Windows Machine Config Operator (WMCO) 10.21.0 were released in https://access.redhat.com/errata/RHSA-2026:TBD[RHSA-2026:TBD].
 
 [id="wmco-10-21-0-new-features"]
 == New features and improvements
