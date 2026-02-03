@@ -4,6 +4,8 @@
 
 This section includes several known issues for {product-title} {product-version}.
 
+* Currently, due to a known issue, the {product-title} 4.21 versions of the Cluster Resource Override Operator and the DPU Operator will be available in an upcoming 4.21 maintenance release.  (link:https://issues.redhat.com/browse/OCPBUGS-74224[OCPBUGS-74224])
+
 * If you mirrored the {product-title} release images to the registry of a disconnected environment by using the `oc adm release mirror` command, the release image Sigstore signature is not mirrored with the image.
 +
 This has become an issue in {product-title} {product-version}, because the `openshift` cluster image policy is now deployed to the cluster by default. This policy causes CRI-O to automatically verify the Sigstore signature when pulling images into a cluster.  (link:https://issues.redhat.com/browse/OCPBUGS-70297[OCPBUGS-70297])
