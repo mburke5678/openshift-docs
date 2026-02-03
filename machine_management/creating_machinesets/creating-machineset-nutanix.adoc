@@ -24,6 +24,9 @@ include::modules/machineset-label-gpu-autoscaler.adoc[leveloffset=+1]
 //Failure domains for Nutanix clusters
 include::modules/mapi-failure-domain-nutanix.adoc[leveloffset=+1]
 
+//Improving reliability for multiple subnet configurations on Nutanix
+include::modules/cpmso-ts-nutanix-multiple-subnet.adoc[leveloffset=+1]
+
 [role="_additional-resources"]
 .Additional resources
 * xref:../../machine_management/applying-autoscaling.adoc#cluster-autoscaler-cr_applying-autoscaling[Cluster autoscaler resource definition]
