@@ -1,21 +1,16 @@
 :_mod-docs-content-type: ASSEMBLY
-[id="preparing-to-install-on-powervc"]
-= Preparing to install on IBM PowerVC
+[id="installation-methods-ibm-powervc"]
+= Installation methods
 include::_attributes/common-attributes.adoc[]
-:context: preparing-to-install-on-powervc
+:context: installation-methods-ibm-powervc
 
 toc::[]
 
-You can install {product-title} on {ibm-power-vc-title} ({ibm-power-vc-name}) using installer-provisioned infrastructure.
-
-[id="preparing-to-install-on-powervc-prerequisites"]
-== Prerequisites
-
-* You reviewed details about the xref:../../architecture/architecture-installation.adoc#architecture-installation[{product-title} installation and update] processes.
-* You read the documentation on xref:../../installing/overview/installing-preparing.adoc#installing-preparing[selecting a cluster installation method and preparing it for users].
+[role="_abstract"]
+You can install {product-title} on {ibm-power-vc-name} using installer-provisioned infrastructure. This process involves using the installation program to provision the underlying infrastructure for your cluster.
 
 [id="choosing-an-method-to-install-ocp-on-powervc-installer-provisioned"]
-=== Installing a cluster on installer-provisioned infrastructure
+== Installing a cluster on installer-provisioned infrastructure
 
 You can install a cluster on {ibm-power-vc-name} infrastructure that is provisioned by the {product-title} installation program, by using one of the following methods:
 

@@ -7,7 +7,8 @@ include::_attributes/common-attributes.adoc[]
 
 toc::[]
 
-You can remove a cluster that you deployed to {ibm-power-vc-name}.
+[role="_abstract"]
+You can remove a cluster that you deployed to {ibm-power-vc-name} using the installation program.
 
 // Removing a cluster that uses installer-provisioned infrastructure
 include::modules/installation-uninstall-clouds.adoc[leveloffset=+1]

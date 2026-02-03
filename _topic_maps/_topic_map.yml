@@ -538,8 +538,8 @@ Topics:
   Dir: installing_ibm_powervc
   Distros: openshift-enterprise
   Topics:
-  - Name: Preparing to install on IBM PowerVC
-    File: preparing-to-install-on-ibm-powervc
+  - Name: Installation methods
+    File: installation-methods-ibm-powervc
   - Name: Installing a cluster on IBM PowerVC with customizations
     File: installing-ibm-powervc-installer-custom
   - Name: Installation configuration parameters for IBM PowerVC
