@@ -1,0 +1,18 @@
+// Module included in the following assemblies:
+//
+// * release_notes/ocp-4-20-release-notes.adoc
+
+
+:_mod-docs-content-type: REFERENCE
+[id="zstream-4-20-13-fixed-issues_{context}"]
+= Fixed issues
+
+[role="_abstract"]
+The following issues are fixed for this release.
+
+* Before this update, Operator items were not visible in the Software Catalog on clusters without a `CloudCredential` resource as this optional resource was required. With this release, the requirement for the `CloudCredential` resource is removed so that Operators always appear in the Software Catalog. (link:https://issues.redhat.com/browse/OCPBUGS-72417[OCPBUGS-72417])
+
+* Before this update, the catalog sync was defaulting to a 10-minute polling interval, which triggered intense I/O on master nodes where etcd resides. This spike in activity frequently forced etcd leader elections, inadvertently resetting TTL counters on keys and preventing etcd events from clearing properly. With this release, the default polling interval has been increased to four hours to mitigate the strain on the local cluster and external registries. As a result, the system avoids the etcd knock-on effects that compromise cluster stability while simultaneously reducing the load on quay.io or local mirrors. (link:https://issues.redhat.com/browse/OCPBUGS-73876[OCPBUGS-73876])
+
+* Before this update, the deletion sequence attempted to remove machine instances while their primary network interface cards (NICs) were still attached, which conflicted with environments enforcing strict policies against deleting a primary NIC on an active server. This created a circular dependency that caused machine deletions to fail or hang indefinitely. With this release, the order of deletion for machines and ports has been corrected to ensure that resources are decommissioned in the proper sequence. As a result, machines can now be successfully deleted even in restricted environments, ensuring reliable resource cleanup and adherence to local security policies. (link:https://issues.redhat.com/browse/OCPBUGS-74226[OCPBUGS-74226])
+
