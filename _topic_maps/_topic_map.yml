@@ -2453,25 +2453,25 @@ Topics:
   - Name: Configuration options for control plane machines
     Dir: cpmso_provider_configurations
     Topics:
-    - Name: Changing control plane configuration options for Amazon Web Services
+    - Name: Control plane configuration options for Amazon Web Services
       File: cpmso-config-options-aws
     - Name: Configuring Amazon Web Services features for control plane machines
       File: cpmso-supported-features-aws
-    - Name: Changing control plane configuration options for Microsoft Azure
+    - Name: Control plane configuration options for Microsoft Azure
       File: cpmso-config-options-azure
     - Name: Configuring Microsoft Azure features for control plane machines
       File: cpmso-supported-features-azure
-    - Name: Changing control plane configuration options for Google Cloud
+    - Name: Control plane configuration options for Google Cloud
       File: cpmso-config-options-gcp
     - Name: Configuring Google Cloud features for control plane machines
       File: cpmso-supported-features-gcp
-    - Name: Changing control plane configuration options for Nutanix
+    - Name: Control plane configuration options for Nutanix
       File: cpmso-config-options-nutanix
-    - Name: Changing control plane configuration options for Red Hat OpenStack Platform
+    - Name: Control plane configuration options for Red Hat OpenStack Platform
       File: cpmso-config-options-openstack
     - Name: Configuring Red Hat OpenStack Platform features for control plane machines
       File: cpmso-supported-features-openstack
-    - Name: Changing control plane configuration options for VMware vSphere
+    - Name: Control plane configuration options for VMware vSphere
       File: cpmso-config-options-vsphere
     - Name: Configuring VMware vSphere features for control plane machines
       File: cpmso-supported-features-vsphere

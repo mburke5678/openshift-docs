@@ -1,7 +1,7 @@
 :_mod-docs-content-type: ASSEMBLY
 include::_attributes/common-attributes.adoc[]
 [id="cpmso-config-options-nutanix"]
-= Changing control plane configuration options for Nutanix
+= Control plane configuration options for Nutanix
 :context: cpmso-config-options-nutanix
 
 toc::[]
