@@ -16,9 +16,9 @@ include::modules/update-ensuring-that-layered-products-are-compatible.adoc[level
 [role="_additional-resources"]
 .Additional resources
 
-* xref:../../../edge_computing/day_2_core_cnf_clusters/updating/update-completing-the-control-plane-only-update.adoc#update-updating-the-worker-nodes_completing-the-update[Updating the worker nodes]
+* xref:../../../post_installation_configuration/day_2_core_cnf_clusters/updating/update-completing-the-control-plane-only-update.adoc#update-updating-the-worker-nodes_completing-the-update[Updating the worker nodes]
 
-* xref:../../../edge_computing/day_2_core_cnf_clusters/updating/update-completing-the-control-plane-only-update.adoc#update-updating-all-the-olm-operators_completing-the-update[Updating all the OLM Operators]
+* xref:../../../post_installation_configuration/day_2_core_cnf_clusters/updating/update-completing-the-control-plane-only-update.adoc#update-updating-all-the-olm-operators_completing-the-update[Updating all the OLM Operators]
 
 include::modules/update-applying-mcp-labels-to-nodes-before-the-update.adoc[leveloffset=+1]
 
@@ -38,9 +38,9 @@ include::modules/update-creating-mcp-groups-for-the-cluster.adoc[leveloffset=+2]
 
 * xref:../../../updating/understanding_updates/understanding-openshift-update-duration.adoc#factors-affecting-update-duration_openshift-update-duration[Factors affecting update duration]
 
-* xref:../../../edge_computing/day_2_core_cnf_clusters/updating/update-cnf-update-prep.adoc#update-pdb_update-cnf-update-prep[Ensuring that CNF workloads run uninterrupted with pod disruption budgets]
+* xref:../../../post_installation_configuration/day_2_core_cnf_clusters/updating/update-cnf-update-prep.adoc#update-pdb_update-cnf-update-prep[Ensuring that CNF workloads run uninterrupted with pod disruption budgets]
 
-* xref:../../../edge_computing/day_2_core_cnf_clusters/updating/update-cnf-update-prep.adoc#update-pod-anti-affinity_update-cnf-update-prep[Ensuring that pods do not run on the same cluster node]
+* xref:../../../post_installation_configuration/day_2_core_cnf_clusters/updating/update-cnf-update-prep.adoc#update-pod-anti-affinity_update-cnf-update-prep[Ensuring that pods do not run on the same cluster node]
 
 [id="update-environment-considerations_{context}"]
 == Disconnected environment considerations

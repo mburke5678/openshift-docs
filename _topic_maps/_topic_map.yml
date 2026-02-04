@@ -757,6 +757,62 @@ Topics:
   File: configuring-alert-notifications
 - Name: Converting a connected cluster to a disconnected cluster
   File: converting-to-disconnected
+- Name: Day 2 operations for OpenShift Container Platform clusters
+  Dir: day_2_core_cnf_clusters
+  Distros: openshift-origin,openshift-enterprise
+  Topics:
+  - Name: Day 2 operations for OpenShift Container Platform clusters
+    File: telco-day-2-welcome
+  - Name: Upgrading OpenShift Container Platform clusters
+    Dir: updating
+    Topics:
+    - Name: Upgrading OpenShift Container Platform clusters
+      File: update-welcome
+    - Name: OpenShift Container Platform API compatibility
+      File: update-api
+    - Name: Preparing for the cluster update
+      File: update-ocp-update-prep
+    - Name: Managing application pods during the cluster update
+      File: update-cnf-update-prep
+    - Name: Before you update the cluster
+      File: update-before-the-update
+    - Name: Completing the Control Plane Only update
+      File: update-completing-the-control-plane-only-update
+    - Name: Completing the y-stream update
+      File: update-completing-the-y-stream-update
+    - Name: Completing the z-stream update
+      File: update-completing-the-z-stream-update
+  - Name: Troubleshooting and maintaining OpenShift Container Platform clusters
+    Dir: troubleshooting
+    Topics:
+    - Name: Troubleshooting and maintaining OpenShift Container Platform clusters
+      File: troubleshooting-intro
+    - Name: General troubleshooting
+      File: troubleshooting-general-troubleshooting
+    - Name: Cluster maintenance
+      File: troubleshooting-cluster-maintenance
+    - Name: Security
+      File: troubleshooting-security
+    - Name: Certificate maintenance
+      File: troubleshooting-cert-maintenance
+    - Name: Machine Config Operator
+      File: troubleshooting-mco
+    - Name: Bare-metal node maintenance
+      File: troubleshooting-bmn-maintenance
+  - Name: Observability
+    Dir: observability
+    Topics:
+    - Name: Observability in OpenShift Container Platform
+      File: observability
+  - Name: Security
+    Dir: security
+    Topics:
+    - Name: Security basics
+      File: security-basics
+    - Name: Host security
+      File: security-host-sec
+    - Name: Security context constraints
+      File: security-sec-context-constraints
 ---
 Name: Updating clusters
 Dir: updating
@@ -3676,62 +3732,6 @@ Topics:
       File: ibi-edge-image-based-install
     - Name: Deploying single-node OpenShift using the installation program
       File: ibi-edge-image-based-install-standalone
-- Name: Day 2 operations for OpenShift Container Platform clusters
-  Dir: day_2_core_cnf_clusters
-  Distros: openshift-origin,openshift-enterprise
-  Topics:
-  - Name: Day 2 operations for OpenShift Container Platform clusters
-    File: telco-day-2-welcome
-  - Name: Upgrading OpenShift Container Platform clusters
-    Dir: updating
-    Topics:
-    - Name: Upgrading OpenShift Container Platform clusters
-      File: update-welcome
-    - Name: OpenShift Container Platform API compatibility
-      File: update-api
-    - Name: Preparing for the cluster update
-      File: update-ocp-update-prep
-    - Name: Managing application pods during the cluster update
-      File: update-cnf-update-prep
-    - Name: Before you update the cluster
-      File: update-before-the-update
-    - Name: Completing the Control Plane Only update
-      File: update-completing-the-control-plane-only-update
-    - Name: Completing the y-stream update
-      File: update-completing-the-y-stream-update
-    - Name: Completing the z-stream update
-      File: update-completing-the-z-stream-update
-  - Name: Troubleshooting and maintaining OpenShift Container Platform clusters
-    Dir: troubleshooting
-    Topics:
-    - Name: Troubleshooting and maintaining OpenShift Container Platform clusters
-      File: troubleshooting-intro
-    - Name: General troubleshooting
-      File: troubleshooting-general-troubleshooting
-    - Name: Cluster maintenance
-      File: troubleshooting-cluster-maintenance
-    - Name: Security
-      File: troubleshooting-security
-    - Name: Certificate maintenance
-      File: troubleshooting-cert-maintenance
-    - Name: Machine Config Operator
-      File: troubleshooting-mco
-    - Name: Bare-metal node maintenance
-      File: troubleshooting-bmn-maintenance
-  - Name: Observability
-    Dir: observability
-    Topics:
-    - Name: Observability in OpenShift Container Platform
-      File: observability
-  - Name: Security
-    Dir: security
-    Topics:
-    - Name: Security basics
-      File: security-basics
-    - Name: Host security
-      File: security-host-sec
-    - Name: Security context constraints
-      File: security-sec-context-constraints
 ---
 Name: Specialized hardware and driver enablement
 Dir: hardware_enablement

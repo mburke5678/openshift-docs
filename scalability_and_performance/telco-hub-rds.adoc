@@ -26,7 +26,7 @@ include::modules/telco-hub-telco-management-cluster-use-model.adoc[leveloffset=+
 * For more information about lifecycle management for the fleet of managed clusters see:
 ** xref:../edge_computing/image_based_upgrade/cnf-understanding-image-based-upgrade.adoc#cnf-understanding-image-based-upgrade[Image-based upgrade for {sno} clusters]
 ** xref:../edge_computing/cnf-talm-for-cluster-upgrades.adoc#cnf-talm-for-cluster-updates[Updating managed clusters with the {cgu-operator-full}]
-** xref:../edge_computing/day_2_core_cnf_clusters/telco-day-2-welcome.adoc#telco-day-2-welcome[Upgrading a telco core CNF cluster]
+** xref:../post_installation_configuration/day_2_core_cnf_clusters/telco-day-2-welcome.adoc#telco-day-2-welcome[Upgrading a telco core CNF cluster]
 
 * For more information about declarative cluster provisioning with {ztp} see:
 ** xref:../edge_computing/ztp-deploying-far-edge-sites.adoc#ztp-deploying-far-edge-sites[Installing managed clusters with {rh-rhacm} and SiteConfig resources]

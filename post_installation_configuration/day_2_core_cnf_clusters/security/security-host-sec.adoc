@@ -15,7 +15,7 @@ include::modules/security-rhcos-overview.adoc[leveloffset=+1]
 
 * xref:../../../architecture/architecture-rhcos.adoc[Red Hat Enterprise Linux CoreOS (RHCOS)]
 
-* xref:../../../edge_computing/day_2_core_cnf_clusters/security/security-host-sec.adoc#security-linux-capabilities-overview_security-host-sec[Linux capabilities]
+* xref:../../../post_installation_configuration/day_2_core_cnf_clusters/security/security-host-sec.adoc#security-linux-capabilities-overview_security-host-sec[Linux capabilities]
 
 include::modules/security-command-line-host-access.adoc[leveloffset=+1]
 
