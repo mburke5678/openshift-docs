@@ -43,7 +43,7 @@ include::snippets/rosa-long-cluster-name.adoc[]
 	  	"AWS": [
           "arn:aws:iam::<Cluster-Creator's-AWS-Account-ID>:role/<prefix>-ingress-operator-cloud-credentials",
           "arn:aws:iam::<Cluster-Creator's-AWS-Account-ID>:role/<prefix>-hcp-Installer-Role",
-          "arn:aws:iam::<Cluster-Creator's-AWS-Account-ID>:role/<prefix>-control-plane-operator-cloud-credentials"
+          "arn:aws:iam::<Cluster-Creator's-AWS-Account-ID>:role/<prefix>-control-plane-operator"
         ]
 	  },
 	  "Action": "sts:AssumeRole"
@@ -65,7 +65,7 @@ include::snippets/rosa-long-cluster-name.adoc[]
 	  "Principal": {
 	  	"AWS": [
           "arn:aws:iam::<Cluster-Creator's-AWS-Account-ID>:role/<prefix>-hcp-Installer-Role",
-          "arn:aws:iam::<Cluster-Creator's-AWS-Account-ID>:role/<prefix>-control-plane-operator-cloud-credentials"
+          "arn:aws:iam::<Cluster-Creator's-AWS-Account-ID>:role/<prefix>-control-plane-operator"
         ]
 	  },
 	  "Action": "sts:AssumeRole"
