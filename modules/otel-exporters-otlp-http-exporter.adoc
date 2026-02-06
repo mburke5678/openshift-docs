@@ -31,6 +31,6 @@ The OTLP HTTP Exporter exports traces and metrics by using the OpenTelemetry pro
 # ...
 ----
 <1> The OTLP HTTP endpoint. If the `+https://+` scheme is used, then client transport security is enabled and overrides the `insecure` setting in the `tls`.
-<2> The client side TLS configuration. Defines paths to TLS certificates.
+<2> The client-side TLS configuration. Defines paths to TLS certificates.
 <3> Headers are sent in every HTTP request.
 <4> If true, disables HTTP keep-alives. It will only use the connection to the server for a single HTTP request.
