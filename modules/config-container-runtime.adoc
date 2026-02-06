@@ -11,22 +11,22 @@ You can configure the container runtime used with new workloads on your nodes. Y
 
 For information on crun and runc, see "About the container engine and container runtime".
 
-Starting in {product-title} 4.18, crun is the default container runtime for new containers. You can change between the runtimes by using a `ContainerRuntimeConfig` object, as described in the procedure below. Changing the container runtime affects new workloads only. Existing workloads continue to use the existing container runtime. 
+Starting in {product-title} 4.18, crun is the default container runtime for new installations. You can change between the runtimes by using a `ContainerRuntimeConfig` object, as described in the procedure below. Changing the container runtime affects new workloads only. Existing workloads continue to use the existing container runtime. 
 
-However, if you updated your cluster from {product-title} 4.17, the runc container runtime remains unchanged as the default. Specific machine configs were added to your cluster upon upgrade that override the new default of crun as the runtime. You can change the container runtime to crun, if needed by removing these machine configs at any time. 
+If you updated your cluster from {product-title} 4.17, the runc container runtime remains unchanged as the default. During the upgrade, two `MachineConfig` objects, one for the control plane nodes and one for the worker nodes, were created to override the new default runtime. You can migrate the container runtime to crun, on a schedule of your choosing, by removing either or both of the `MachineConfig` objects.
 
 .Procedure
 
 * Configure a cluster that is updated from {product-title} 4.17 to use the crun container runtime:
 
-** Configure crun for worker nodes by running the following command:
+** Migrate your worker nodes to crun by running the following command:
 +
 [source,terminal]
 ----
 $ oc delete machineconfig 00-override-worker-generated-crio-default-container-runtime
 ----
 
-** Configure crun for control plane nodes by running the following command:
+** Migrate your control plane nodes to crun by running the following command:
 +
 [source,terminal]
 ----
@@ -94,4 +94,4 @@ INFO[2026-01-27 23:09:18.413462914Z] Starting CRI-O, version: 1.30.14-6.rhaos4.1
     default_runtime = "runc"
 ----
 +
-The `default_runtime` parameter specifies the container runtime that {product-title} uses for new workloads on this node.
+The `default_runtime` parameter specifies the container runtime that {product-title} uses for new workloads on this node, either `crun` or `runc`, depending on what you have configured.
