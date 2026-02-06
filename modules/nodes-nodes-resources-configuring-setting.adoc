@@ -13,10 +13,10 @@ As an administrator, you can set these values by using a kubelet config custom r
 
 [IMPORTANT]
 ====
-You must use a kubelet config CR to manually set resource values. You cannot use a machine config CR.
-====
+* For details on the recommended `system-reserved` values, refer to the link:https://access.redhat.com/solutions/5843241[recommended system-reserved values].
 
-For details on the recommended `system-reserved` values, refer to the link:https://access.redhat.com/solutions/5843241[recommended system-reserved values].
+* You must use a kubelet config CR to manually set resource values. You cannot use a machine config CR.
+====
 
 .Prerequisites
 
