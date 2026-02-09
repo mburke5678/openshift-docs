@@ -75,10 +75,7 @@ spec:
     progressTimeout: 150
 ...
 ----
-+
-where:
-+
-`network`:: Specify the name of the Multus `NetworkAttachmentDefinition` object to use for live migrations.
+** `spec.liveMigrationConfig.network` specifies the name of the Multus `NetworkAttachmentDefinition` object to be used for live migrations.
 
 . Save your changes and exit the editor. The `virt-handler` pods restart and connect to the secondary network.
 
