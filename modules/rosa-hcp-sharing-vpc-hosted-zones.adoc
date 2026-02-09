@@ -5,6 +5,7 @@
 [id="rosa-hcp-sharing-vpc-hosted-zones_{context}"]
 = Step Three - VPC Owner: Updating the shared VPC role and creating hosted zones
 
+[role="_abstract"]
 After the *Cluster Creator* provides the DNS domain and the IAM roles, create two hosted zones and update the trust policy on the IAM roles that were created for sharing the VPC.
 
 [NOTE]

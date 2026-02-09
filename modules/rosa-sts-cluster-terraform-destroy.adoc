@@ -9,11 +9,12 @@ endif::[]
 ifeval::["{context}" == "rosa-hcp-creating-a-cluster-quickly-terraform"]
 :tf-rosa-hcp:
 endif::[]
-:_content-type: PROCEDURE
+:_mod-docs-content-type: PROCEDURE
 
 [id="sd-terraform-cluster-destroy_{context}"]
 = Deleting your {product-title} cluster with Terraform
 
+[role="_abstract"]
 Use the `terraform destroy` command to remove all of the resources that were created with the `terraform apply` command.
 
 [NOTE]
