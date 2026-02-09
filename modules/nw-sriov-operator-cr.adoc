@@ -7,7 +7,7 @@
 = SR-IOV Network Operator config custom resource
 
 [role="_abstract"]
-To customize the SR-IOV Network Operator, configure the `sriovoperatorconfig` custom resource. The reference lists the parameters available for controlling the operator's global settings and deployment behavior.
+To customize the SR-IOV Network Operator, configure the `sriovoperatorconfig` custom resource. The reference lists the parameters available for controlling the global settings and deployment behavior of the Operator.
 
 The following table describes the `sriovoperatorconfig` CR fields:
 
