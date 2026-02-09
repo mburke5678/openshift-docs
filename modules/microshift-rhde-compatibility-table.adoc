@@ -1,13 +1,17 @@
-//Snippet included in the following assemblies:
+// Module included in the following assemblies:
 //
-//* microshift_updating/microshift-about-updates.adoc
-//* microshift_updating/microshift-update-options.adoc
+// * microshift_install_get_ready/microshift-install-get-ready.adoc
+// * microshift_troubleshooting/microshift-troubleshoot-updates.adoc
+// * microshift_updating/microshift-update-options.adoc
 
-:_mod-docs-content-type: SNIPPET
+:_mod-docs-content-type: REFERENCE
+[id="microshift-rhde-compatibility-table_{context}"]
+= {op-system-bundle} release compatibility matrix
 
-.{op-system-bundle} release compatibility matrix
+[role="_abstract"]
+{op-system-base-full} and {microshift-short} work together as a single solution for device-edge computing. You can update each component separately, but the product versions must be compatible.
 
-{op-system-base-full} and {microshift-short} work together as a single solution for device-edge computing. You can update each component separately, but the product versions must be compatible. Supported configurations of {op-system-bundle} use verified releases for each together as listed in the following table:
+Supported configurations of {op-system-bundle} use verified releases for each together as listed in the following table:
 
 [NOTE]
 ====
