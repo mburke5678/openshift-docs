@@ -70,17 +70,7 @@ include::modules/microshift-inferenceservice-more-options.adoc[leveloffset=+2]
 
 include::modules/microshift-rhoai-model-serving-rt-verify.adoc[leveloffset=+1]
 
-//additional resources for inferenceservice modules
-.Additional resources
-
-* link:https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/latest/html/serving_models/serving-large-models_serving-large-models#inferenceservice[InferenceService] ({rhoai-full} documentation)
-
 include::modules/microshift-rhoai-create-route.adoc[leveloffset=+1]
-
-//additional resources for creating a route
-.Additional resources
-
-* xref:../microshift_networking/microshift-configuring-routes.adoc#microshift-configuring-routes[Configuring routes]
 
 include::modules/microshift-rhoai-query-model-con.adoc[leveloffset=+1]
 
