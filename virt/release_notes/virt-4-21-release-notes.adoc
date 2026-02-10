@@ -50,7 +50,7 @@ The SVVP certification applies to:
 Installing {virtproductname} on {ibm-cloud-name} bare-metal nodes is now generally available. This update provides the ability to install {virtproductname} on {ibm-cloud-title} provisioned bare-metal nodes by using {ai-full}.
 +
 link:https://issues.redhat.com/browse/CNV-27898[CNV-27898]
- 
+
 // Networking
 Custom MAC pool range configuration:: With this update, cluster administrators can specify a custom MAC pool range for a {VirtProductName} environment, preventing potential MAC address conflicts with other virtualization solutions on the same network. This gives cluster administrators more control over network resources, ensuring greater network stability and resource management efficiency.
 +
@@ -125,6 +125,11 @@ With this update, VM owners can force reboot their VMs by clicking *Reset* in th
 link:https://issues.redhat.com/browse/CNV-51003[CNV-51003]
 
 // Monitoring
+
+New metric to list VM labels as Prometheus labels::
+The `kubevirt_vm_labels` metric shows VM labels as Prometheus labels. You can configure the metric to expose and exclude specific labels by editing the `allowlist` and `ignorelist` fields in the `kubevirt-vm-labels-config` config map.
++
+link:https://issues.redhat.com/browse/CNV-56034[CNV-56034]
 
 New alerts in the {VirtProductName} runbooks::
 The following xref:../../virt/monitoring/virt-runbooks.adoc#virt-runbooks[alerts for the {CNVOperatorDisplayName}] are now included in the {VirtProductName} runbooks:
