@@ -6,9 +6,12 @@
 [id="virt-adding-vtpm-to-vm_{context}"]
 = Adding a vTPM device to a virtual machine
 
-Adding a virtual Trusted Platform Module (vTPM) device to a virtual machine
-(VM) allows you to run a VM created from a Windows 11 image without a physical
-TPM device. A vTPM device also temporarily stores secrets for that VM.
+[role="_abstract"]
+Adding a virtual Trusted Platform Module (vTPM) device to a virtual machine (VM) allows you to run a VM created from a Windows 11 image without a physical TPM device. A vTPM device also stores secrets for that VM.
+
+.Prerequisites
+
+* You have installed the {oc-first}.
 
 .Procedure
 
@@ -32,10 +35,10 @@ spec:
     spec:
       domain:
         devices:
-          tpm: {} <1>
-...
+          tpm: {}
+# ...
 ----
-<1> Adds the TPM device to the VM.
+** `spec.template.spec.domain.devices.tpm` specifies the vTPM device to add to the VM.
 
 . To apply your changes, save and exit the editor.
 
