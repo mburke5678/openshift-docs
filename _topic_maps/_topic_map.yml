@@ -3449,6 +3449,8 @@ Topics:
     File: install-kueue
   - Name: Installing Red Hat build of Kueue in a disconnected environment
     File: install-disconnected
+  - Name: Integrating the Leader Worker Set Operator
+    File: integrating-lws
   - Name: Configuring role-based permissions
     File: rbac-permissions
   - Name: Configuring quotas
