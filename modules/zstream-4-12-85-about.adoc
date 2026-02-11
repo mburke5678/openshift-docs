@@ -1,0 +1,24 @@
+// Module included in the following assembly:
+//
+// * release_notes/ocp-4-12-release-notes.adoc
+
+:_mod-docs-content-type: CONCEPT
+[id="zstream-4-12-85-about_{context}"]
+= RHSA-2026:2065 - {product-title} {product-version}.85 bug fix and security update
+
+[role="_abstract"]
+Issued: 12 February 2026
+
+{product-title} release {product-version}.85, which includes security updates, is now available. The list of bug fixes that are included in the update is documented in the link:https://access.redhat.com/errata/RHSA-2026:2065[RHSA-2026:2065] advisory. The RPM packages that are included in the update are provided by the link:https://access.redhat.com/errata/RHBA-2026:2063[RHBA-2026:2063] advisory.
+
+
+Space precluded documenting all of the container images for this release in the advisory.
+
+
+You can view the container images in this release by running the following command:
+
+
+[source,terminal]
+----
+$ oc adm release info 4.12.85 --pullspecs
+----

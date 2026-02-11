@@ -5357,3 +5357,12 @@ include::modules/zstream-4-12-84-bug-fixes.adoc[leveloffset=+2]
 
 // 4.12.84 updating
 include::modules/zstream-4-12-84-updating.adoc[leveloffset=+2]
+
+// 4.12.85 about
+include::modules/zstream-4-12-85-about.adoc[leveloffset=+2]
+
+// 4.12.85 fixes
+include::modules/zstream-4-12-85-bug-fixes.adoc[leveloffset=+2]
+
+// 4.12.85 updating
+include::modules/zstream-4-12-85-updating.adoc[leveloffset=+2]
