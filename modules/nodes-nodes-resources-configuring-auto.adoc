@@ -6,53 +6,18 @@
 [id="nodes-nodes-resources-configuring-auto_{context}"]
 = Automatically allocating resources for nodes
 
-{product-title} can automatically determine the optimal `system-reserved` CPU and memory resources for nodes associated with a specific machine config pool and update the nodes with those values when the nodes start. By default, the `system-reserved` CPU is `500m` and `system-reserved` memory is `1Gi`.
+[role="_abstract"]
+You can configure {product-title} to automatically determine the optimal `system-reserved` CPU and memory resources for nodes associated with a specific machine config pool. {product-title} then updates the nodes with those values when the nodes start. 
 
 To automatically determine and allocate the `system-reserved` resources on nodes, create a `KubeletConfig` custom resource (CR) to set the `autoSizingReserved: true` parameter. A script on each node calculates the optimal values for the respective reserved resources based on the installed CPU and memory capacity on each node. The script takes into account that increased capacity requires a corresponding increase in the reserved resources.
 
-Automatically determining the optimal `system-reserved` settings ensures that your cluster is running efficiently and prevents node failure due to resource starvation of system components, such as CRI-O and kubelet, without your needing to manually calculate and update the values.
+Automatically determining the optimal `system-reserved` settings ensures that your cluster is running efficiently and prevents node failure due to resource starvation of system components, such as CRI-O and kubelet, without your needing to manually calculate and update the values. By default, the `system-reserved` CPU is `500m` and `system-reserved` memory is `1Gi`.
 
 This feature is disabled by default.
 
 .Prerequisites
 
-. Obtain the label associated with the static `MachineConfigPool` object for the type of node you want to configure by entering the following command:
-+
-[source,terminal]
-----
-$ oc edit machineconfigpool <name>
-----
-+
-For example:
-+
-[source,terminal]
-----
-$ oc edit machineconfigpool worker
-----
-+
-.Example output
-[source,yaml]
-----
-apiVersion: machineconfiguration.openshift.io/v1
-kind: MachineConfigPool
-metadata:
-  creationTimestamp: "2022-11-16T15:34:25Z"
-  generation: 4
-  labels:
-    pools.operator.machineconfiguration.openshift.io/worker: "" <1>
-  name: worker
-#...
-----
-<1> The label appears under `Labels`.
-+
-[TIP]
-====
-If an appropriate label is not present, add a key/value pair such as:
-
-----
-$ oc label machineconfigpool worker custom-kubelet=small-pods
-----
-====
+. You have the label associated with the static `MachineConfigPool` object for the type of node you want to configure by entering the following command:
 
 .Procedure
 
@@ -72,9 +37,13 @@ spec:
       pools.operator.machineconfiguration.openshift.io/worker: "" <3>
 #...
 ----
-<1> Assign a name to CR.
-<2> Add the `autoSizingReserved` parameter set to `true` to allow {product-title} to automatically determine and allocate the `system-reserved` resources on the nodes associated with the specified label. To disable automatic allocation on those nodes, set this parameter to `false`.
-<3> Specify the label from the machine config pool that you configured in the "Prerequisites" section. You can choose any desired labels for the machine config pool, such as `custom-kubelet: small-pods`, or the default label, `pools.operator.machineconfiguration.openshift.io/worker: ""`.
+where:
++
+--
+`metadata.name`:: Specifies a name for the CR.
+`spec.autoSizingReserved`:: Specifies whether {product-title} determines and allocates the `system-reserved` resources on the nodes associated with the specified label. Set to `true` to allow automatic allocation on those nodes. Set to `false` to disable automatic allocation on those nodes.
+`spec.machineConfigPoolSelector.matchLabels`:: Specifies the label from the machine config pool where you want to enable or disable automatic resource allocation.
+--
 +
 The previous example enables automatic resource allocation on all worker nodes. {product-title} drains the nodes, applies the kubelet config, and restarts the nodes.
 
