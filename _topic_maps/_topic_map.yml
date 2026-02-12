@@ -717,12 +717,12 @@ Topics:
   Topics:
   - Name: About clusters with multi-architecture compute machines
     File: multi-architecture-configuration
-  - Name: Creating a cluster with multi-architecture compute machines on Azure
-    File: creating-multi-arch-compute-nodes-azure
   - Name: Creating a cluster with multi-architecture compute machines on AWS
     File: creating-multi-arch-compute-nodes-aws
+  - Name: Creating a cluster with multi-architecture compute machines on Azure
+    File: creating-multi-arch-compute-nodes-azure
   - Name: Creating a cluster with multi-architecture compute machines on Google Cloud
-    File: creating-multi-arch-compute-nodes-gcp
+    File: creating-multi-arch-compute-nodes-google-cloud
   - Name: Creating a cluster with multi-architecture compute machines on bare metal, IBM Power, or IBM Z
     File: creating-multi-arch-compute-nodes-bare-metal
   - Name: Creating a cluster with multi-architecture compute machines on IBM Z and IBM LinuxONE with z/VM
