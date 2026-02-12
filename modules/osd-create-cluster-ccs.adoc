@@ -7,12 +7,14 @@
 
 [id="osd-create-gcp-cluster-ccs1_{context}"]
 = Creating a cluster with Service Account authentication using {cluster-manager}
+
+[role="abstract"]
+Through {cluster-manager-url}, you can create an {product-title} cluster on {GCP} using a cloud provider account that you own with the Service Account authentication type.
+
 .Procedure
 
 . Log in to {cluster-manager-url} and click *Create cluster*.
-
 . On the *Create an OpenShift cluster* page, select *Create cluster* in the *Red Hat OpenShift Dedicated* row.
-
 . Under *Billing model*, configure the subscription type and infrastructure type:
 .. Select a subscription type. For information about {product-title} subscription options, see link:https://access.redhat.com/documentation/en-us/openshift_cluster_manager/1-latest/html-single/managing_clusters/index#assembly-cluster-subscriptions[Cluster subscriptions and registration] in the {cluster-manager} documentation.
 +
@@ -26,7 +28,6 @@ For more information, contact your sales representative or Red Hat support.
 +
 .. Select the *Customer Cloud Subscription* infrastructure type to deploy {product-title} in an existing cloud provider account that you own.
 .. Click *Next*.
-
 . Select *Run on {gcp-full}*.
 . Select *Service Account*  as the Authentication type.
 +
