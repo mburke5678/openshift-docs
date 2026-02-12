@@ -26,7 +26,7 @@ include::modules/update-pdb.adoc[leveloffset=+1]
 [role="_additional-resources"]
 .Additional resources
 
-* xref:../../../post_installation_configuration/cluster-tasks.adoc#nodes-pods-pod-disruption-configuring_post-install-pod-disruption-budgets[Specifying the number of pods that must be up with pod disruption budgets]
+* xref:../../../post_installation_configuration/cluster-tasks.adoc#nodes-pods-pod-disruption-configuring_post-install-cluster-tasks[Specifying the number of pods that must be up with pod disruption budgets]
 
 * xref:../../../nodes/pods/nodes-pods-configuring.adoc#nodes-pods-pod-disruption-configuring_nodes-pods-configuring[Configuring an {product-title} cluster for pods]
 
