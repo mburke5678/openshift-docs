@@ -7,7 +7,7 @@
 = Adding worker nodes using the Assisted Installer and {cluster-manager}
 
 [role="_abstract"]
-You can add worker nodes to {sno} clusters that were created on the {cluster-manager-url} by using the link:https://console.redhat.com/openshift/assisted-installer/clusters/~new[Assisted Installer].
+You can add worker nodes to {sno} clusters that were created on the {cluster-manager-url} by using the link:https://console.redhat.com/openshift/assisted-installer/clusters/~new[Assisted Installer]. This method provides and alternative to using command-line commands.
 
 [IMPORTANT]
 ====

@@ -7,9 +7,9 @@
 = Adding worker nodes using the Assisted Installer API
 
 [role="_abstract"]
-You can add worker nodes to {sno} clusters by using the Assisted Installer REST API. 
+You can add worker nodes to clusters by writing command-line commands against the Assisted Installer REST API. This method provides and alternative to using the web console.
 
-Before you add worker nodes, you must log in to link:https://console.redhat.com/openshift/token/show[{cluster-manager}] and authenticate against the API.
+Before you add worker nodes, you must log in to link:https://console.redhat.com/openshift/token/show[{cluster-manager}] and authenticate against the API. After you authenticate, you can use the Assisted Installer REST API to add the nodes.
 
 .Next steps
 

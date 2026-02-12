@@ -7,7 +7,7 @@
 = Adding worker nodes using the Assisted Installer REST API
 
 [role="_abstract"]
-You can add worker nodes to clusters using the Assisted Installer REST API.
+You can add worker nodes to clusters by writing command-line commands against the Assisted Installer REST API. This method provides and alternative to using the web console.
 
 .Prerequisites
 

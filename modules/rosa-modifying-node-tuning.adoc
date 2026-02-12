@@ -28,7 +28,7 @@ $ rosa describe tuning-config -c <cluster_id> <1>
 where:
 +
 --
-`<cluster_id>`:: Specifies the cluster ID for the cluster that you own that you want to apply a node tuning configurations.
+`<cluster_id>`:: Specifies the cluster ID for the cluster that you own that you want to apply a node tuning configuration.
 `<name_of_tuning>`:: Specifies the name of your tuning configuration.
 `-o json`:: Specifies the output type. This parameter is optional. If you do not specify any outputs, you only see the ID and name of the tuning configuration.
 --
