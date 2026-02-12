@@ -1,7 +1,7 @@
 :_mod-docs-content-type: ASSEMBLY
+include::_attributes/attributes-microshift.adoc[]
 [id="microshift-backup-and-restore"]
 = Backing up and restoring {microshift-short} data
-include::_attributes/attributes-microshift.adoc[]
 :context: microshift-backup-and-restore
 
 toc::[]
