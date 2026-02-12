@@ -43,7 +43,9 @@ $ sudo microshift backup /var/lib/microshift-backups/_<manual_backup>_
 ----
 $ sudo microshift backup /mnt/_<other_backups_location>_/_<another_manual_backup>_
 ----
-Replace `_<other_backups_location>_` with the directory you want to use and `_<my_manual_backup>_` with the backup name you want to use.
++
+** For `_<other_backups_location>_`, specify the directory that you want to use.
+** For `_<another_manual_backup>_`, specify the backup name that you want to use.
 
 .Verification
 
