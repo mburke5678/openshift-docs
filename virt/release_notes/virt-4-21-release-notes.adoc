@@ -135,6 +135,11 @@ With this update, the VNC console now offers access to function keys F1-F12. Thi
 +
 link:https://issues.redhat.com/browse/CNV-71884[CNV-71884]
 
+Integrate third-party solutions with dynamic plugins::
+With this update, cluster administrators can integrate third-party solutions into {VirtProductName} web console pages by using dynamic plugins. You can use dynamic plugins to add custom tabs or actions, including bulk operations for VM owners.
++
+link:https://issues.redhat.com/browse/CNV-73256[CNV-73256]
+
 // Monitoring
 
 New metric to list VM labels as Prometheus labels::
