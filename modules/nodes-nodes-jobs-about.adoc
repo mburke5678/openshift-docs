@@ -116,7 +116,7 @@ Doing this prevents them from generating unnecessary artifacts.
 ====
 endif::openshift-rosa,openshift-rosa-hcp,openshift-dedicated[]
 
-[id="jobs-artifacts_{context}"]
+[id="jobs-ttl_{context}"]
 == Understanding how to automatically remove completed jobs
 
 You can specify that {product-title} should delete jobs when they are finished, either `Complete` or `Failed`, in order to limit the number of objects in your cluster.
