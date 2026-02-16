@@ -3498,6 +3498,8 @@ Topics:
   Topics:
   - Name: Recommended control plane practices
     File: recommended-control-plane-practices
+  - Name: Selecting a larger AWS instance type for control plane machines
+    File: increasing-aws-flavor-size
   - Name: Recommended infrastructure practices
     File: recommended-infrastructure-practices
 - Name: Telco core reference design specifications
