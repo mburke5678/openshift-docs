@@ -6,5 +6,4 @@
 [id="nodes-edge-remote-workers-latency_{context}"]
 = Latency spikes or temporary reduction in throughput to remote workers
 
-[role="_abstract"]
 include::snippets/worker-latency-profile-intro.adoc[]
