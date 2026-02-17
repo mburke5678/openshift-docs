@@ -103,7 +103,7 @@ For offline use cases, include a tag other than `latest`. If you use the `latest
 +
 [source,terminal]
 ----
-$ sudo podman images _<ovms-resnet50:test>_
+$ sudo podman images _<ovms-resnet50>_
 ----
 where:
 +
