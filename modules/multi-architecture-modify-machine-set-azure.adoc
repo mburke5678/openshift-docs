@@ -1,11 +1,12 @@
 //Module included in the following assembly
 //
-//post_installation_configuration/cluster-tasks.adoc
+// post_installation_configuration/configuring-multi-arch-compute-machines/multi-arch-compute-nodes-aws.adoc
 
 :_mod-docs-content-type: PROCEDURE
-[id="multi-architecture-modify-machine-set_{context}"]
+[id="multi-architecture-modify-machine-set-azure_{context}"]
 = Adding a multi-architecture compute machine set to your Azure cluster
 
+[role="_abstract"]
 After creating a multi-architecture cluster, you can add nodes with different architectures. 
 
 You can add multi-architecture compute machines to a multi-architecture cluster in the following ways:
@@ -19,17 +20,17 @@ include::snippets/about-multiarch-tuning-operator.adoc[]
 
 .Prerequisites
 
-* You installed the OpenShift CLI (`oc`).
+* You installed the {oc-first}.
 * You created a 64-bit ARM or 64-bit x86 boot image.
-* You used the installation program to create a 64-bit ARM or 64-bit x86 single-architecture Azure cluster with the multi-architecture installer binary.
+* You used the installation program to create a 64-bit ARM or 64-bit x86 single-architecture cluster with the multi-architecture installer binary.
 
 .Procedure
 
 . Log in to the {oc-first}.
 
-. Create a YAML file, and add the configuration to create a compute machine set to control the 64-bit ARM or 64-bit x86 compute nodes in your cluster.
+. Create a YAML file and add the configuration to create a compute machine set to control the 64-bit ARM or 64-bit x86 compute nodes in your cluster.
 +
-.Example `MachineSet` object for an Azure 64-bit ARM or 64-bit x86 compute node
+.Example `MachineSet` object for an {azure-short} 64-bit ARM or x86 compute node
 [source,yaml]
 ----
 apiVersion: machine.openshift.io/v1beta1
@@ -67,7 +68,7 @@ spec:
           image:
             offer: ""
             publisher: ""
-            resourceID: /resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.Compute/galleries/${GALLERY_NAME}/images/rhcos-arm64/versions/1.0.0 <1>
+            resourceID: /resourceGroups/${RESOURCE_GROUP}/providers/Microsoft.Compute/galleries/${GALLERY_NAME}/images/rhcos-arm64/versions/1.0.0
             sku: ""
             version: ""
           kind: AzureMachineProviderSpec
@@ -86,20 +87,24 @@ spec:
           subnet: <infrastructure_id>-worker-subnet
           userDataSecret:
             name: worker-user-data
-          vmSize: Standard_D4ps_v5 <2>
+          vmSize: Standard_D4ps_v5
           vnet: <infrastructure_id>-vnet
           zone: "<zone>"
 ----
-<1> Set the `resourceID` parameter to either `arm64` or `amd64` boot image.
-<2> Set the `vmSize` parameter to the instance type used in your installation. Some example instance types are `Standard_D4ps_v5` or `D8ps`.
++
+where:
++
+`image.resourceID`:: Specifies the boot image, such as `arm64` or `amd64`.
++
+`vmSize`:: Specifies the instance type used in your installation. Some example instance types are `Standard_D4ps_v5` or `D8ps`.
 
 . Create the compute machine set by running the following command:
 +
 [source,terminal]
 ----
-$ oc create -f <file_name> <1>
+$ oc create -f <file_name>
 ----
-<1> Replace `<file_name>` with the name of the YAML file with compute machine set configuration. For example: `arm64-machine-set-0.yaml`, or ``amd64-machine-set-0.yaml``.
+** Replace `<file_name>` with the name of the YAML file with compute machine set configuration. For example: `arm64-machine-set-0.yaml`, or `amd64-machine-set-0.yaml`.
 
 .Verification
 
@@ -118,9 +123,11 @@ The output must include the machine set that you created.
 NAME                                                DESIRED  CURRENT  READY  AVAILABLE  AGE
 <infrastructure_id>-machine-set-0                   2        2      2          2  10m
 ----
+
 . You can check if the nodes are ready and schedulable by running the following command:
 +
 [source,terminal]
 ----
 $ oc get nodes
 ----
+
