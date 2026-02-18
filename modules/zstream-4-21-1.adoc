@@ -9,7 +9,7 @@
 [role="_abstract"]
 Issued: 10 February 2026
 
-{product-title} release {product-version}.33 is now available. The list of bug fixes that are included in the update is documented in the link:https://access.redhat.com/errata/RHSA-2026:2129[RHSA-2026:2129] advisory. The RPM packages that are included in the update are provided by the link:https://access.redhat.com/errata/RHSA-2026:2082[RHSA-2026:2082] advisory.
+{product-title} release {product-version}.1 is now available. The list of bug fixes that are included in the update is documented in the link:https://access.redhat.com/errata/RHSA-2026:2129[RHSA-2026:2129] advisory. The RPM packages that are included in the update are provided by the link:https://access.redhat.com/errata/RHSA-2026:2082[RHSA-2026:2082] advisory.
 
 Space precluded documenting all of the container images for this release in the advisory.
 
@@ -218,3 +218,8 @@ The following issues are fixed for this release:
 * Before this update, unexpected issues occurred during the initial provisioning of a `HostedCluster` resource. With this release, the system uses the `ControlPlaneComponent` resource to ensure that the `HostedCluster` resource is available only after all control plane components have been successfully rolled out. As a result, the rollout status of each control plane component is accurately tracked, which reduces the risk of unexpected issues. (link:https://issues.redhat.com/browse/OCPBUGS-74648[OCPBUGS-74648])
 
 * Before this update, {gcp-first} installations failed due to unspecified zones in the `us-south1` and `us-central1` regions, which caused installation issues. With this release, the GCP installer requires that you specify zones in `install-config` for regions with AI zones. As a result, {gcp-short} installations do not fail in these specified regions. (link:https://issues.redhat.com/browse/OCPBUGS-74672[OCPBUGS-74672])
+
+[id="zstream-4-21-1-updating_{context}"]
+== Updating
+
+To update an {product-title} 4.21 cluster to this latest release, see xref:../updating/updating_a_cluster/updating-cluster-cli.adoc#updating-cluster-cli[Updating a cluster using the CLI].
