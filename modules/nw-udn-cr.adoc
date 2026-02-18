@@ -18,8 +18,9 @@ When deploying a `UserDefinedNetwork` custom resource (CR) on {ibm-power-name} V
 
 .Prerequisites
 
-* You have logged in with `cluster-admin` privileges, or you have `view` and `edit` role-based access control (RBAC).
-
+* As a cluster administrator, you have created a namespace.
+** During namespace creation, ensure you also applied the `k8s.ovn.org/primary-user-defined-network` label to the namespace.
+** After you create the namespace, a user that has `view` and `edit` role-based access control (RBAC) permissions can create a `UserDefinedNetwork` CR in the namespace.
 
 .Procedure
 
