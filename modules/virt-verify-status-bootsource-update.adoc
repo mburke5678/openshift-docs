@@ -17,19 +17,18 @@ The `status` section of each boot source listed in the `status.dataImportChronTe
 
 . Verify the status of the boot source.
 +
-.Example output
-
+Example output:
++
 [source,yaml]
 ----
-...
 apiVersion: hco.kubevirt.io/v1beta1
 kind: HyperConverged
-...
+# ...
 spec:
-  ...
-status: <1>
-  ...
-  dataImportCronTemplates: <2>
+  # ...
+status:
+  # ...
+  dataImportCronTemplates:
   - metadata:
       annotations:
         cdi.kubevirt.io/storage.bind.immediate.requested: "true"
@@ -50,7 +49,7 @@ status: <1>
                 storage: 30Gi
         status: {}
     status:
-      commonTemplate: true <3>
+      commonTemplate: true
     ...
   - metadata:
       annotations:
@@ -72,10 +71,8 @@ status: <1>
               requests:
                 storage: 30Gi
         status: {}
-    status: {} <4>
-...
+    status: {}
+# ...
 ----
-<1> The `status` field for the `HyperConverged` CR.
-<2> The `dataImportCronTemplates` field, which lists all defined boot sources.
-<3> Indicates a system-defined boot source.
-<4> Indicates a user-defined boot source.
+** `status.dataImportCronTemplates.status.commonTemplate` specifies a system-defined boot source.
+** `status.dataImportCronTemplates.status` specifies a custom boot source.
