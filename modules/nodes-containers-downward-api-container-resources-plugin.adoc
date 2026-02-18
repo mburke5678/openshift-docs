@@ -6,6 +6,7 @@
 [id="nodes-containers-downward-api-container-resources-plugin_{context}"]
 = Consuming container resources using a volume plugin
 
+[role="_abstract"]
 When creating pods, you can use the Downward API to inject information about
 computing resource requests and limits using a volume plugin.
 
@@ -70,7 +71,7 @@ spec:
 # ...
 ----
 
-.. Create the pod from the `*_volume-pod.yaml_*` file:
+.. Create the pod from the `*_volume-pod.yaml_*` file by using the following command:
 +
 [source,terminal]
 ----
