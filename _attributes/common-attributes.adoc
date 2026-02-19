@@ -60,8 +60,6 @@ endif::[]
 :velero-1.12: link:https://{velero-domain}/docs/v1.12/[1.12]
 :velero-1.14: link:https://{velero-domain}/docs/v1.14/[1.14]
 :velero-1.16: link:https://{velero-domain}/docs/v1.16/[1.16]
-:ocp-user-workload-monitoring: link:https://docs.redhat.com/en/documentation/openshift_container_platform/{product-version}/html/monitoring/configuring-user-workload-monitoring[Configuring user workload monitoring]
-
 :oc-first: pass:quotes[OpenShift CLI (`oc`)]
 :product-registry: OpenShift image registry
 :product-mirror-registry: Mirror registry for Red Hat OpenShift
