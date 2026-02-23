@@ -92,7 +92,7 @@ Runbooks for the {VirtProductName} Operator are maintained in the link:https://g
 [id="virt-runbook-KubeMacPoolDuplicateMacsFound"]
 == KubeMacPoolDuplicateMacsFound
 
-* link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/KubeMacPoolDuplicateMacsFound.md[View the runbook] for the `KubeMacPoolDuplicateMacsFound` alert.
+* The `KubeMacPoolDuplicateMacsFound` alert is link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/KubeMacPoolDuplicateMacsFound.md[deprecated].
 
 [id="virt-runbook-KubeVirtComponentExceedsRequestedCPU"]
 == KubeVirtComponentExceedsRequestedCPU
@@ -122,7 +122,7 @@ Runbooks for the {VirtProductName} Operator are maintained in the link:https://g
 [id="virt-runbook-KubevirtVmHighMemoryUsage"]
 == KubevirtVmHighMemoryUsage
 
-* link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/KubevirtVmHighMemoryUsage.md[View the runbook] for the `KubevirtVmHighMemoryUsage` alert.
+* The `KubevirtVmHighMemoryUsage` alert is link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/KubevirtVmHighMemoryUsage.md[deprecated].
 
 [id="virt-runbook-KubeVirtVMIExcessiveMigrations"]
 == KubeVirtVMIExcessiveMigrations
@@ -192,7 +192,7 @@ Runbooks for the {VirtProductName} Operator are maintained in the link:https://g
 [id="virt-runbook-SingleStackIPv6Unsupported"]
 == SingleStackIPv6Unsupported
 
-* link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/SingleStackIPv6Unsupported.md[View the runbook] for the `SingleStackIPv6Unsupported` alert.
+* The `SingleStackIPv6Unsupported` alert is link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/SingleStackIPv6Unsupported.md[deprecated].
 
 [id="virt-runbook-SSPCommonTemplatesModificationReverted"]
 == SSPCommonTemplatesModificationReverted
@@ -237,7 +237,7 @@ Runbooks for the {VirtProductName} Operator are maintained in the link:https://g
 [id="virt-runbook-VirtApiRESTErrorsHigh"]
 == VirtApiRESTErrorsHigh
 
-* link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/VirtApiRESTErrorsHigh.md[View the runbook] for the `VirtApiRESTErrorsHigh` alert.
+* The `VirtApiRESTErrorsHigh` alert is link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/VirtApiRESTErrorsHigh.md[deprecated].
 
 [id="virt-runbook-VirtControllerDown"]
 == VirtControllerDown
@@ -252,7 +252,7 @@ Runbooks for the {VirtProductName} Operator are maintained in the link:https://g
 [id="virt-runbook-VirtControllerRESTErrorsHigh"]
 == VirtControllerRESTErrorsHigh
 
-* link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/VirtControllerRESTErrorsHigh.md[View the runbook] for the `VirtControllerRESTErrorsHigh` alert.
+* The `VirtControllerRESTErrorsHigh` alert is link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/VirtControllerRESTErrorsHigh.md[deprecated].
 
 [id="virt-runbook-VirtHandlerDaemonSetRolloutFailing"]
 == VirtHandlerDaemonSetRolloutFailing
@@ -267,7 +267,7 @@ Runbooks for the {VirtProductName} Operator are maintained in the link:https://g
 [id="virt-runbook-VirtHandlerRESTErrorsHigh"]
 == VirtHandlerRESTErrorsHigh
 
-* link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/VirtHandlerRESTErrorsHigh.md[View the runbook] for the `VirtHandlerRESTErrorsHigh` alert.
+* The `VirtHandlerRESTErrorsHigh` alert is link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/VirtHandlerRESTErrorsHigh.md[deprecated].
 
 [id="virt-runbook-VirtOperatorDown"]
 == VirtOperatorDown
@@ -282,12 +282,12 @@ Runbooks for the {VirtProductName} Operator are maintained in the link:https://g
 [id="virt-runbook-VirtOperatorRESTErrorsHigh"]
 == VirtOperatorRESTErrorsHigh
 
-* link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/VirtOperatorRESTErrorsHigh.md[View the runbook] for the `VirtOperatorRESTErrorsHigh` alert.
+* The `VirtOperatorRESTErrorsHigh` alert is link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/VirtOperatorRESTErrorsHigh.md[deprecated].
 
 [id="virt-runbook-VirtualMachineCRCErrors"]
 == VirtualMachineCRCErrors
 
-* The runbook for the `VirtualMachineCRCErrors` alert is deprecated because the alert was renamed to `VMStorageClassWarning`. 
+* The runbook for the `VirtualMachineCRCErrors` alert is deprecated because the alert was renamed to `VMStorageClassWarning`.
 ** link:https://github.com/openshift/runbooks/blob/master/alerts/openshift-virtualization-operator/VMStorageClassWarning.md[View the runbook] for the `VMStorageClassWarning` alert.
 
 [id="virt-runbook-VMCannotBeEvicted"]
