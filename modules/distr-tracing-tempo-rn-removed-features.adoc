@@ -6,4 +6,6 @@
 [id="removed-features_{context}"]
 = Removed features
 
-None.
+[role="_abstract"]
+// None.
+The {TempoShortName} 3.9 release removes the following features.
