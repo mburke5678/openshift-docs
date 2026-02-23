@@ -64,10 +64,12 @@ include::modules/cnf-creating-nrop-cr.adoc[leveloffset=+2]
 
 include::modules/cnf-creating-nrop-cr-hosted-control-plane.adoc[leveloffset=+2]
 
+////
 [role="_additional-resources"]
 .Additional resources
 
-* xref:../scalability_and_performance/cnf-tuning-low-latency-hosted-cp-nodes-with-perf-profile.adoc#cnf-create-performance-profiles-hosted-cp[Creating a performance profile for hosted control planes]
+* ../../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#cnf-create-performance-profiles_cnf-tuning-low-latency-nodes-with-perf-profile[Creating a performance profile]
+////
 
 include::modules/cnf-deploying-the-numa-aware-scheduler.adoc[leveloffset=+2]
 
