@@ -1,0 +1,23 @@
+// Module included in the following assemblies:
+//
+// * backup_and_restore/application_backup_and_restore/release-notes/oadp-release-notes-1-3.adoc
+
+:_mod-docs-content-type: REFERENCE
+
+[id="oadp-1-3-9-release-notes_{context}"]
+= {oadp-short} 1.3.9 release notes
+
+[role="_abstract"]
+{oadp-first} 1.3.9 is a Container Grade Only (CGO) release, which is released to refresh the health grades of the containers. No code was changed in the product itself compared to that of {oadp-short} 1.3.8. {oadp-short} 1.3.9 fixes several Common Vulnerabilities and Exposures (CVEs).
+
+
+[id="resolved-issues-1-3-9_{context}"]
+== Resolved issues
+
+{oadp-short} 1.3.9 fixes the following CVEs::
+
+* link:https://access.redhat.com/security/cve/cve-2025-66418[CVE-2025-66418]
+
+* link:https://access.redhat.com/security/cve/cve-2025-66471[CVE-2025-66471]
+
+* link:https://access.redhat.com/security/cve/cve-2026-21441[CVE-2026-21441]
