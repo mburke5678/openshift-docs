@@ -7,31 +7,27 @@
 = Fixed issues
 
 [role="_abstract"]
-The {TempoShortName} 3.8.2 patch release includes a fix for the following issue:
+The {TempoShortName} 3.9 release fixes the following issues.
+
+Fixed network policies for managed OpenShift services::
+Before this update, the Operator network policies used a hard-coded port 6443 for the API server. As a consequence, the Operator failed to connect to managed OpenShift services that expose the API on port 443. With this update, the Operator dynamically retrieves the control plane address from service endpoints. As a result, network policies work correctly on all OpenShift environments.
++
+link:https://issues.redhat.com/browse/TRACING-5974[TRACING-5974]
+
+CVE-2025-61726::
+Before this update, a flaw existed in the `net/url` package in the Go standard library. As a consequence, a denial-of-service HTTP request with a massive number of query parameters could cause the application to consume an excessive amount of memory and eventually become unresponsive. This release eliminates this flaw.
++
+link:https://access.redhat.com/security/cve/cve-2025-61726[CVE-2025-61726]
 
 CVE-2025-61729::
-Before this update, the `HostnameError.Error()` function in the Go `crypto/x509` package used string concatenation in a loop without limiting the number of printed hostnames. This behavior caused quadratic runtime when processing certificates with many hostnames, allowing attackers to consume excessive resources. With this update, the function uses the Go `strings.Builder` programming element for efficient string construction and limits the number of hostnames in an error message to 99. As a result, the function now runs efficiently even for certificates with many hostnames.
+Before this update, the `HostnameError.Error()` function in the Go `crypto/x509` package used string concatenation in a loop without limiting the number of printed hostnames. As a consequence, processing a malicious certificate with many hostnames could cause excessive CPU and memory consumption, leading to a denial-of-service condition. This release includes the fix for this flaw.
 +
-link:https://access.redhat.com/security/cve/cve-2025-61729[CVE-2025-61729]
+link:https://access.redhat.com/security/cve/CVE-2025-61729[CVE-2025-61729]
 
-The {TempoShortName} 3.8.1 patch release includes a fix for the following issue:
-
-CVE-2025-58183::
-Before this update, malicious tar archives could be used for denial of service by triggering memory overuse by the `tar.Reader` decompressor. With this update, the Go version upgrade to 1.25.3 enforces a maximum limit on the count of sparse region data blocks. As a result, memory usage when processing these archives is bounded and secure.
+CVE-2025-68121::
+Before this update, a flaw existed in the `crypto/tls` package in the Go standard library. As a consequence, during TLS session resumption, unauthorized clients or servers could bypass certificate validation if CA pools were mutated between handshakes. This release includes the fix for this flaw.
 +
-link:https://www.cve.org/CVERecord?id=CVE-2025-58183[CVE-2025-58183]
-
-The {TempoShortName} 3.8 release fixes the following issues:
-
-Resolved issue with TLS certificates affecting Tempo pods::
-Before this update, the Tempo pods stopped communicating because internal TLS certificates were renewed. With this update, the Tempo pods automatically restart when certificates are renewed.
-+
-link:https://issues.redhat.com/browse/TRACING-5622[TRACING-5622]
-
-Tempo query frontend no longer fails to fetch trace JSON::
-Before this update, clicking on *Trace* in the Jaeger UI and refreshing the page, or accessing *Trace* -> *Trace Timeline* -> *Trace JSON* from the Tempo query frontend, might result in the Tempo query pod failing with an EOF error. With this update, this issue is resolved.
-+
-link:https://issues.redhat.com/browse/TRACING-5483[TRACING-5483]
+link:https://access.redhat.com/security/cve/CVE-2025-68121[CVE-2025-68121]
 
 [NOTE]
 ====
