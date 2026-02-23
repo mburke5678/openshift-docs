@@ -36,21 +36,21 @@ To create a cluster with multi-architecture compute machines with different inst
 |Documentation section |Platform |User-provisioned installation |Installer-provisioned installation |Control Plane |Compute node
 
 
-|../../post_installation_configuration/configuring-multi-arch-compute-machines/creating-multi-arch-compute-nodes-azure.adoc#creating-multi-arch-compute-nodes-azure[Creating a cluster with multi-architecture compute machines on Azure]
+|xref:../../post_installation_configuration/configuring-multi-arch-compute-machines/creating-multi-arch-compute-nodes-azure.adoc#creating-multi-arch-compute-nodes-azure[Creating a cluster with multi-architecture compute machines on Azure]
 |Microsoft Azure
 |&#10003;
 |&#10003;
 |`aarch64` or `x86_64`
 |`aarch64`, `x86_64`
 
-|../../post_installation_configuration/configuring-multi-arch-compute-machines/creating-multi-arch-compute-nodes-aws.adoc#creating-multi-arch-compute-nodes-aws[Creating a cluster with multi-architecture compute machines on AWS]
+|xref:../../post_installation_configuration/configuring-multi-arch-compute-machines/creating-multi-arch-compute-nodes-aws.adoc#creating-multi-arch-compute-nodes-aws[Creating a cluster with multi-architecture compute machines on AWS]
 |Amazon Web Services (AWS)
 |&#10003;
 |&#10003;
 |`aarch64` or `x86_64`
 |`aarch64`, `x86_64`
 
-|../../post_installation_configuration/configuring-multi-arch-compute-machines/creating-multi-arch-compute-nodes-gcp.adoc#creating-multi-arch-compute-nodes-gcp[Creating a cluster with multi-architecture compute machines on {gcp-short}]
+|xref:../../post_installation_configuration/configuring-multi-arch-compute-machines/creating-multi-arch-compute-nodes-google-cloud.adoc#creating-multi-arch-compute-nodes-google-cloud[Creating a cluster with multi-architecture compute machines on {gcp-short}]
 |{gcp-first}
 |
 |&#10003;
