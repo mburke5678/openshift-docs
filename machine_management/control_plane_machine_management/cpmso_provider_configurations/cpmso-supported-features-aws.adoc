@@ -12,8 +12,8 @@ You can enable or change the configuration of features for your control plane ma
 When you save an update to the control plane machine set, the Control Plane Machine Set Operator updates the control plane machines according to your configured update strategy.
 For more information, see "Updating the control plane configuration".
 
-//Restricting the API server to private (AWS control plane machine set version)
-include::modules/private-clusters-setting-api-private.adoc[leveloffset=+1]
+//Restricting the API server to private for an {aws-full} cluster
+include::modules/private-clusters-setting-api-private-aws.adoc[leveloffset=+1]
 
 [role="_additional-resources"]
 .Additional resources
