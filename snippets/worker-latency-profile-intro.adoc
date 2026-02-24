@@ -8,9 +8,10 @@
 
 :_mod-docs-content-type: SNIPPET
 
-
 [role="_abstract"]
-If the cluster administrator has performed latency tests for platform verification, they can discover the need to adjust the operation of the cluster to ensure stability in cases of high latency. The cluster administrator needs to change only one parameter, recorded in a file, which controls four parameters affecting how supervisory processes read status and interpret the health of the cluster. Changing only the one parameter provides cluster tuning in an easy, supportable manner.
+If the cluster administrator has performed latency tests for platform verification, they can discover the need to adjust the operation of the cluster to ensure stability in cases of high latency. 
+
+The cluster administrator needs to change only one parameter, recorded in a file, which controls four parameters affecting how supervisory processes read status and interpret the health of the cluster. Changing only the one parameter provides cluster tuning in an easy, supportable manner.
 
 The `Kubelet` process provides the starting point for monitoring cluster health. The `Kubelet` sets status values for all nodes in the {product-title} cluster. The Kubernetes Controller Manager (`kube controller`) reads the status values every 10 seconds, by default.
 If the `kube controller` cannot read a node status value, it loses contact with that node after a configured period. The default behavior is:
