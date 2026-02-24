@@ -87,7 +87,7 @@ $ oc create -f volume-pod.yaml
 
 .Verification
 
-* Check the container's logs and verify the presence of the configured fields by using the following command:
+* Check the container logs and verify the presence of the configured fields by using the following command:
 +
 [source,terminal]
 ----

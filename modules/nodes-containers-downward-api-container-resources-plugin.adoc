@@ -8,10 +8,7 @@
 
 [role="_abstract"]
 When creating pods, you can use the Downward API to inject information about
-computing resource requests and limits using a volume plugin.
-
-When creating the pod configuration, use the `spec.volumes.downwardAPI.items`
-field to describe the desired resources that correspond to the
+computing resource requests and limits by using a volume plugin to describe the desired resources that correspond to the
 `spec.resources` field.
 
 [NOTE]

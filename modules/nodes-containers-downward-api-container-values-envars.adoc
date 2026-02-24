@@ -7,7 +7,7 @@
 = Consuming container values using environment variables
 
 [role="_abstract"]
-When using a container's environment variables, you can specify that the variable's value should come from a `FieldRef` source instead of the literal value specified.
+When using environment variables in a container, you can specify that the variable's value should come from a `FieldRef` source instead of the literal value specified.
 
 Only constant attributes of the pod can be consumed this way, because environment
 variables cannot be updated after a process is started in a way that allows the
@@ -67,7 +67,7 @@ $ oc create -f pod.yaml
 
 .Verification
 
-* Check the container's logs for the `MY_POD_NAME` and `MY_POD_NAMESPACE`
+* Check the container logs for the `MY_POD_NAME` and `MY_POD_NAMESPACE`
 values:
 +
 [source,terminal]
