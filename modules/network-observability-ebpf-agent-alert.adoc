@@ -21,6 +21,7 @@ Increasing the `cacheMaxFlows` might increase the memory usage of the eBPF agent
 . Select *cluster*, and then select the *YAML* tab.
 
 . Increase the `spec.agent.ebpf.cacheMaxFlows` value, as shown in the following YAML sample:
++
 [source,yaml]
 ----
 apiVersion: flows.netobserv.io/v1beta2
@@ -29,7 +30,7 @@ metadata:
   name: cluster
 spec:
   namespace: netobserv
-  deploymentModel: Direct
+  deploymentModel: Service
   agent:
     type: eBPF
     ebpf:
