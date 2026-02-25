@@ -9,9 +9,9 @@
 [role="_abstract"]
 Health rules in the Network Observability Operator are defined using rule templates and variants in the `spec.processor.metrics.healthRules` object of the `FlowCollector` custom resource (CR). You can customize the default templates and variants for flexible, fine-grained alerting.
 
-For each template, you can define a list of variants, each with their own thresholds and grouping configurations. For more information, see the "List of default alert templates".
+For each template, you can define a list of variants, each with their own thresholds and grouping configurations. For more information, see "List of default alert templates".
 
-Here is an example:
+The following example shows an alert:
 
 [source,yaml]
 ----

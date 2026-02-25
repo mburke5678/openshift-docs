@@ -32,7 +32,7 @@ include::modules/network-observability-disable-predefined-rules.adoc[leveloffset
 
 
 [role="_additional-resources"]
-.Additional resources
+== Additional resources
 * xref:../../observability/network_observability/network-observability-health-rules.adoc#network-observability-default-rules_network-observability-health-rules[List of default rules]
 * xref:../../observability/network_observability/metrics-alerts-dashboards.adoc#network-observability-viewing-dashboards_metrics-dashboards-alerts[Viewing network observability metrics dashboards]
 * link:https://docs.redhat.com/en/documentation/monitoring_stack_for_red_hat_openshift/4.21/html/about_monitoring/monitoring-stack-architecture[Monitoring stack architecture]
