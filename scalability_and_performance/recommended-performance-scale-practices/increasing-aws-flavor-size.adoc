@@ -2,7 +2,7 @@
 [id="increasing-aws-flavor-size"]
 = Selecting a larger AWS instance type for control plane machines
 include::_attributes/common-attributes.adoc[]
-:context: increasing-aws-flavor-size.adoc
+:context: increasing-aws-flavor-size
 
 toc::[]
 
