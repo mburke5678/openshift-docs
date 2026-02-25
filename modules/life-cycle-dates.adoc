@@ -51,6 +51,6 @@ ifdef::openshift-rosa-hcp,openshift-rosa[]
 |===
 |Version    |General availability   |End of life
 |4.15       |May 9, 2025           |Dec 1, 2025
-|4.16       |Oct 20, 2025           |Dec 27, 2025
+|4.16       |Oct 20, 2025           |Jun 27, 2026
 |===
 endif::openshift-rosa-hcp,openshift-rosa[]
