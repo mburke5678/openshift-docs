@@ -6,8 +6,11 @@
 [id="technology-preview-features_{context}"]
 = Technology Preview features
 
-None.
+[role="_abstract"]
+// None.
+The {TempoShortName} 3.9 adds the following Technology Preview features.
 
+////
 [IMPORTANT]
 ====
 [subs="attributes+"]
@@ -15,6 +18,7 @@ Technology Preview features are not supported with Red{nbsp}Hat production servi
 
 For more information about the support scope of Red{nbsp}Hat Technology Preview features, see link:https://access.redhat.com/support/offerings/techpreview/[Technology Preview Features Support Scope].
 ====
+////
 
 //:FeatureName: Each of these features
 //include::snippets/technology-preview.adoc[leveloffset=+1]
