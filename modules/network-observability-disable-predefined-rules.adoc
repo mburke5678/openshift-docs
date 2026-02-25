@@ -7,6 +7,6 @@
 = Disable predefined rules
 
 [role="_abstract"]
-Rule templates can be disabled in the `spec.processor.metrics.disableAlerts` field of the `FlowCollector` custom resource (CR). This setting accepts a list of rule template names. For a list of alert template names, see: "List of default rules".
+Rule templates can be disabled in the `spec.processor.metrics.disableAlerts` field of the `FlowCollector` custom resource (CR). This setting accepts a list of rule template names. For a list of alert template names, see "List of default rules".
 
 If a template is disabled and overridden in the `spec.processor.metrics.healthRules` field, the disable setting takes precedence and the alert rule is not created.

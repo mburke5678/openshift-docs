@@ -26,17 +26,3 @@ include::modules/network-observability-per-tenant-flowcollector-slice-api-refere
 == Additional resources
 
 * xref:../../observability/network_observability/flowcollector-api.adoc#network-observability-flowcollector-api-specifications_network_observability[FlowCollector API reference]
-
-////
-* drafty draft to get words on the page and an overall sense of new feature.
-* may not stay own assembly; may need to be slotted somewhere. but it also might make sense to keep it as its own assembly so as not to make the observing-network-traffic.adoc assembly even larger.
-* worth considering collecting FlowCollector info and putting it all together, except for the API since that is auto-generated.
-* should enable, configure, disable be leveloffset=+2?
-* fix titles and URLs once content is structured/organized
-////
-
-
-
-
-
-
