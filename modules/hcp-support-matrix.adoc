@@ -262,6 +262,12 @@ The following tables indicate the support status for {hcp} on multiple architect
 |4.14 - 4.21
 |General Availability
 
+|{VirtProductName}
+|s390x
+|s390x
+|4.21
+|Technology Preview
+
 |{rh-openstack-first}
 |64-bit x86
 |64-bit x86
