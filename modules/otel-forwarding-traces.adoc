@@ -38,7 +38,7 @@ metadata:
   name: otel-collector
 rules:
 - apiGroups: [""]
-  resources: ["pods", "namespaces",]
+  resources: ["pods", "namespaces"]
   verbs: ["get", "watch", "list"] # <1>
 - apiGroups: ["apps"]
   resources: ["replicasets"]
