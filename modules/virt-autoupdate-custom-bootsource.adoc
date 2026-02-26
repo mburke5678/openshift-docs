@@ -32,23 +32,25 @@ spec:
   - metadata:
       name: centos7-image-cron
       annotations:
-        cdi.kubevirt.io/storage.bind.immediate.requested: "true" <1>
+        cdi.kubevirt.io/storage.bind.immediate.requested: "true"
     spec:
-      schedule: "0 */12 * * *" <2>
+      schedule: "0 */12 * * *"
       template:
         spec:
           source:
-            registry: <3>
+            registry:
               url: docker://quay.io/containerdisks/centos:7-2009
           storage:
             resources:
               requests:
                 storage: 10Gi
-      managedDataSource: centos7 <4>
-      retentionPolicy: "None" <5>
+      managedDataSource: centos7
+      retentionPolicy: "None"
 ----
-<1> This annotation is required for storage classes with `volumeBindingMode` set to `WaitForFirstConsumer`.
-<2> Schedule for the job specified in cron format.
-<3> Use to create a data volume from a registry source. Use the default `pod` `pullMethod` and not `node` `pullMethod`, which is based on the `node` docker cache. The `node` docker cache is useful when a registry image is available via `Container.Image`, but the CDI importer is not authorized to access it.
-<4> For the custom image to be detected as an available boot source, the name of the image's `managedDataSource` must match the name of the template's `DataSource`, which is found under `spec.dataVolumeTemplates.spec.sourceRef.name` in the VM template YAML file.
-<5> Use `All` to retain data volumes and data sources when the cron job is deleted. Use `None` to delete data volumes and data sources when the cron job is deleted.
+** `spec.dataImportCronTemplates.metadata.annotations` specifies a required annotation for storage classes with `volumeBindingMode` set to `WaitForFirstConsumer`.
+** `spec.dataImportCronTemplates.spec.schedule` specifies the schedule for the job, specified in cron format.
+** `spec.dataImportCronTemplates.spec.template.spec.source.registry` specifies the registry source to use to create a data volume. Use the default `pod` `pullMethod` and not `node` `pullMethod`, which is based on the `node` docker cache. The `node` docker cache is useful when a registry image is available via `Container.Image`, but the CDI importer is not authorized to access it.
+** `spec.dataImportCronTemplates.spec.managedDataSource` specifies the name of the managed data source. For the custom image to be detected as an available boot source, the name of the image's `managedDataSource` must match the name of the template's `DataSource`, which is found under `spec.dataVolumeTemplates.spec.sourceRef.name` in the VM template YAML file.
+** `spec.dataImportCronTemplates.spec.retentionPolicy` specifies whether to retain data volumes and data sources after the cron job is deleted. Use `All` to retain data volumes and data sources. Use `None` to delete data volumes and data sources.
+
+. Save the file.
