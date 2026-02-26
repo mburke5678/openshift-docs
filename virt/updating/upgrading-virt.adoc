@@ -17,6 +17,12 @@ include::modules/virt-manual-approval-strategy.adoc[leveloffset=+2]
 
 include::modules/olm-approving-pending-upgrade.adoc[leveloffset=+2]
 
+// cleaning up unused Operators and resources
+
+include::modules/virt-update-removing-unused.adoc[leveloffset=+1]
+
+include::modules/migration-uninstalling-mtc-clean-up.adoc[leveloffset=+2]
+
 include::modules/virt-rhel-9.adoc[leveloffset=+1]
 
 include::modules/virt-monitoring-upgrade-status.adoc[leveloffset=+1]
