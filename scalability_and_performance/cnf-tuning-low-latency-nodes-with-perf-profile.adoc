@@ -2,7 +2,7 @@
 [id="cnf-tuning-low-latency-nodes-with-perf-profile"]
 = Tuning nodes for low latency with the performance profile
 include::_attributes/common-attributes.adoc[]
-:context: cnf-low-latency-perf-profile
+:context: cnf-tuning-low-latency-nodes-with-perf-profile
 
 toc::[]
 
@@ -55,11 +55,11 @@ include::modules/cnf-configuring-power-saving-for-nodes.adoc[leveloffset=+1]
 [role="_additional-resources"]
 .Additional resources
 
-* xref:../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#cnf-about-the-profile-creator-tool_cnf-low-latency-perf-profile[About the Performance Profile Creator]
+* xref:../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#cnf-about-the-profile-creator-tool_cnf-tuning-low-latency-nodes-with-perf-profile[About the Performance Profile Creator]
 
 * xref:../scalability_and_performance/cnf-provisioning-low-latency-workloads.adoc#cnf-configuring-high-priority-workload-pods_cnf-provisioning-low-latency[Disabling power saving mode for high priority pods]
 
-* xref:../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#managing-device-interrupt-processing-for-guaranteed-pod-isolated-cpus_cnf-low-latency-perf-profile[Managing device interrupt processing for guaranteed pod isolated CPUs]
+* xref:../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#managing-device-interrupt-processing-for-guaranteed-pod-isolated-cpus_cnf-tuning-low-latency-nodes-with-perf-profile[Managing device interrupt processing for guaranteed pod isolated CPUs]
 
 include::modules/cnf-cpu-infra-container.adoc[leveloffset=+1]
 
@@ -95,13 +95,6 @@ The Node Tuning Operator facilitates reducing NIC queues for enhanced performanc
 Adjustments are made using the performance profile, allowing customization of queues for different network devices.
 
 include::modules/cnf-adjusting-nic-queues-with-the-performance-profile.adoc[leveloffset=+2]
-
-////
-[role="_additional-resources"]
-.Additional resources
-
-* ../../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#cnf-create-performance-profiles_cnf-tuning-low-latency-nodes-with-perf-profile[Creating a performance profile]
-////
 
 include::modules/cnf-verifying-queue-status.adoc[leveloffset=+2]
 
