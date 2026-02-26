@@ -6,6 +6,7 @@ include::_attributes/attributes-microshift.adoc[]
 
 toc::[]
 
+[role="_abstract"]
 Learn about how greenboot health checks are used with {microshift-short}.
 
 include::modules/microshift-greenboot-dir-use-for-scripts.adoc[leveloffset=+1]
