@@ -52,7 +52,7 @@ include::modules/cnf-verifying-schedulder-ha-status.adoc[leveloffset=+3]
 
 * xref:../disconnected/updating/disconnected-update.adoc#images-configuration-registry-mirror-configuring_updating-disconnected-cluster[Configuring image registry repository mirroring]
 
-* xref:../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#cnf-about-the-profile-creator-tool_cnf-low-latency-perf-profile[About the Performance Profile Creator]
+* xref:../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#cnf-about-the-profile-creator-tool_cnf-tuning-low-latency-nodes-with-perf-profile[About the Performance Profile Creator]
 
 include::modules/cnf-sample-single-numa-policy-from-pp.adoc[leveloffset=+2]
 
@@ -64,12 +64,10 @@ include::modules/cnf-creating-nrop-cr.adoc[leveloffset=+2]
 
 include::modules/cnf-creating-nrop-cr-hosted-control-plane.adoc[leveloffset=+2]
 
-////
 [role="_additional-resources"]
 .Additional resources
 
-* ../../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#cnf-create-performance-profiles_cnf-tuning-low-latency-nodes-with-perf-profile[Creating a performance profile]
-////
+* xref:../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#cnf-create-performance-profiles_cnf-tuning-low-latency-nodes-with-perf-profile[Creating a performance profile]
 
 include::modules/cnf-deploying-the-numa-aware-scheduler.adoc[leveloffset=+2]
 

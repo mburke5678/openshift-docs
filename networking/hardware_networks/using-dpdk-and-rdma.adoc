@@ -22,12 +22,10 @@ include::modules/nw-sriov-dpdk-example-mellanox.adoc[leveloffset=+1]
 // Using the TAP CNI to run a rootless DPDK workload with kernel access
 include::modules/nw-running-dpdk-rootless-tap.adoc[leveloffset=+1]
 
-////
 [role="_additional-resources"]
 .Additional resources
 
-* ../../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#cnf-create-performance-profiles_cnf-tuning-low-latency-nodes-with-perf-profile[Creating a performance profile]
-////
+* xref:../../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#cnf-create-performance-profiles_cnf-tuning-low-latency-nodes-with-perf-profile[Creating a performance profile]
 
 * xref:../../networking/hardware_networks/configuring-sriov-device.adoc#configuring-sriov-device[Configuring an SR-IOV network device]
 
@@ -64,11 +62,9 @@ include::modules/nw-openstack-ovs-dpdk-testpmd-pod.adoc[leveloffset=+1]
 
 * link:https://catalog.redhat.com/en/hardware[Red Hat certified hardware (Red Hat Ecosystem Catalog)]
 
-////
-* ../../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#cnf-create-performance-profiles_cnf-tuning-low-latency-nodes-with-perf-profile[Creating a performance profile]
-////
+* xref:../../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#cnf-create-performance-profiles_cnf-tuning-low-latency-nodes-with-perf-profile[Creating a performance profile]
 
-* xref:../../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#adjusting-nic-queues-with-the-performance-profile_cnf-low-latency-perf-profile[Adjusting the NIC queues with the performance profile]
+* xref:../../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#adjusting-nic-queues-with-the-performance-profile_cnf-tuning-low-latency-nodes-with-perf-profile[Adjusting the NIC queues with the performance profile]
 
 * xref:../../scalability_and_performance/cnf-provisioning-low-latency-workloads.adoc#cnf-provisioning-low-latency-workloads[Provisioning real-time and low latency workloads]
 

@@ -25,6 +25,6 @@ include::modules/cnf-running-the-performance-creator-profile-hosted.adoc[levelof
 [role="_additional-resources"]
 .Additional resources
 
-* xref:../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#performance-profile-creator-arguments_cnf-low-latency-perf-profile[Performance Profile Creator arguments]
+* xref:../scalability_and_performance/cnf-tuning-low-latency-nodes-with-perf-profile.adoc#performance-profile-creator-arguments_cnf-tuning-low-latency-nodes-with-perf-profile[Performance Profile Creator arguments]
 
 include::modules/apply-performance-profile-hosted-cluster.adoc[leveloffset=+2]
