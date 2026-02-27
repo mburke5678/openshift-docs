@@ -49,7 +49,7 @@ For example, on a 4-core node, 0.5 vCPU is reserved for node and system componen
 Any CPUs specifically reserved using the `reservedSystemCPUs` parameter in a `KubeletConfig` object are not available for allocation using `system-reserved`.
 ====
 
-You can manually manage CPU and memory reservations for the node and system components by configuring the `system-reserved` parameter in a `MachineConfig` object, as described in "Manually allocating resources for nodes".
+You can manually manage CPU and memory reservations for the node and system components by configuring the `system-reserved` parameter in a `KubeletConfig` object, as described in "Manually allocating resources for nodes".
 
 [id="computing-allocated-resources_{context}"]
 == How {product-title} computes allocated resources
