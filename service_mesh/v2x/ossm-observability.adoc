@@ -41,5 +41,5 @@ include::modules/ossm-integrating-with-user-workload-monitoring.adoc[leveloffset
 ifndef::openshift-rosa,openshift-dedicated[]
 * xref:../../observability/monitoring/enabling-monitoring-for-user-defined-projects.adoc#enabling-monitoring-for-user-defined-projects[Enabling monitoring for user-defined projects]
 * xref:../../observability/distr_tracing/distr-tracing-tempo-installing.adoc#distr-tracing-tempo-installing[Installing the {DTShortName}]
-* xref:../../observability/otel/otel-installing.adoc[Installing the Red Hat build of OpenTelemetry]
+* link:https://docs.redhat.com/en/documentation/red_hat_build_of_opentelemetry/latest/html/installing_red_hat_build_of_opentelemetry/install-otel[Installing the Red Hat build of OpenTelemetry]
 endif::[]
