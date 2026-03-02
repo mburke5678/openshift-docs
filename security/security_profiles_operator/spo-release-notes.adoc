@@ -33,9 +33,7 @@ link:http://access.redhat.com/errata/RHSA-2026:2852[RHSA-2026:2852 - OpenShift S
 
 * With the release of SPO v0.10.0, the Operator now supports {op-system-first} 10 containers. link:https://issues.redhat.com/browse/CMP-4033[CMP-4033] 
 
-* In this release of the Security Profiles Operator, the Advanced Audit Logging Framework is available as a General Availability (GA) feature. The Advanced Audit Logging Framework uses the Audit JSON Log Enricher to capture and log terminal-based command activity in {op-system-first} containers, including `oc rsh`, `oc exec`, and `oc debug` commands.
-// Commented out until document goes live
-// For more details, see link:https://docs.redhat.com/security/security_profiles_operator/spo-logging[Advanced Audit Logging Framework].
+* In this release of the Security Profiles Operator, the Advanced Audit Logging Framework is available as a General Availability (GA) feature. The Advanced Audit Logging Framework uses the Audit JSON Log Enricher to capture and log terminal-based command activity in {op-system-first} containers, including `oc rsh`, `oc exec`, and `oc debug` commands. For more details, see link:https://docs.redhat.com/en/documentation/openshift_container_platform/latest/html/security_and_compliance/security-profiles-operator#spo-audit-logging_spo-advanced[Advanced Audit Logging Framework].
 
 [id="spo-release-notes-0-9-0"]
 == Security Profiles Operator 0.9.0
