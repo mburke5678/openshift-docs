@@ -6,11 +6,12 @@ include::_attributes/common-attributes.adoc[]
 
 toc::[]
 
-Learn about NUMA-aware scheduling and how you can use it to deploy high performance workloads in an {product-title} cluster.
+[role="_abstract"]
+To deploy high performance workloads with optimal efficiency, use NUMA-aware scheduling. This feature aligns pods with the underlying hardware topology in your {product-title} cluster, minimizing latency and maximizing resource utilization.
 
 :FeatureName: NUMA-aware scheduling
 
-The NUMA Resources Operator allows you to schedule high-performance workloads in the same NUMA zone. It deploys a node resources exporting agent that reports on available cluster node NUMA resources, and a secondary scheduler that manages the workloads.
+By using the NUMA Resources Operator, you can schedule high-performance workloads in the same NUMA zone. The Operator deploys a node resources exporting agent that reports on available cluster node NUMA resources, and a secondary scheduler that manages the workloads.
 
 [id="cnf-numa-aware-scheduling-about-numa_{context}"]
 == About NUMA
