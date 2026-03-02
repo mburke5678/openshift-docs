@@ -72,6 +72,11 @@ include::modules/cnf-creating-nrop-cr-hosted-control-plane.adoc[leveloffset=+2]
 
 include::modules/cnf-deploying-the-numa-aware-scheduler.adoc[leveloffset=+2]
 
+[role="_additional-resources"]
+.Additional resources
+
+* xref:../disconnected/updating/disconnected-update.adoc#images-configuration-registry-mirror_updating-disconnected-cluster[Configuring image registry repository mirroring]
+
 include::modules/cnf-scheduling-numa-aware-workloads.adoc[leveloffset=+2]
 
 include::modules/cnf-nrop-support-schedulable-resources.adoc[leveloffset=+1]
