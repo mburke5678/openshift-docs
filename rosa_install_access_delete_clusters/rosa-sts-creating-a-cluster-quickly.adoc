@@ -48,8 +48,8 @@ If you need additional xref:../support/getting-support.adoc#getting-support[supp
 [role="_additional-resources"]
 .Additional resources
 
-* For more information about the default components required for an AWS cluster, see link:https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html[Default VPCs] in the AWS documentation.
-* For instructions on creating a VPC in the AWS console, see link:https://docs.aws.amazon.com/vpc/latest/userguide/create-vpc.html[Create a VPC] in the AWS documentation.
+* link:https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html[AWS documentation on default VPCs]
+* link:https://docs.aws.amazon.com/vpc/latest/userguide/create-vpc.html[AWS documentation on how to Create a VPC]
 
 include::modules/rosa-sts-creating-a-cluster-quickly-ocm.adoc[leveloffset=+1]
 include::modules/rosa-sts-associating-your-aws-account.adoc[leveloffset=+2]
