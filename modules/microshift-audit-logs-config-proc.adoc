@@ -27,8 +27,9 @@ apiServer:
     profile: Default
 # ....
 ----
-where::
 +
+where:
+
 `apiserver.auditLog.maxFileAge`:: Specifies the maximum time in days that log files are kept. Files older than this limit are deleted. In this example, after a log file is more than 7 days old, it is deleted. The files are deleted regardless of whether or not the live log has reached the maximum file size specified in the `maxFileSize` field. File age is determined by the timestamp written in the name of the rotated log file, for example, `audit-2024-05-16T17-03-59.994.log`. When the value is `0`, the limit is disabled.
 `apiserver.auditLog.maxFileSize`:: The maximum audit log file size in megabytes. In this example, the file is rotated as soon as the live log reaches the 200 MB limit. When the value is set to `0`, the limit is disabled.
 `apiserver.auditLog.maxFiles`:: The maximum number of rotated audit log files retained. After the limit is reached, the log files are deleted in order from oldest to newest. In this example, the value `1` results in only 1 file of size `maxFileSize` being retained in addition to the current active log. When the value is set to `0`, the limit is disabled.
