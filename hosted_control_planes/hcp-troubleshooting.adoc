@@ -87,7 +87,6 @@ include::modules/hcp-ts-connectivity.adoc[leveloffset=+1]
 
 include::modules/hcp-ts-connect-data-plane.adoc[leveloffset=+2]
 
-//commenting out link until PR 105991 is merged
-// [role="_additional-resources"]
-// .Additional resources
-// * xref:../../hosted_control_planes/hcp-observability.adoc#hcp-connectivity-metrics_hcp-observability[Connectivity metrics for {hcp}]
+[role="_additional-resources"]
+.Additional resources
+* xref:../hosted_control_planes/hcp-observability.adoc#hcp-connectivity-metrics_hcp-observability[Connectivity monitoring for {hcp}]

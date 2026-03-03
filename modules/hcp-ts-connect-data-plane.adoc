@@ -20,5 +20,3 @@ If the status of the `DataPlaneConnectionAvailable` condition is `True`, the con
 . View the status of the `konnectivity-agent` pods in the data plane.
 
 . In the control plane, review the `Konnectivity` server deployment.
-
-For more information about how the `DataPlaneConnectionAvailable` condition works, see "Connectivity metrics for {hcp}".
