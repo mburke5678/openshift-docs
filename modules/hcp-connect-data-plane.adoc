@@ -47,5 +47,4 @@ The following table details the status and reason values that can be displayed f
 |Unable to count compute nodes because an error occurred.
 |===
 
-// commenting out this reference until PR 106002 is merged
-// For information about how to troubleshoot connectivity issues, see "Troubleshooting connectivity for {hcp}".
+For information about how to troubleshoot connectivity issues, see "Troubleshooting connectivity for {hcp}".
