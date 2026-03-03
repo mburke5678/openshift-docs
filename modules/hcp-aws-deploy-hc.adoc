@@ -93,12 +93,12 @@ where:
 ----
 #...
 spec:
-    operatorConfiguration:
-      ingressOperator:
-        endpointPublishingStrategy:
-          type: LoadBalancerService
-          loadBalancer:
-            scope: Internal
+  operatorConfiguration:
+    ingressOperator:
+      endpointPublishingStrategy:
+        type: LoadBalancerService
+        loadBalancer:
+          scope: Internal
 #...
 ----
 +
