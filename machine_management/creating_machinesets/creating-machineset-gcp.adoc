@@ -21,6 +21,10 @@ include::modules/machineset-creating.adoc[leveloffset=+1]
 //Labeling GPU machine sets for the cluster autoscaler
 include::modules/machineset-label-gpu-autoscaler.adoc[leveloffset=+1]
 
+[role="_additional-resources"]
+.Additional resources
+* xref:../../machine_management/applying-autoscaling.adoc#cluster-autoscaler-cr_applying-autoscaling[Cluster autoscaler resource definition]
+
 //Configuring persistent disk types by using compute machine sets
 include::modules/machineset-gcp-pd-disk-types.adoc[leveloffset=+1]
 
@@ -51,7 +55,7 @@ include::modules/machineset-gcp-shielded-vms.adoc[leveloffset=+1]
 * link:https://cloud.google.com/compute/shielded-vm/docs/shielded-vm#secure-boot[Secure Boot]
 * link:https://cloud.google.com/compute/shielded-vm/docs/shielded-vm#vtpm[Virtual Trusted Platform Module (vTPM)]
 * link:https://cloud.google.com/compute/shielded-vm/docs/shielded-vm#integrity-monitoring[Integrity monitoring]
-* xref:../../machine_management/applying-autoscaling.adoc#cluster-autoscaler-cr_applying-autoscaling[Cluster autoscaler resource definition]
+
 //Enabling customer-managed encryption keys for a compute machine set
 
 include::modules/machineset-gcp-enabling-customer-managed-encryption.adoc[leveloffset=+1]
