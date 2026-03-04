@@ -36,8 +36,8 @@ spec:
   - name: workers
     template:
       spec:
-        parallelism: <pods_running_number>
-        completions: <pods_finish_number>
+        parallelism: 3
+        completions: 3
         backoffLimit: 0
         template:
           spec:
@@ -88,8 +88,8 @@ spec:
 where:
 +
 --
-`<pods_running_number>`:: Specifies the number of pods running at the same time.
-`<pods_finish_number>`:: Specifies the total number of pods that must finish successfully for the job to be marked complete.
+`spec.replicatedJobs.template.spec.parallelism`:: Specifies the number of pods running at the same time.
+`spec.replicatedJobs.template.spec.completions`:: Specifies the total number of pods that must finish successfully for the job to be marked complete.
 --
 
 . Apply the JobSet configuration by running the following command:
