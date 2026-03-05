@@ -1,0 +1,205 @@
+// Module included in the following assemblies:
+//
+// * nodes/nodes-containers-port-forwarding.adoc
+
+:_mod-docs-content-type: PROCEDURE
+[id="mco-update-boot-images-ibm-cloud_{context}"]
+= Updating the boot image on an OpenStack cluster
+
+[role="_abstract"]
+For a {rh-openstack-first} cluster, you can manually update the boot image for your cluster by configuring your machine sets to use the latest {product-title} image as the boot image. By updating the boot image, you can ensure that the {op-system-first} version on new nodes is up-to-date.
+
+[NOTE]
+====
+The standard boot image management feature is not supported for {rh-openstack} clusters.
+====
+
+
+# Pre-reqs
+Set up IBMCloud CLI from https://cloud.ibm.com/docs/cli?topic=cli-getting-started
+
+Once the CLI is setup, we need to install two more plugins for this process:
+```
+ibmcloud plugin install vpc-infrastructure
+ibmcloud plugin install cloud-object-storage
+```
+
+# Set up resource group and region env vars
+
+These can be obtained from the infrastructure object(named `cluster`):
+```
+export RESOURCE_GROUP=$(oc get infrastructure cluster -o jsonpath='{.status.infrastructureName}')
+
+export REGION=$(oc get infrastructure cluster -o jsonpath='{.status.platformStatus.ibmcloud.location}')
+```
+# Acquire IBMCloud API key
+
+A customer could do this via https://www.ibm.com/docs/en/masv-and-l/cd?topic=cli-creating-your-cloud-api-key
+
+For dev testing, this can be obtained from the kube-system namespace:
+```
+export IBM_API_KEY=$(oc get secret qe-ibmcloud-creds -n kube-system -o jsonpath='{.data.apiKey}' | base64 -d)
+```
+# Login via IBMCloud CLI
+```
+$ ibmcloud login --apikey ${IBM_API_KEY} -r ${REGION} -g ${RESOURCE_GROUP}
+
+API endpoint: https://cloud.ibm.com
+Authenticating...
+Retrieving API key token...
+OK
+
+Targeted account OpenShift-QE (xxxxxxxxxxxxxxxx) <-> xxxxxx
+
+Targeted resource group xxxxxxx-ibm3h-9pbgg
+
+Targeted region eu-gb
+
+                                                                                
+API endpoint:     https://cloud.ibm.com
+Region:           eu-gb
+User:             xxxxx
+Account:          xxxxx
+Resource group:   xxxxx
+```
+# Getting the RHCOS boot image
+
+Download the latest version of OCP installer. Dump out the IBMCloud formatted image. This step is arch specific. 
+
+For `x86-64`/`amd64`, use:
+```
+export RHCOS_URL=$(openshift-install coreos print-stream-json | jq -r '.architectures.x86_64.artifacts.ibmcloud.formats["qcow2.gz"].disk.location')
+```
+For `s390x`, use:
+```
+export RHCOS_URL=$(openshift-install coreos print-stream-json | jq -r '.architectures.s390x.artifacts.ibmcloud.formats["qcow2.gz"].disk.location')
+```
+Download
+```
+curl -L -o /tmp/rhcos-new.qcow2.gz "${RHCOS_URL}"
+```
+Unzip the image
+```
+gunzip /tmp/rhcos-new.qcow2.gz
+```
+# Upload to the existing COS bucket
+
+This COS bucket was set up by the installer during cluster init. First, we need to set up the COS CRN. Some quick context:
+
+A Cloud Resource Name (CRN) is IBM Cloud's globally unique identifier for any resource. It's like an AWS ARN. The typical format is: `crn:v1:bluemix:public:<service>:<region>:a/<account-id>:<resource-type>:<resource-id>`
+
+For example, a COS instance CRN may look like: `crn:v1:bluemix:public:cloud-object-storage:global:a/abcdefghijklmnopqrstuvwxyz::`
+
+Breaks down as:
+- cloud-object-storage — the service
+- global — COS is a global service (not region-scoped)
+- a/abcdefghijklmnopqrstuvwxyz — your account ID
+- The trailing :: would contain the specific instance ID
+
+You need it for COS operations because an account can have multiple COS instances, so the CLI needs to know which one you're targeting.
+
+Scrape out your cluster's COS CRN:
+```
+$ export COS_CRN=$(ibmcloud resource service-instance "${RESOURCE_GROUP}-cos" --output json | jq -r '.[0].crn') 
+```
+echo it to double check; to ensure if it is was correctly pulled
+
+```
+$ echo ${COS_CRN}
+crn:v1:bluemix:public:cloud-object-storage:global:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx::
+```
+    
+It should look something like the above format as explained above.
+
+Now, configure it:
+
+```
+ibmcloud cos config crn --crn "${COS_CRN}"
+```
+(if you get multiple choices here pick the one echoed above)
+
+Place image into the bucket:
+```
+ibmcloud cos object-put --bucket "${RESOURCE_GROUP}-vsi-image" --key "rhcos-new.qcow2" --body /tmp/rhcos-new.qcow2 --region "${REGION}"
+```
+    
+Examine the objects in the bucket to verify our upload is present
+
+```
+$ ibmcloud cos objects --bucket "${RESOURCE_GROUP}-vsi-image" --region "${REGION}"
+OK
+Found 2 objects in bucket 'xxxxxx-ibm3h-9pbgg-vsi-image':
+
+Name                                         Last Modified (UTC)        Object Size   
+rhcos-9.6.20251023-0-ibmcloud.x86_64.qcow2   Feb 11, 2026 at 13:59:14   2.08 GiB   
+rhcos-new.qcow2                              Feb 11, 2026 at 17:48:09   2.10 GiB  
+```
+
+# Create a new VPC Custom Image
+
+**Note: I would recommend using something more descriptive than `"${RESOURCE_GROUP}-rhcos-new"` below, so that the bootimage version can be tracked easily in the future. If you choose to do this, be sure to use that image name in all your commands below.**
+```
+ibmcloud is image-create "${RESOURCE_GROUP}-rhcos-new" --file "cos://${REGION}/${RESOURCE_GROUP}-vsi-image/rhcos-new.qcow2" --os-name rhel-coreos-stable-amd64 --resource-group-name "${RESOURCE_GROUP}"
+```
+    
+The value `rhel-coreos-stable-amd64` for the `--os-name` argument here is critical; do not change it! This sets up some CoreOS defaults on the IBMCloud end that is required for first boot.
+
+
+Observe the new image being uploaded until its Status changes from "pending" to "available"
+
+```
+watch ibmcloud is image "${RESOURCE_GROUP}-rhcos-new"
+```
+    
+# Set new image in MachineSet object
+
+Change the image field in the providerSpec of your targeted MachineSet to the new image. Replace `<machineset-name>` with your actual machineset.
+```
+oc patch machineset <machineset-name> -n openshift-machine-api --type merge -p '{"spec":{"template":{"spec":{"providerSpec":{"value":{"image":"'${RESOURCE_GROUP}'-rhcos-new"}}}}}}'    
+```
+
+Then, scale up a new node from the MachineSet to test the image:
+```
+oc scale --replicas=2 machineset <machineset-name> -n openshift-machine-api
+```
+Watch the machine objects:
+```
+oc get machines.machine.openshift.io -n openshift-machine-api -w
+```
+
+A new machine object should pop up, which should go from Provisioning -> Provisioned (and finally..)-> Running when it has joined the cluster. This process should not take more than 10 minutes(typically ~5 mins). 
+
+At this point, there should be a new node object (in a `NotReady` state) when you query:
+```
+oc get node
+```
+Once it goes into `Ready` state, hop on the node and examine the aleph version
+```
+$ oc debug node/NEW_NODE -- chroot /host cat /sysroot/.coreos-aleph-version.json
+{
+    ....
+    ....
+    "version": "9.6.20251023-0"
+}
+```
+
+Remember the boot image we downloaded? Compare the versions; it should match to the value above:
+```
+$ echo ${RHCOS_URL}
+https://rhcos.mirror.openshift.com/art/storage/prod/streams/rhel-9.6/builds/9.6.20251023-0/x86_64/rhcos-9.6.20251023-0-ibmcloud.x86_64.qcow2.gz
+```
+
+# Cleanup (optional)
+Once image upload is complete, the object is no longer needed
+```    
+ibmcloud cos object-delete --bucket "${RESOURCE_GROUP}-vsi-image" --key "rhcos-new.qcow2.gz" --region "${REGION}" --force
+```
+If all your machinesets have been migrated to the new boot image, the old boot image is no longer needed
+```
+ibmcloud is image-delete "${RESOURCE_GROUP}-rhcos" --force
+```
+
+Other notes:
+- **Boot image updates for the control plane** - IBMCloud clusters do not use CPMS; they are individual machine objects created during installation. We'd need CPMS support to be implemented first (or do a manual, risky replace of individual control plane machines with etcd backup/restore)
+- **Ensure general boot image prereqs are completed** - These should be mentioned in the final user facing doc: https://access.redhat.com/articles/7053165#prerequisites-2
+
