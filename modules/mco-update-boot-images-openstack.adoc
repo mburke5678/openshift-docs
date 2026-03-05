@@ -2,10 +2,11 @@
 //
 // * nodes/nodes-containers-port-forwarding.adoc
 
-:_mod-docs-content-type: CONCEPT
+:_mod-docs-content-type: PROCEDURE
 [id="mco-update-boot-images-openstack_{context}"]
 = Updating the boot image on OpenStack
 
+[role="_abstract"]
 For {rh-openstack-first} cluster, you can manually update the boot image for your cluster by editing the machine set to point to the image you want to use. By updating the boot image, you can ensure that the {op-system-first} version on new nodes is up-to-date.
 
 [NOTE]
@@ -13,7 +14,7 @@ For {rh-openstack-first} cluster, you can manually update the boot image for you
 The automatic boot image management feature is not supported for {rh-openstack} clusters.
 ====
 
-The following procedure, which includes a number of steps that create environment variables to facilitate running the required commands, shows how to obtain {rh-openstack} authentication credentials, download a boot image, upload that image to the {rh-openstack} image service (Glance), and modify your worker machine set to use the new boot image. 
+The following procedure, which includes steps that create environment variables to facilitate running the required commands, shows how to obtain {rh-openstack} authentication credentials, download a boot image, upload that image to the {rh-openstack} image service (Glance), and modify your worker machine set to use the new boot image. 
 
 [NOTE]
 ====
@@ -23,7 +24,9 @@ Updating the control plane machine set is not supported.
 .Prerequisites
 
 * You have completed the general boot image prerequisites as described in the Prerequisites section of link:https://access.redhat.com/articles/7053165#prerequisites-2[OpenShift Container Platform Boot Image Updates].  
+
 * You have the {oc-first} installed.
+
 * You have installed an link:https://docs.openstack.org/python-openstackclient/latest/[{rh-openstack}Client ({op-system} documentation)] on the target environment
 
 .Procedure
@@ -37,7 +40,7 @@ Updating the control plane machine set is not supported.
 $ oc get machineset -n openshift-machine-api -o yaml | grep cloudsSecret -A 1
 ----
 +
-.Example output:
+.Example output
 [source,terminal]
 ----
 cloudsSecret:
@@ -60,7 +63,7 @@ Replace `<secret-name>` with the name of the secret, which you obtained in the p
 $ cat /tmp/clouds.yaml
 ----
 +
-.Example output:
+.Example output
 [source,terminal]
 ----
 clouds:
@@ -114,22 +117,6 @@ $ export RHCOS_URL=$(openshift-install coreos print-stream-json | jq -r \
 '.architectures.aarch64.artifacts.openstack.formats."qcow2.gz".disk.location')
 ----
 
-. Set an environment variable to create a descriptive name for your boot image by running the following command:
-+
-[source,terminal]
-----
-$ export IMAGE_NAME="<descriptive_image_name>"
-----
-+
-Setting a descriptive name for your boot image, such as using the {op-system-first} version number in the image name, makes it easier to track which version is deployed when you return to update the cluster in the future
-+
-.Example command:
-+
-[source,terminal]
-----
-$ export IMAGE_NAME="rhcos-417.94.202407010929-0"
-----
-
 . Upload the your boot image to the {rh-openstack} image service (Glance):
 
 .. Download the image by using the following command, which contains the URL environment variable you created in a previous step: 
@@ -144,6 +131,21 @@ $ curl -L -o /tmp/rhcos-new.qcow2.gz "${RHCOS_URL}"
 [source,terminal]
 ----
 $ gunzip /tmp/rhcos-new.qcow2.gz
+----
+
+.. Set an environment variable to create a descriptive name for your boot image in Glance by running the following command:
++
+[source,terminal]
+----
+$ export IMAGE_NAME="<descriptive_image_name>"
+----
++
+Setting a descriptive name for your boot image, such as using the {op-system-first} version number in the image name, makes it easier to track which version is deployed when you return to update the cluster in the future:
++
+.Example command
+[source,terminal]
+----
+$ export IMAGE_NAME="rhcos-417.94.202407010929-0"
 ----
 
 .. Upload the image to Glance by using the following command:
@@ -181,8 +183,7 @@ It might take several minutes for the image to upload. When the upload is comple
 $ openstack --os-cloud "${CLOUD_NAME}" image show "${IMAGE_NAME}" -f json | jq '{name: .name, status: .status}'
 ----
 +
-.Expected output:
-+
+.Example output
 [source,terminal]
 ----
 {
@@ -256,8 +257,7 @@ $ oc debug node/<new_node> -- chroot /ho	st cat /sysroot/.coreos-aleph-version.j
 +
 Replace `<new_node>` with the name of your new node.
 +
-.Example output:
-+
+.Example output
 [source,terminal]
 ----
 {
