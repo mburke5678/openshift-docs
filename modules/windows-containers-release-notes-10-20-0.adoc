@@ -8,15 +8,15 @@
 
 Issued: 21 October 2025
 
+[role="_abstract"]
+You can review the following release notes to learn about the bug fixes provided in this release of the Windows Machine Config Operator (WMCO). 
+
 The components of the Red Hat Windows Machine Config Operator (WMCO) 10.20.0 were released in link:https://access.redhat.com/errata/RHBA-2025:18930[RHBA-2025:18930].
 
 [id="wmco-10-20-0-new-features"]
 == New features and improvements
 
-[id="wmco-10-20-0-new-features-kubernetes"]
-=== Kubernetes upgrade
-
-The WMCO now uses Kubernetes version 1.33.
+Kubernetes upgrade:: The WMCO now uses Kubernetes version 1.33.
 
 [id="wmco-10-20-0-bug-fixes"]
 == Bug fixes

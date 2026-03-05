@@ -6,6 +6,7 @@ include::_attributes/common-attributes.adoc[]
 
 toc::[]
 
-This release of the Windows Machine Config Operator (WMCO) provides bug fixes for running Windows compute nodes in an {product-title} cluster. 
+[role="_abstract"]
+You can review the following release notes to learn about changes in the Windows Machine Config Operator (WMCO) version 10.20.1.
 
-include::modules/windows-containers-release-notes-10-20-0.adoc[leveloffset=+1]
+include::modules/windows-containers-release-notes-10-20-1.adoc[leveloffset=+1]
