@@ -202,7 +202,6 @@ $ oc get machineset -n openshift-machine-api
 ----
 +
 .Example output
-+
 [source,terminal]
 ----
 NAME                                 DESIRED   CURRENT   READY   AVAILABLE   AGE
