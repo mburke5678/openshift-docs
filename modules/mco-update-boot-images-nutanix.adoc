@@ -1,6 +1,7 @@
 // Module included in the following assemblies:
 //
-// * nodes/nodes-containers-port-forwarding.adoc
+// * machine_configuration/mco-update-boot-images.adoc
+// * nodes/nodes/nodes-update-boot-images.adoc
 
 :_mod-docs-content-type: PROCEDURE
 [id="mco-update-boot-images-nutanix_{context}"]
@@ -216,7 +217,7 @@ $ oc get machines.machine.openshift.io -n openshift-machine-api -w
 +
 It can take several minutes for the machine set to achieve the `Running` state.
 
-.. Verify that the new node has been created and is in the `Ready` state by running the following command.
+.. Verify that the new node has been created and is in the `Ready` state by running the following command:
 +
 [source,terminal]
 ----
