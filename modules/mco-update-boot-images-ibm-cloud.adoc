@@ -4,14 +4,14 @@
 
 :_mod-docs-content-type: PROCEDURE
 [id="mco-update-boot-images-ibm-cloud_{context}"]
-= Updating the boot image on an OpenStack cluster
+= Updating the boot image on an {ibm-cloud-name} cluster
 
 [role="_abstract"]
-For a {rh-openstack-first} cluster, you can manually update the boot image for your cluster by configuring your machine sets to use the latest {product-title} image as the boot image. By updating the boot image, you can ensure that the {op-system-first} version on new nodes is up-to-date.
+For an {ibm-cloud-title} cluster, you can manually update the boot image for your cluster by configuring your machine sets to use the latest {product-title} image as the boot image. By updating the boot image, you can ensure that the {op-system-first} version on new nodes is up-to-date.
 
 [NOTE]
 ====
-The standard boot image management feature is not supported for {rh-openstack} clusters.
+The standard boot image management feature is not supported for {ibm-cloud-title} clusters.
 ====
 
 
