@@ -25,7 +25,9 @@ Updating control plane machine sets is not supported in {rh-openstack}.
 
 .Prerequisites
 
-* You have downloaded the latest version of the OpenShift installation program from the {cluster-manager-url}. For more information, see "Obtaining the installation program."
+* You have completed the general boot image prerequisites as described in the Prerequisites section of link:https://access.redhat.com/articles/7053165#prerequisites-2[{product-title} Boot Image Updates].
+
+* You have downloaded the latest version of the {product-title} installation program from the {cluster-manager-url}. For more information, see "Obtaining the installation program."
 
 * You have the {oc-first} installed.
 
@@ -79,7 +81,7 @@ clouds:
       project_domain_name: "Default"
 ----
 
-.. Set an environment variable for the location of the `clouds.yaml` file by running the following command:
+. Set an environment variable for the location of the `clouds.yaml` file by running the following command:
 +
 [source,terminal]
 ----
@@ -93,7 +95,7 @@ $ export OS_CLIENT_CONFIG_FILE=/tmp/clouds.yaml
 $ export CLOUD_NAME=$(oc get machineset -n openshift-machine-api -o jsonpath='{.items[0].spec.template.spec.providerSpec.value.cloudName}')
 ----
 
-. Obtain the URL of the {op-system} image you want to be use as the boot image and set the location in an environment variable by running the following command, based on cluster architecture, by running one of the following commands.
+. Obtain the URL of the {op-system} image you want to use as the boot image and set the location in an environment variable by running the following command, based on cluster architecture, by running one of the following commands.
 +
 * Linux (x86_64, amd64):
 +
@@ -194,7 +196,9 @@ $ openstack --os-cloud "${CLOUD_NAME}" image show "${IMAGE_NAME}" -f json | jq '
 }
 ----
 
-. Obtain the name of your machine sets for use in the following step.
+. Update each of your compute machine sets to include the new boot image:
+
+.. Obtain the name of your machine sets for use in the following step by running the following command:
 +
 [source,terminal]
 ----
@@ -209,7 +213,7 @@ rhhdrbk-b5564-4pcm9-worker-0         3         3         3       3           123
 ci-ln-xj96skb-72292-48nm5-worker-d   1         1         1       1           27m
 ----
 
-. Edit a machine set to update the `image` field in the `providerSpec` stanza to point add your boot image by running the following command.
+.. Edit a machine set to update the `image` field in the `providerSpec` stanza to point add your boot image by running the following command:
 +
 [source,terminal]
 ----
@@ -264,8 +268,8 @@ Replace `<new_node>` with the name of your new node.
 ----
 {
 # ...
-    "ref": "docker://ostree-image-signed:oci-archive:/rhcos-9.6.20251023-0-ostree.x86_64.ociarchive",
-    "version": "9.6.20251023-0"
+    "ref": "docker://ostree-image-signed:oci-archive:/rhcos-9.6.20251212-1-ostree.x86_64.ociarchive",
+    "version": "9.6.20251212-1"
 }
 ----
 where:
