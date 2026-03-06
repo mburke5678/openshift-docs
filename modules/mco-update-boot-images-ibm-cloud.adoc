@@ -1,0 +1,283 @@
+// Module included in the following assemblies:
+//
+// * machine_configuration/mco-update-boot-images.adoc
+// * nodes/nodes/nodes-update-boot-images.adoc
+
+:_mod-docs-content-type: PROCEDURE
+[id="mco-update-boot-images-ibm-cloud_{context}"]
+= Updating the boot image on an {ibm-cloud-name} cluster
+
+[role="_abstract"]
+For an {ibm-cloud-title} cluster, you can manually update the boot image for your cluster by configuring your machine sets to use the latest {product-title} image as the boot image. By updating the boot image, you can ensure that the {op-system-first} version on new nodes is up-to-date.
+
+[NOTE]
+====
+The standard boot image management feature is not supported for {ibm-cloud-title} clusters.
+====
+
+The following procedure, which includes steps that create environment variables to facilitate running the required commands, shows how to obtain {rh-openstack} authentication credentials, download a boot image, upload that image to the {rh-openstack} image service (Glance), and modify your worker machine sets to use the new boot image.
+
+This procedure uses the {ibm-cloud-title} Object Storage (COS) bucket in your cluster. A COS bucket was created during cluster installation. Each COS has a specific Cloud Resource Name (CRN), which the {ibm-cloud-title} CLI uses the to select the correct COS instance. For more information on the CRN, see link:https://cloud.ibm.com/docs/account?topic=account-crn[Cloud Resource Names in the {ibm-cloud-title} documentation].
+
+.Prerequisites
+
+* You have completed the general boot image prerequisites as described in the Prerequisites section of link:https://access.redhat.com/articles/7053165#prerequisites-2[{product-title} Boot Image Updates].
+
+* You have downloaded the latest version of the {product-title} installation program from the {cluster-manager-url}. For more information, see "Obtaining the installation program."
+
+* You have the {oc-first} installed.
+
+* You have the link:https://cloud.ibm.com/docs/cli?topic=cli-getting-started[{ibm-cloud-title} CLI] installed.
+
+* After installing the {ibm-cloud-title} CLI, you have installed the {ibm-cloud-title} Virtual Private Cloud (VPC) CLI plugin by running the following command:
++
+[source,terminal]
+----
+$ ibmcloud plugin install vpc-infrastructure
+----
+
+* After installing the {ibm-cloud-title} CLI, you have installed the {ibm-cloud-title} Object Storage plugin by running the following command:
++
+[source,terminal]
+----
+$ ibmcloud plugin install cloud-object-storage
+----
+
+.Procedure
+
+. Obtain the resource group and region from the `infrastructure` object and set the values in an environment variable by running the following commands:
++
+[source,terminal]
+----
+$ export RESOURCE_GROUP=$(oc get infrastructure cluster -o jsonpath='{.status.infrastructureName}')
+----
++
+[source,terminal]
+----
+$ export REGION=$(oc get infrastructure cluster -o jsonpath='{.status.platformStatus.ibmcloud.location}')
+----
+
+. Obtain your {ibm-cloud-title} API key by running the following command:
++
+[source,terminal]
+----
+$ export IBM_API_KEY=$(oc get secret qe-ibmcloud-creds -n kube-system -o jsonpath='{.data.apiKey}' | base64 -d)
+----
++
+For information on creating a {ibm-cloud-title} API key, see link:https://www.ibm.com/docs/en/masv-and-l/cd?topic=cli-creating-your-cloud-api-key[Creating your {ibm-cloud-title} API key in the {ibm-cloud-title} documentation.
+
+. Log in to your {ibm-cloud-title} by running the following {ibm-cloud-title} CLI command:
++
+[source,terminal]
+----
+$ ibmcloud login --apikey ${IBM_API_KEY} -r ${REGION} -g ${RESOURCE_GROUP}
+----
++
+`IBM_API_KEY`, `REGION`, and `RESOURCE_GROUP` are environment variables you created in previous steps.
++
+.Example output
+[source,terminal]
+---- 
+API endpoint: https://cloud.ibm.com
+Authenticating...
+Retrieving API key token...
+OK
+
+Targeted account OpenShift-QE (xxxxxxxxxxxxxxxx) <-> xxxxxx
+
+Targeted resource group xxxxxxx-ibm3h-9pbgg
+
+Targeted region eu-gb
+
+                                                                                
+API endpoint:     https://cloud.ibm.com
+Region:           eu-gb
+User:             xxxxx
+Account:          xxxxx
+Resource group:   xxxxx
+----
+
+. Obtain the URL of the {op-system} image you want to use as the boot image and set the location in an environment variable by running the following command, based on cluster architecture, by running one of the following commands.
++
+* Linux (x86_64, amd64):
++
+[source,terminal]
+----
+$ export RHCOS_URL=$(openshift-install coreos print-stream-json | jq -r '.architectures.x86_64.artifacts.ibmcloud.formats["qcow2.gz"].disk.location')
+----
++
+* Linux on {ibm-z-name} and {ibm-linuxone-name} (s390x):
++
+[source,terminal]
+----
+export RHCOS_URL=$(openshift-install coreos print-stream-json | jq -r '.architectures.s390x.artifacts.ibmcloud.formats["qcow2.gz"].disk.location')
+----
+
+. Obtain the boot image:
+
+.. Download the image by using the following command, which contains the URL environment variable you created in a previous step: 
++
+[source,terminal]
+----
+$ curl -L -o /tmp/rhcos-new.qcow2.gz "${RHCOS_URL}"
+----
+
+.. Decompress the downloaded image by running the following command:
++
+[source,terminal]
+----
+$ gunzip /tmp/rhcos-new.qcow2.gz
+----
+
+. Upload the boot image to the existing {ibm-cloud-title} Cloud Object Storage (COS) bucket:
+
+.. Obtain your the CRN for your COS bucket and set the CRN in an environment by running the following command:
++
+[source,terminal]
+----
+$ export COS_CRN=$(ibmcloud resource service-instance "${RESOURCE_GROUP}-cos" --output json | jq -r '.[0].crn') 
+----
+
+.. Optional: Check that the CRN by running the following command:
++
+[source,terminal]
+----
+$ echo ${COS_CRN}
+----
+
+.. Configure the COS bucket to use the CRN by running the following command:
++
+[source,terminal]
+----
+$ ibmcloud cos config crn --crn "${COS_CRN}"
+----
++
+`COS_CRN` is the environment variable you created in a previous step.
+
+.. Upload the boot image to the COS bucket by running the following command:
++
+[source,terminal]
+----
+$ ibmcloud cos object-put --bucket "${RESOURCE_GROUP}-vsi-image" --key "rhcos-new.qcow2" --body /tmp/rhcos-new.qcow2 --region "${REGION}"
+----
++
+`RESOURCE_GROUP` is the environment variable you created in a previous step.
+
+.. Optional: Check that image was uploaded to the COS bucket by running the following command:
++
+[source,terminal]
+----
+$ ibmcloud cos objects --bucket "${RESOURCE_GROUP}-vsi-image" --region "${REGION}"
+----
++
+`RESOURCE_GROUP` is the environment variable you created in a previous step.
++
+.Example output
+[source,terminal]
+----
+OK
+Found 2 objects in bucket 'xxxxxx-ibm3h-9pbgg-vsi-image':
+----
+
+.. Create a custom image for you {ibm-cloud-title} Virtual Private Cloud (VPC) from the uploaded boot image by running the following command: 
++
+[source,terminal]
+----
+$ ibmcloud is image-create "${RESOURCE_GROUP}-<descriptive_image_name>" --file "cos://${REGION}/${RESOURCE_GROUP}-vsi-image/rhcos-new.qcow2" --os-name rhel-coreos-stable-amd64 --resource-group-name "${RESOURCE_GROUP}"
+----
++
+You must set  the `--os-name` argument to `rhel-coreos-stable-amd64` as shown. This parameter configures several {op-system-first} default values that are required.
++
+`REGION`, and `RESOURCE_GROUP` are environment variables you created in previous steps.
++
+Setting a descriptive name for your custom image, such as using the {op-system-first} version number in the image name, makes it easier to track which version is currently deployed if you update the cluster in the future.
+    
+.. Optional: Observe the new image being uploaded until its status changes from `pending` to `available`.
++
+[source,terminal]
+----
+$ watch ibmcloud is image "${RESOURCE_GROUP}-rhcos-new"
+----
++
+`RESOURCE_GROUP` is the environment variable you created in a previous step.
+
+. Update each of your compute machine sets to include the new boot image:
+
+.. Obtain the name of your machine sets for use in the following step by running the following command:
++
+[source,terminal]
+----
+$ oc get machineset -n openshift-machine-api
+----
++
+.Example output
+[source,terminal]
+----
+NAME                                 DESIRED   CURRENT   READY   AVAILABLE   AGE
+rhhdrbk-b5564-4pcm9-worker-0         3         3         3       3           123m
+ci-ln-xj96skb-72292-48nm5-worker-d   1         1         1       1           27m
+----
+
+.. Edit a machine set to update the `image` field in the `providerSpec` stanza to point add your boot image by running the following command:
++
+[source,terminal]
+----
+$ oc patch machineset <machineset_name> -n openshift-machine-api --type merge -p \
+'{"spec":{"template":{"spec":{"providerSpec":{"value":{"image":"'${IMAGE_NAME}'"}}}}}}'
+----
++
+Replace `<machineset_name>` with the name of your machine set.
+
+
+.Verification
+
+. Scale up a machine set to check that the new node is using the your boot image:
+
+.. Increase the machine set replicas by one to trigger a new machine by running the following command:
++
+[source,terminal]
+----
+$ oc scale --replicas=<count> machineset <machineset_name> -n openshift-machine-api
+----
+where:
+
+`<count>`:: Specifies the total number of replicas, including any existing replicas, that you want for this machine set.
+`<machineset_name>`:: Specifies the name of the machine set to scale.
+
+.. Optional: View the status of the machine set as it is created by running the following command:
++
+[source,terminal]
+----
+$ oc get machines.machine.openshift.io -n openshift-machine-api -w
+----
++
+It can take several minutes for the machine set to achieve the `Running` state.
+
+.. Verify that the new node has been created and is in the `Ready` state by running the following command.
++
+[source,terminal]
+----
+$ oc get nodes
+----
+
+.. Verify that the new node is using your boot image by running the following command:
++
+[source,terminal]
+----
+$ oc debug node/<new_node> -- chroot /ho	st cat /sysroot/.coreos-aleph-version.json
+----
++
+Replace `<new_node>` with the name of your new node.
++
+.Example output
+[source,terminal]
+----
+{
+# ...
+    "ref": "docker://ostree-image-signed:oci-archive:/rhcos-9.6.20251212-1-ostree.x86_64.ociarchive",
+    "version": "9.6.20251212-1"
+}
+----
+where:
+
+`<version>`:: Specifies the boot image version.
