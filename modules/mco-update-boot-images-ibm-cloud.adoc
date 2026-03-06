@@ -64,7 +64,7 @@ $ export REGION=$(oc get infrastructure cluster -o jsonpath='{.status.platformSt
 $ export IBM_API_KEY=$(oc get secret qe-ibmcloud-creds -n kube-system -o jsonpath='{.data.apiKey}' | base64 -d)
 ----
 +
-For information on creating a {ibm-cloud-title} API key, see link:https://www.ibm.com/docs/en/masv-and-l/cd?topic=cli-creating-your-cloud-api-key[Creating your IBM Cloud API key in the {ibm-cloud-title} documentation.
+For information on creating a {ibm-cloud-title} API key, see link:https://www.ibm.com/docs/en/masv-and-l/cd?topic=cli-creating-your-cloud-api-key[Creating your {ibm-cloud-title} API key in the {ibm-cloud-title} documentation.
 
 . Log in to your {ibm-cloud-title} by running the following {ibm-cloud-title} CLI command:
 +
