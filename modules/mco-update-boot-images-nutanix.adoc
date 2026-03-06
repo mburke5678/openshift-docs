@@ -20,7 +20,7 @@ This procedure requires Nutanix authentication credentials, which you need to ac
 
 .Prerequisites
 
-* You have completed the general boot image prerequisites as described in the Prerequisites section of link:https://access.redhat.com/articles/7053165#prerequisites-2[OpenShift Container Platform Boot Image Updates].
+* You have completed the general boot image prerequisites as described in the Prerequisites section of link:https://access.redhat.com/articles/7053165#prerequisites-2[{product-title} Boot Image Updates].
 
 * You have downloaded the latest version of the {product-title} installation program from the {cluster-manager-url}. For more information, see "Obtaining the installation program."
 
