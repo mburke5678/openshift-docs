@@ -1,6 +1,7 @@
 // Module included in the following assemblies:
 //
-// * nodes/nodes-containers-port-forwarding.adoc
+// * machine_configuration/mco-update-boot-images.adoc
+// * nodes/nodes/nodes-update-boot-images.adoc
 
 :_mod-docs-content-type: PROCEDURE
 [id="mco-update-boot-images-openstack_{context}"]
@@ -164,7 +165,7 @@ $ openstack --os-cloud "${CLOUD_NAME}" image create "${IMAGE_NAME}" \
   --property os_distro=rhcos
 ----
 +
-`{CLOUD_NAME}` and `{IMAGE_NAME}` are environment variables you created in previous steps.
+`CLOUD_NAME` and `IMAGE_NAME` are environment variables you created in previous steps.
 +
 It might take several minutes for the image to upload. When the upload is complete, details on the image displays, similar to the following example:
 +
