@@ -14,4 +14,11 @@ The following issues are fixed for this release:
 
 * Before this update, the hosted control plane (`hcp`) CLI and control plane operator instantiated Azure SDK clients without passing cloud configuration options, which caused all clients to default to Azure Public Cloud. As a consequence, creating or managing hosted clusters in Azure Government Cloud or Azure China Cloud failed because the SDK clients could not connect to the correct cloud endpoints. With this update, all Azure SDK client instantiations use the cloud configuration specified in the hosted cluster platform settings. As a result, the `hcp` CLI and control plane operator correctly support Azure Government Cloud and Azure China Cloud in addition to Azure Public Cloud. (link:https://issues.redhat.com/browse/OCPBUGS-33372[OCPBUGS-33372])
 
-* Before this update, the following test failed more than expected:`TestExternalOIDCTechPreview/Main/[OCPFeatureGate:ExternalOIDCWithUIDAndExtraClaimMappings]_Test_external_OIDC_userInfo_Extra`. As a consequence, the user experience was disrupted by a test failure in the external OIDC feature. With this release, the bug fix ensures that the `ExternalOIDCWithUIDAndExtraClaimMappings` test passes in version 4.20. As a result, the test failures in the external OIDC feature are fixed, improving user authentication in 4.20 and later versions. (link:https://issues.redhat.com/browse/OCPBUGS-63622[OCPBUGS-63622])
+* Before this update, the following test failed more than expected:
++
+[source,terminal]
+----
+TestExternalOIDCTechPreview/Main/[OCPFeatureGate:ExternalOIDCWithUIDAndExtraClaimMappings]_Test_external_OIDC_userInfo_Extra
+----
++
+As a consequence, the user experience was disrupted by a test failure in the external OIDC feature. With this release, the bug fix ensures that the `ExternalOIDCWithUIDAndExtraClaimMappings` test passes in version 4.20. As a result, the test failures in the external OIDC feature are fixed, improving user authentication in 4.20 and later versions. (link:https://issues.redhat.com/browse/OCPBUGS-63622[OCPBUGS-63622])
