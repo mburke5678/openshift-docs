@@ -10,10 +10,10 @@ toc::[]
 
 
 
+[role="_abstract"]
+You can  consolidate multiple data sources into a single directory for your pods, by using a projected volume. A projected volume allows you to manage secrets, config maps, and other volume sources collectively within the same mount point.
 
-A _projected volume_ maps several existing volume sources into the same directory.
-
-The following types of volume sources can be projected:
+You can project any of the the following types of volume sources:
 
 * Secrets
 

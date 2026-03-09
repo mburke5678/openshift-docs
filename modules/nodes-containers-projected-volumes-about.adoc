@@ -6,11 +6,14 @@
 [id="nodes-containers-projected-volumes-about_{context}"]
 = Understanding projected volumes
 
-Projected volumes can map any combination of these volume sources into a single directory, allowing the user to:
+[role="_abstract"]
+A projected volume maps multiple data sources, such as secrets and configuration maps, into a single directory. You can use projected volumes to consolidate configuration data, manage sensitive information, or inject pod metadata into your container environment.
 
-* automatically populate a single volume with the keys from multiple secrets, config maps, and with downward API information,
-so that I can synthesize a single directory with various sources of information;
-* populate a single volume with the keys from multiple secrets, config maps, and with downward API information,
+Projected volumes can map any combination of these volume sources into a single directory, allowing the user to perform the following tasks:
+
+* Automatically populate a single volume with the keys from multiple secrets, config maps, and with downward API information,
+so that I can synthesize a single directory with various sources of information.
+* Populate a single volume with the keys from multiple secrets, config maps, and with downward API information,
 explicitly specifying paths for each item, so that I can have full control over the contents of that volume.
 
 [IMPORTANT]
@@ -22,19 +25,19 @@ Therefore, the `RunAsUsername` permission set in the security context of a Windo
 
 The following general scenarios show how you can use projected volumes.
 
-*Config map, secrets, Downward API.*::
+*Config map, secrets, Downward API*::
 Projected volumes allow you to deploy containers with configuration data that includes passwords.
 An application using these resources could be deploying {rh-openstack-first} on Kubernetes. The configuration data might have to be assembled differently depending on if the services are going to be used for production or for testing. If a pod is labeled with production or testing, the downward API selector `metadata.labels` can be used to produce the correct {rh-openstack} configs.
 
-*Config map + secrets.*::
+*Config map + secrets*::
 Projected volumes allow you to deploy containers involving configuration data and passwords.
 For example, you might execute a config map with some sensitive encrypted tasks that are decrypted using a vault password file.
 
-*ConfigMap + Downward API.*::
+*ConfigMap + Downward API*::
 Projected volumes allow you to generate a config including the pod name (available via the `metadata.name` selector). This application can then pass the pod name along with requests to easily determine the source without using IP tracking.
 
-*Secrets + Downward API.*::
-Projected volumes allow you to use a secret as a public key to encrypt the namespace of the pod (available via the `metadata.namespace` selector).
+*Secrets + Downward API*::
+Projected volumes allow you to use a secret as a public key to encrypt the namespace of the pod (available through the `metadata.namespace` selector).
 This example allows the Operator to use the application to deliver the namespace information securely without using an encrypted transport.
 
 [id="projected-volumes-examples_{context}"]
@@ -58,25 +61,25 @@ spec:
   containers:
   - name: container-test
     image: busybox
-    volumeMounts: <1>
+    volumeMounts:
     - name: all-in-one
-      mountPath: "/projected-volume"<2>
-      readOnly: true <3>
+      mountPath: "/projected-volume"
+      readOnly: true
     securityContext:
       allowPrivilegeEscalation: false
       capabilities:
         drop: [ALL]
-  volumes: <4>
-  - name: all-in-one <5>
+  volumes:
+  - name: all-in-one
     projected:
-      defaultMode: 0400 <6>
+      defaultMode: 0400
       sources:
       - secret:
-          name: mysecret <7>
+          name: mysecret
           items:
             - key: username
-              path: my-group/my-username <8>
-      - downwardAPI: <9>
+              path: my-group/my-username
+      - downwardAPI:
           items:
             - path: "labels"
               fieldRef:
@@ -85,25 +88,26 @@ spec:
               resourceFieldRef:
                 containerName: container-test
                 resource: limits.cpu
-      - configMap: <10>
+      - configMap:
           name: myconfigmap
           items:
             - key: config
               path: my-group/my-config
-              mode: 0777 <11>
+              mode: 0777
 ----
+where:
 
-<1> Add a `volumeMounts` section for each container that needs the secret.
-<2> Specify a path to an unused directory where the secret will appear.
-<3> Set `readOnly` to `true`.
-<4> Add a `volumes` block to list each projected volume source.
-<5> Specify any name for the volume.
-<6> Set the execute permission on the files.
-<7> Add a secret. Enter the name of the secret object. Each secret you want to use must be listed.
-<8> Specify the path to the secrets file under the `mountPath`. Here, the secrets file is in *_/projected-volume/my-group/my-username_*.
-<9> Add a Downward API source.
-<10> Add a ConfigMap source.
-<11> Set the mode for the specific projection
+`spec.containers.volumeMount`:: Specifies a secret for the container. Add a `volumeMounts` section for each container that needs the secret.
+`spec.containers.volumeMount.mountPath`:: Specifies a path to an unused directory where the secret will appear.
+`spec.containers.volumeMount.readOnly`:: Specifies that the volume is set to `readOnly` to `true`.
+`spec.volumes`:: Specifies a volume for the container. Add a `volumes` block to list each projected volume source.
+`spec.volumes.name`:: Specifies any name for the volume.
+`spec.volumes.projected.defaultMode`:: Specifies the execute permission on the files.
+`spec.volumes.projected.sources.secret.name`:: Specifies the name of the secret object to add. Each secret you want to use must be listed.
+`spec.volumes.projected.sources.secret.items.path`:: Specifies the path to the secrets file under the `mountPath`. Here, the secrets file is in *_/projected-volume/my-group/my-username_*.
+`spec.volumes.projected.sources.downwardAPI`:: Specifies a Downward API source to add.
+`spec.volumes.projected.sources.configMap`:: Specifies a ConfigMap source to add.
+`spec.volumes.projected.sources.configMap.items.mode`:: Specifies the mode for the specific projection
 
 [NOTE]
 ====
@@ -155,14 +159,16 @@ spec:
 [NOTE]
 ====
 The `defaultMode` can only be specified at the projected level and not for each
-volume source. However, as illustrated above, you can explicitly set the `mode`
-for each individual projection.
+volume source. However, you can explicitly set the `mode`
+for each individual projection, as shown.
 ====
 
 [id="projected-volumes-pathing_{context}"]
 == Pathing Considerations
 
-*Collisions Between Keys when Configured Paths are Identical*:: If you configure any keys with the same path, the pod spec will not be accepted as valid.
+When creating projected volumes, consider the volume file path situations.
+
+*Collisions between keys when the configured paths are identical*:: If you configure any keys with the same path, the pod spec will not be accepted as valid.
 In the following example, the specified path for `mysecret` and `myconfigmap` are the same:
 +
 [source,yaml]
@@ -205,8 +211,7 @@ spec:
 
 Consider the following situations related to the volume file paths.
 
-*Collisions Between Keys without Configured Paths*:: The only run-time validation that can occur is when all the paths are known at pod creation, similar to the above scenario. Otherwise, when a conflict occurs the most recent specified resource will overwrite anything preceding it
-(this is true for resources that are updated after pod creation as well).
+*Collisions between keys without configured paths*:: The only run-time validation that can occur is when all the paths are known at pod creation, similar to the previous example. Otherwise, when a conflict occurs the most recent specified resource will overwrite anything preceding it. This is also true for resources that are updated after pod creation.
 
-*Collisions when One Path is Explicit and the Other is Automatically Projected*:: In the event that there is a collision due to a user specified path matching data that is automatically projected,
-the latter resource will overwrite anything preceding it as before
+*Collisions when one path is explicit and the other is automatically projected*:: In the event that there is a collision due to a user-specified path matching data that is automatically projected,
+the latter resource will overwrite anything preceding it as before.
