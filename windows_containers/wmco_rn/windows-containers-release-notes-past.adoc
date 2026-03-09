@@ -10,4 +10,6 @@ The following release notes are for previous versions of the Windows Machine Con
 
 For the current version, see xref:../../windows_containers/wmco_rn/windows-containers-release-notes.adoc#windows-containers-release-notes[{productwinc} release notes].
 
+include::modules/windows-containers-release-notes-10-18-1.adoc[leveloffset=+1]
+
 include::modules/windows-containers-release-notes-10-18-0.adoc[leveloffset=+1]
