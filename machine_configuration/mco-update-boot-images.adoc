@@ -23,3 +23,7 @@ include::modules/mco-update-boot-images-about.adoc[leveloffset=+1]
 include::modules/mco-update-boot-images-configuring.adoc[leveloffset=+1]
 
 include::modules/mco-update-boot-images-disable.adoc[leveloffset=+1]
+
+include::modules/mco-update-boot-skew-mgmt-about.adoc[leveloffset=+1]
+
+include::modules/mco-update-boot-skew-mgmt-configuring.adoc[leveloffset=+1]

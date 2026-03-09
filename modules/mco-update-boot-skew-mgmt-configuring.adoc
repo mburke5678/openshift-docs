@@ -1,0 +1,42 @@
+// Module included in the following assemblies:
+//
+// * machine-configuration/mco-update-boot-images.adoc
+// * nodes/nodes/nodes-update-boot-images.adoc
+
+:_mod-docs-content-type: PROCEDURE
+[id="mco-update-boot-skew-mgmt-configuring.adoc_{context}"]
+= Configuring boot image skew management
+
+[role="_abstract"]
+
+
+[source,yaml]
+----
+apiVersion: operator.openshift.io/v1
+kind: MachineConfiguration
+metadata:
+  name: cluster
+spec:
+# ...
+  bootImageSkewEnforcement:
+    mode: Manual
+    manual:
+      mode: RHCOSVersion
+      rhcosVersion: 9.0.20251023-0
+# ...
+----
+where:
+
+`spec.bootImageSkewEnforcement.mode`:: Specifies the boot image management mode, one of the following values:
++
+--
+* `Automatic`. Boot image management is active. This valus is available only for :aws-short:, :gcp-short:, :azure-short:, and :vmw-short: clusters and is the default for these platforms.
+* `Manual`. The cluster admin is responsible to manually configure the boot image version based on the `ocpVersion` or `rhcosVersion` parameter.
+* `None`. Boot image management is disabled.
+--
+`spec.bootImageSkewEnforcement.manual`:: For the `Manual` mode, specifies that minimum the boot image is based on the specific {product-title} or {op-system} version. This example configures an {op-system} version.
++
+--
+* `spec.bootImageSkewEnforcement.manual.mode`. Specify `OCPVersion` or `RHCOSVersion`. 
+* `spec.bootImageSkewEnforcement.manual.rhcosVersion`. For `RHCOSVersion`, specify the minimum {op-system} version that should be used as a boot image.
+----
