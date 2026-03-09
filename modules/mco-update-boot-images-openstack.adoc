@@ -15,7 +15,7 @@ For a {rh-openstack-first} cluster, you can manually update the boot image for y
 The standard boot image management feature is not supported for {rh-openstack} clusters.
 ====
 
-The following procedure, which includes steps that create environment variables to facilitate running the required commands, shows how to obtain {rh-openstack} authentication credentials, download a boot image, upload that image to the {rh-openstack} image service (Glance), and modify your worker machine sets to use the new boot image.
+The following procedure, which includes steps to create environment variables that facilitate running the required commands, shows how to obtain {rh-openstack} authentication credentials, download a boot image, upload that image to the {rh-openstack} image service (Glance), and modify your worker machine sets to use the new boot image.
 
 This procedure requires the `clouds.yaml` file, which is needed to connect to your {rh-openstack} cloud. If you need to re-create this file, you can get the {rh-openstack} credentials from an {product-title} secret, the name of which you can find in the default compute machine set. You can decrypt this secret and export the credentials to create the `clouds.yaml` file, as described in the following procedure.
 
@@ -28,7 +28,7 @@ Updating control plane machine sets is not supported in {rh-openstack}.
 
 * You have completed the general boot image prerequisites as described in the Prerequisites section of link:https://access.redhat.com/articles/7053165#prerequisites-2[{product-title} Boot Image Updates].
 
-* You have downloaded the latest version of the {product-title} installation program from the {cluster-manager-url}. For more information, see "Obtaining the installation program."
+* You have downloaded the latest version of the {product-title} installation program, openshift-install, from the {cluster-manager-url}. For more information, see "Obtaining the installation program."
 
 * You have the {oc-first} installed.
 
@@ -96,7 +96,7 @@ $ export OS_CLIENT_CONFIG_FILE=/tmp/clouds.yaml
 $ export CLOUD_NAME=$(oc get machineset -n openshift-machine-api -o jsonpath='{.items[0].spec.template.spec.providerSpec.value.cloudName}')
 ----
 
-. Obtain the URL of the {op-system} image you want to use as the boot image and set the location in an environment variable by running the following command, based on cluster architecture, by running one of the following commands.
+. Obtain the URL of the {op-system} image you want to use as the boot image and set the location in an environment variable by running one of the following commands, based on cluster architecture:
 +
 * Linux (x86_64, amd64):
 +
@@ -214,7 +214,7 @@ rhhdrbk-b5564-4pcm9-worker-0         3         3         3       3           123
 ci-ln-xj96skb-72292-48nm5-worker-d   1         1         1       1           27m
 ----
 
-.. Edit a machine set to update the `image` field in the `providerSpec` stanza to point add your boot image by running the following command:
+.. Edit a machine set to update the `image` field in the `providerSpec` stanza to add your boot image by running the following command:
 +
 [source,terminal]
 ----
@@ -226,7 +226,7 @@ Replace `<machineset_name>` with the name of your machine set.
 
 .Verification
 
-. Scale up a machine set to check that the new node is using the your boot image:
+. Scale up a machine set to check that the new node is using the new boot image:
 
 .. Increase the machine set replicas by one to trigger a new machine by running the following command:
 +
@@ -239,7 +239,7 @@ where:
 `<count>`:: Specifies the total number of replicas, including any existing replicas, that you want for this machine set.
 `<machineset_name>`:: Specifies the name of the machine set to scale.
 
-.. Optional: View the status of the machine set as it is created by running the following command:
+.. Optional: View the status of the machine set as it provisions by running the following command:
 +
 [source,terminal]
 ----
@@ -255,7 +255,7 @@ It can take several minutes for the machine set to achieve the `Running` state.
 $ oc get nodes
 ----
 
-.. Verify that the new node is using your boot image by running the following command:
+.. Verify that the new node is using the new boot image by running the following command:
 +
 [source,terminal]
 ----
