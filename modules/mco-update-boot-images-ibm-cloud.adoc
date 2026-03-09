@@ -15,15 +15,15 @@ For an {ibm-cloud-title} cluster, you can manually update the boot image for you
 The standard boot image management feature is not supported for {ibm-cloud-title} clusters.
 ====
 
-The following procedure, which includes steps that create environment variables to facilitate running the required commands, shows how to obtain {rh-openstack} authentication credentials, download a boot image, upload that image to the {rh-openstack} image service (Glance), and modify your worker machine sets to use the new boot image.
+The following procedure, which includes steps to create environment variables that facilitate running the required commands, shows how to obtain {ibm-cloud-title} authentication credentials, download a boot image, upload that image to the {ibm-cloud-title} image service, and modify your worker machine sets to use the new boot image.
 
-This procedure uses the {ibm-cloud-title} Object Storage (COS) bucket in your cluster. A COS bucket was created during cluster installation. Each COS has a specific Cloud Resource Name (CRN), which the {ibm-cloud-title} CLI uses the to select the correct COS instance. For more information on the CRN, see link:https://cloud.ibm.com/docs/account?topic=account-crn[Cloud Resource Names in the {ibm-cloud-title} documentation].
+This procedure uses the {ibm-cloud-title} Cloud Object Storage (COS) bucket in your cluster, which was created during cluster installation. Each COS bucket has a specific Cloud Resource Name (CRN), which the {ibm-cloud-title} CLI uses the to select the correct COS bucket. For more information on the CRN, see link:https://cloud.ibm.com/docs/account?topic=account-crn[Cloud Resource Names in the {ibm-cloud-title} documentation].
 
 .Prerequisites
 
 * You have completed the general boot image prerequisites as described in the Prerequisites section of link:https://access.redhat.com/articles/7053165#prerequisites-2[{product-title} Boot Image Updates].
 
-* You have downloaded the latest version of the {product-title} installation program from the {cluster-manager-url}. For more information, see "Obtaining the installation program."
+* You have downloaded the latest version of the {product-title} installation program, openshift-install, from the {cluster-manager-url}. For more information, see "Obtaining the installation program."
 
 * You have the {oc-first} installed.
 
@@ -57,16 +57,16 @@ $ export RESOURCE_GROUP=$(oc get infrastructure cluster -o jsonpath='{.status.in
 $ export REGION=$(oc get infrastructure cluster -o jsonpath='{.status.platformStatus.ibmcloud.location}')
 ----
 
-. Obtain your {ibm-cloud-title} API key by running the following command:
+. Obtain your {ibm-cloud-title} API key and set the value in an environment variable by running the following command:
 +
 [source,terminal]
 ----
 $ export IBM_API_KEY=$(oc get secret qe-ibmcloud-creds -n kube-system -o jsonpath='{.data.apiKey}' | base64 -d)
 ----
 +
-For information on creating a {ibm-cloud-title} API key, see link:https://www.ibm.com/docs/en/masv-and-l/cd?topic=cli-creating-your-cloud-api-key[Creating your {ibm-cloud-title} API key in the {ibm-cloud-title} documentation.
+For information on creating an {ibm-cloud-title} API key, see link:https://www.ibm.com/docs/en/masv-and-l/cd?topic=cli-creating-your-cloud-api-key[Creating your {ibm-cloud-title} API key in the {ibm-cloud-title}] documentation.
 
-. Log in to your {ibm-cloud-title} by running the following {ibm-cloud-title} CLI command:
+. Log in to your {ibm-cloud-title} by running the following command:
 +
 [source,terminal]
 ----
@@ -97,7 +97,7 @@ Account:          xxxxx
 Resource group:   xxxxx
 ----
 
-. Obtain the URL of the {op-system} image you want to use as the boot image and set the location in an environment variable by running the following command, based on cluster architecture, by running one of the following commands.
+. Obtain the URL of the {op-system} image you want to use as the boot image and set the location in an environment variable by running the following commands, based on your cluster architecture:
 +
 * Linux (x86_64, amd64):
 +
@@ -115,12 +115,14 @@ export RHCOS_URL=$(openshift-install coreos print-stream-json | jq -r '.architec
 
 . Obtain the boot image:
 
-.. Download the image by using the following command, which contains the URL environment variable you created in a previous step: 
+.. Download the image by using the following command: 
 +
 [source,terminal]
 ----
 $ curl -L -o /tmp/rhcos-new.qcow2.gz "${RHCOS_URL}"
 ----
++
+`RHCOS_URL` is the environment variable you created in previous steps.
 
 .. Decompress the downloaded image by running the following command:
 +
@@ -179,7 +181,7 @@ OK
 Found 2 objects in bucket 'xxxxxx-ibm3h-9pbgg-vsi-image':
 ----
 
-.. Create a custom image for you {ibm-cloud-title} Virtual Private Cloud (VPC) from the uploaded boot image by running the following command: 
+.. Create a custom image for your {ibm-cloud-title} Virtual Private Cloud (VPC) from the uploaded boot image by running the following command: 
 +
 [source,terminal]
 ----
@@ -190,7 +192,7 @@ You must set  the `--os-name` argument to `rhel-coreos-stable-amd64` as shown. T
 +
 `REGION`, and `RESOURCE_GROUP` are environment variables you created in previous steps.
 +
-Setting a descriptive name for your custom image, such as using the {op-system-first} version number in the image name, makes it easier to track which version is currently deployed if you update the cluster in the future.
+Use the `descriptive_image_name` parameter to to create a descriptive name for your boot image in the COS bucket. Setting a descriptive name for your custom image, such as using the {op-system-first} version number in the image name, makes it easier to track which version is currently deployed if you update the cluster in the future.
     
 .. Optional: Observe the new image being uploaded until its status changes from `pending` to `available`.
 +
@@ -218,7 +220,7 @@ rhhdrbk-b5564-4pcm9-worker-0         3         3         3       3           123
 ci-ln-xj96skb-72292-48nm5-worker-d   1         1         1       1           27m
 ----
 
-.. Edit a machine set to update the `image` field in the `providerSpec` stanza to point add your boot image by running the following command:
+.. Edit a machine set to update the `image` field in the `providerSpec` stanza to add your boot image by running the following command:
 +
 [source,terminal]
 ----
@@ -231,7 +233,7 @@ Replace `<machineset_name>` with the name of your machine set.
 
 .Verification
 
-. Scale up a machine set to check that the new node is using the your boot image:
+. Scale up a machine set to check that the new node is using the new boot image:
 
 .. Increase the machine set replicas by one to trigger a new machine by running the following command:
 +
@@ -244,7 +246,7 @@ where:
 `<count>`:: Specifies the total number of replicas, including any existing replicas, that you want for this machine set.
 `<machineset_name>`:: Specifies the name of the machine set to scale.
 
-.. Optional: View the status of the machine set as it is created by running the following command:
+.. Optional: View the status of the machine set as it provisions by running the following command:
 +
 [source,terminal]
 ----
@@ -260,7 +262,7 @@ It can take several minutes for the machine set to achieve the `Running` state.
 $ oc get nodes
 ----
 
-.. Verify that the new node is using your boot image by running the following command:
+.. Verify that the new node is using the new boot image by running the following command:
 +
 [source,terminal]
 ----
