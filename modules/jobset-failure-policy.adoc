@@ -113,3 +113,8 @@ spec:
                 sleep 1000
 
 ----
+
+[NOTE]
+====
+The `InPlaceRestart` alpha feature is not currently supported on the {js-operator}.
+====
