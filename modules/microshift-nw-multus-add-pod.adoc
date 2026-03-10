@@ -142,7 +142,7 @@ metadata:
 $ oc get pod _<name>_ -o yaml
 ----
 +
-Replace `_<name>_` with the pod name you want to use. In the following example, `_<test_bridg e>_` is used.
+Replace `_<name>_` with the pod name you want to use. In the following example, `_<test_bridge>_` is used.
 
 +
 In the following example, the `test_bridge` is attached to the `net1` additional network:
