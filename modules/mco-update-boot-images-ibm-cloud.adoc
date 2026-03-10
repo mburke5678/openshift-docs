@@ -5,7 +5,7 @@
 
 :_mod-docs-content-type: PROCEDURE
 [id="mco-update-boot-images-ibm-cloud_{context}"]
-= Updating the boot image on an {ibm-cloud-name} cluster
+= Manually updating the boot image on an {ibm-cloud-name} cluster
 
 [role="_abstract"]
 For an {ibm-cloud-title} cluster, you can manually update the boot image for your cluster by configuring your machine sets to use the latest {product-title} image as the boot image. By updating the boot image, you can ensure that the {op-system-first} version on new nodes is up-to-date.
