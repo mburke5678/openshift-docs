@@ -44,6 +44,10 @@ include::modules/rn-ocp-release-notes-known-issues.adoc[leveloffset=+1]
 // Asynchronous errata updates
 include::modules/rn-async-errata.adoc[leveloffset=+1]
 
+// 4.21.5 RNs and updating
+include::modules/zstream-4-21-5.adoc[leveloffset=+2]
+
+
 // 4.21.4 RNs and updating
 include::modules/zstream-4-21-4.adoc[leveloffset=+2]
 
