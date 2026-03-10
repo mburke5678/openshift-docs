@@ -5,7 +5,7 @@
 
 :_mod-docs-content-type: PROCEDURE
 [id="mco-update-boot-images-nutanix_{context}"]
-= Updating the boot image on a Nutanix cluster
+= Manually updating the boot image on a Nutanix cluster
 
 [role="_abstract"]
 For a Nutanix cluster, you can manually update the boot image for your cluster by configuring your machine sets to use the latest {product-title} image as the boot image. By updating the boot image, you can ensure that the {op-system-first} version on new nodes is up-to-date.
