@@ -3451,6 +3451,8 @@ Topics:
     File: install-disconnected
   - Name: Integrating the Leader Worker Set Operator
     File: integrating-lws
+  - Name: Integrating the JobSet Operator
+    File: integrating-jobset
   - Name: Configuring role-based permissions
     File: rbac-permissions
   - Name: Configuring quotas
