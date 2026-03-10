@@ -5,11 +5,43 @@
 
 :_mod-docs-content-type: PROCEDURE
 [id="mco-update-boot-skew-mgmt-configuring.adoc_{context}"]
-= Configuring boot image skew management
+= Configuring boot image skew enforcement
 
 [role="_abstract"]
+For {product-title} platforms that do not support automatic boot image skew enforcement, you can configure the current boot image in your cluster that the Machine Config Operator (MCO) can use to determine skew compliance in your cluster. 
 
+Alternatively, you can disable boot image skew enforcement by setting the `mode` to `None`.
 
+In {product-title} 4.22 the automatic mode is available only for {aws-short}, {gcp-short}, {azure-short}, and {vmw-short} clusters and is the default for these platforms. All other platforms default to manual mode.
+
+.Prerequisites
+
+* You enabled the required Technology Preview features for your cluster by editing the `FeatureGate` CR named `cluster`.
++
+[WARNING]
+====
+Enabling the `TechPreviewNoUpgrade` feature set on your cluster cannot be undone and prevents minor version updates. You should not enable this feature set on production clusters.
+====
+
+.Procedure
+
+. For the `Manual` mode, you can obtain the current boot image on a node by using the following command:
++
+[source,terminal]
+----
+$ oc debug node/<new-node> -- chroot /host cat /sysroot/.coreos-aleph-version.json
+----
++
+.Example output
+[source,terminal]
+----
+# ...
+    "ref": "docker://ostree-image-signed:oci-archive:/rhcos-9.6.20251023-0-ostree.x86_64.ociarchive",
+    "version": "9.6.20251023-0"
+----
+
+. Specify the boot image skew enforcement mode and set the boot image version as needed:
++
 [source,yaml]
 ----
 apiVersion: operator.openshift.io/v1
@@ -30,13 +62,15 @@ where:
 `spec.bootImageSkewEnforcement.mode`:: Specifies the boot image management mode, one of the following values:
 +
 --
-* `Automatic`. Boot image management is active. This valus is available only for :aws-short:, :gcp-short:, :azure-short:, and :vmw-short: clusters and is the default for these platforms.
-* `Manual`. The cluster admin is responsible to manually configure the boot image version based on the `ocpVersion` or `rhcosVersion` parameter.
-* `None`. Boot image management is disabled.
+* `Manual`. The cluster admin is responsible to manually configure the boot image version based on the `ocpVersion` or `rhcosVersion` parameter. You must specify the `spec.bootImageSkewEnforcement.manual` parameters.
+* `None`. Boot image management is disabled. You do not need to specify the `spec.bootImageSkewEnforcement.manual` parameters.
 --
++
 `spec.bootImageSkewEnforcement.manual`:: For the `Manual` mode, specifies that minimum the boot image is based on the specific {product-title} or {op-system} version. This example configures an {op-system} version.
 +
 --
 * `spec.bootImageSkewEnforcement.manual.mode`. Specify `OCPVersion` or `RHCOSVersion`. 
-* `spec.bootImageSkewEnforcement.manual.rhcosVersion`. For `RHCOSVersion`, specify the minimum {op-system} version that should be used as a boot image.
-----
+* `spec.bootImageSkewEnforcement.manual.rhcosVersion/ocpVersion`. Specifies the {op-system} or {product-title} version of the current boot image. 
+** For `rhcosVersion`, specify the {op-system} version that should be used as a boot image in the `[major].[minor].[datestamp(YYYYMMDD)]-[buildnumber]` or `[major].[minor].[timestamp(YYYYMMDDHHmm)]-[buildnumber]` format. This field must be between 14 and 21 characters long.
+** For `ocpVersion`, specify the {product-title} version associated with the boot image that should be used in the x.y.z`. This field must be between 5 and 10 characters long.
+--
