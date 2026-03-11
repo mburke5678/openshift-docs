@@ -14,7 +14,7 @@ Red{nbsp}Hat offers two types of admin privileges:
 
 * `cluster-admin`: `cluster-admin` privileges give the admin user full privileges within the cluster.
 
-* `dedicated-admin`: `dedicated-admin` privileges allow the admin user to complete most administrative tasks with certain limitations to prevent cluster damage. It is best practice to use `dedicated-admin` when elevated privileges are needed.
+* `dedicated-admin`: `dedicated-admin` privileges allow the admin user to complete most administrative tasks with certain limitations to prevent cluster damage. For best practice use `dedicated-admin` when elevated privileges are needed.
 
 For more information on admin privileges, see the 
 ifdef::openshift-rosa-hcp[]
