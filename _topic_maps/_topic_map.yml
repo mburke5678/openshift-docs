@@ -2463,6 +2463,8 @@ Topics:
   File: machine-config-pin-preload-images-about
 - Name: Boot image management
   File: mco-update-boot-images
+- Name: Boot image skew enforcement
+  File: mco-update-boot-skew-mgmt
 - Name: Managing unused rendered machine configs
   File: machine-configs-garbage-collection
 - Name: Image mode for OpenShift

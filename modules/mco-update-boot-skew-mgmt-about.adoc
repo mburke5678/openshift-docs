@@ -7,7 +7,8 @@
 [id="mco-update-boot-skew-mgmt-about.adoc_{context}"]
 = About boot image skew enforcement
 
-Boot image skew enforcement allows you to ensure that the boot images in a cluster are up-to-date with the {product-title} and {op-system} version being used in the cluster. Using an older boot image could cause compatibility issues within your cluster.
+[role="_abstract"]
+Review the information in this section to learn how boot image skew enforcement allows you to ensure that the boot images in a cluster are up-to-date with the {product-title} and {op-system} version being used in the cluster.
 
 When boot image skew enforcement is active in a cluster, the Machine Config Operator (MCO) examines the boot image version reported in the `MachineConfiguration` object to determine if the boot image being used is appropriate for the cluster. If the boot image version is too old, the Operator reports that boot image version skew is detected and blocks cluster updates until you manually update the boot image or disable boot image skew enforcement. For information on manually configuring the boot image in your cluster, see "Manually updating the boot image."
 
