@@ -22,6 +22,8 @@ include::modules/mco-update-boot-images-about.adoc[leveloffset=+1]
 
 include::modules/mco-update-boot-images-configuring.adoc[leveloffset=+1]
 
+include::modules/mco-update-boot-images-manual.adoc[leveloffset=+1]
+
 include::modules/mco-update-boot-images-ibm-cloud.adoc[leveloffset=+2]
 
 include::modules/mco-update-boot-images-disable.adoc[leveloffset=+1]
