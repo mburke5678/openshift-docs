@@ -7,11 +7,11 @@
 [id="mco-update-boot-skew-mgmt-about.adoc_{context}"]
 = About boot image skew enforcement
 
-Boot image skew enforcement allows an cluster administrator to ensure that the boot images in a cluster are up-to-date with the {product-title} and {op-system} version being used in the cluster. Using an older boot image could cause the compatibility issues within your cluster.
+Boot image skew enforcement allows you to ensure that the boot images in a cluster are up-to-date with the {product-title} and {op-system} version being used in the cluster. Using an older boot image could cause compatibility issues within your cluster.
 
-When boot image version skew is being enforced, cluster updates are blocked if the boot image is to determined to be out of skew. A boot image is out of skew if that image is below the required version. 
+When boot image skew enforcement is active in a cluster, the Machine Config Operator (MCO) examines the boot image version reported in the `MachineConfiguration` object to determine if the boot image being used is appropriate for the cluster. If the boot image version is too old, the Operator reports that boot image version skew is detected and blocks cluster updates until you manually update the boot image or disable boot image skew enforcement. For information on manually configuring the boot image in your cluster, see "Manually updating the boot image."
 
-cluster is The current thresholds for a skew violation is set to when OCP first moved to RHEL9, which corresponds to {op-system} version 9.2 and OCP version 4.13.0. The operator will perform semver comparisons of these thresholds against the boot image versions stored in bootImageSkewEnforcementStatus and set Upgradeable=False
+The limit for boot image version skew is set within the MCO and cannot be modified.
 
 :FeatureName: Boot image skew enforcement
 include::snippets/technology-preview.adoc[]
@@ -19,7 +19,14 @@ include::snippets/technology-preview.adoc[]
 Boot image skew enforcement operates in one of the following modes:
 
 Automatic:: 
-In automatic mode, the Machine Config Operator (MCO) automatically updates the boot image version on the nodes in the cluster as the cluster is updated from one {product-title} version to the next. The MCO tracks the {op-system} or {product-title} version of the current boot image in the `MachineConfogutation` object, based on current cluster version, as reported in the `coreos-bootimages` config map in the `openshift-machine-config-operator` namespace.
+In automatic mode, the MCO automatically updates the boot image version on the nodes in the cluster when the cluster is updated from one {product-title} version to the next. 
++
+[NOTE]
+====
+In {product-title} 4.22, the automatic mode is available only for {aws-short}, {gcp-short}, {azure-short}, and {vmw-short} clusters and is the default for these platforms. 
+====
++
+The Operator tracks the {op-system} or {product-title} version of the current boot image in the `MachineConfigutation` object, which is based on current cluster version.
 +
 .Example `MachineConfig` object with automatic skew enforcement
 [source,yaml]
@@ -41,14 +48,9 @@ status:
     mode: Automatic
 ----
 +
-The `ocpVersion` value is compared against the cluster's skew limit to determine skew compliance. 
-+
-[NOTE]
-====
-In {product-title} 4.22, the automatic mode is available only for {aws-short}, {gcp-short}, {azure-short}, and {vmw-short} clusters and is the default for these platforms. 
-====
+The MCO examines the boot image reported in the `ocpVersion` parameter to determine if the cluster is violating the boot image version skew limits.
 
-Manual:: In manual mode, a cluster administrator is responsible to manually update the boot image on the nodes in the cluster and track the {op-system} version of the boot image or the {product-title} associated with the boot image. 
+Manual:: In manual mode, a cluster administrator is responsible to manually update the boot image on the nodes in the cluster and to track the {op-system} version of the boot image or the {product-title} associated with the boot image. 
 +
 .Example `MachineConfig` object with skew enforcement based on an {op-system} version
 [source,yaml]
@@ -96,10 +98,10 @@ status:
     mode: Manual
 ----
 +
-The `rhcosVersion` or `ocpVersion` value is compared against the cluster's skew limit to determine skew compliance. If the boot image skew exceeds the skew limit described by the release image, the MCO prevents updates until the cluster administrator manually updates the boot image on the nodes.
+The MCO examines the boot image reported in the `rhcosVersion` or `ocpVersion` parameters to determine if the cluster is violating the boot image version skew limits.
 
 None:: 
-Boot image management is disabled. When disabled, the MCO does not monitors for boot image skew. Upon scaling up new nodes, those nodes might be provisioned with older boot images that could introduce compatibility issues. This can affect the cluster's ability to scale. 
+Boot image management is disabled. When disabled, the MCO does not monitor for boot image skew. Upon scaling up new nodes, those nodes might be provisioned with older boot images that could introduce compatibility issues. This can affect the cluster's ability to scale. 
 +
 .Example `MachineConfig` object with skew enforcement disabled
 [source,yaml]
