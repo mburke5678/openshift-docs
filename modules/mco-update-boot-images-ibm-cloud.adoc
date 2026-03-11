@@ -17,11 +17,11 @@ The standard boot image management feature is not supported for {ibm-cloud-title
 
 The following procedure, which includes steps to create environment variables that facilitate running the required commands, shows how to obtain {ibm-cloud-title} authentication credentials, download a boot image, upload that image to the {ibm-cloud-title} image service, and modify your worker machine sets to use the new boot image.
 
-This procedure uses the {ibm-cloud-title} Cloud Object Storage (COS) bucket in your cluster, which was created during cluster installation. Each COS bucket has a specific Cloud Resource Name (CRN), which the {ibm-cloud-title} CLI uses the to select the correct COS bucket. For more information on the CRN, see link:https://cloud.ibm.com/docs/account?topic=account-crn[Cloud Resource Names in the {ibm-cloud-title} documentation].
+This procedure uses the default {ibm-cloud-title} Cloud Object Storage (COS) bucket in your cluster, which was created during cluster installation. Each COS bucket has a specific Cloud Resource Name (CRN), which the {ibm-cloud-title} CLI uses the to select the correct COS bucket. The following procedure shows how to obtain the CRN for the default COS bucket. For more information on the CRN, see link:https://cloud.ibm.com/docs/account?topic=account-crn[Cloud Resource Names in the {ibm-cloud-title} documentation].
 
 .Prerequisites
 
-* You have completed the general boot image prerequisites as described in the Prerequisites section of link:https://access.redhat.com/articles/7053165#prerequisites-2[{product-title} Boot Image Updates].
+* You have completed the general boot image prerequisites as described in the "Prerequisites" section of the link:https://access.redhat.com/articles/7053165#prerequisites-2[{product-title} Boot Image Updates knowledgebase article].
 
 * You have downloaded the latest version of the {product-title} installation program, openshift-install, from the {cluster-manager-url}. For more information, see "Obtaining the installation program."
 
@@ -97,7 +97,7 @@ Account:          xxxxx
 Resource group:   xxxxx
 ----
 
-. Obtain the URL of the {op-system} image you want to use as the boot image and set the location in an environment variable by running the following commands, based on your cluster architecture:
+. Obtain the URL of the {op-system} image you want to use as the boot image and set the location in an environment variable by running one of the following commands, based on your cluster architecture:
 +
 * Linux (x86_64, amd64):
 +
@@ -131,23 +131,23 @@ $ curl -L -o /tmp/rhcos-new.qcow2.gz "${RHCOS_URL}"
 $ gunzip /tmp/rhcos-new.qcow2.gz
 ----
 
-. Upload the boot image to the existing {ibm-cloud-title} Cloud Object Storage (COS) bucket:
+. Upload the boot image to the default {ibm-cloud-title} Cloud Object Storage (COS) bucket:
 
-.. Obtain your the CRN for your COS bucket and set the CRN in an environment by running the following command:
+.. Obtain your the CRN for your COS bucket and set the CRN in an environment variable by running the following command:
 +
 [source,terminal]
 ----
 $ export COS_CRN=$(ibmcloud resource service-instance "${RESOURCE_GROUP}-cos" --output json | jq -r '.[0].crn') 
 ----
 
-.. Optional: Check that the CRN by running the following command:
+.. Optional: Check that the CRN is correct by running the following command:
 +
 [source,terminal]
 ----
 $ echo ${COS_CRN}
 ----
 
-.. Configure the COS bucket to use the CRN by running the following command:
+.. Configure the default COS bucket to use the CRN by running the following command:
 +
 [source,terminal]
 ----
@@ -229,7 +229,8 @@ $ oc patch machineset <machineset_name> -n openshift-machine-api --type merge -p
 ----
 +
 Replace `<machineset_name>` with the name of your machine set.
-
++
+`IMAGE_NAME` is the environment variable you created in a previous step.
 
 .Verification
 
