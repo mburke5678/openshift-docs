@@ -12,7 +12,7 @@ For {product-title} platforms that do not support automatic boot image skew enfo
 
 Alternatively, you can disable boot image skew enforcement by setting the `mode` to `None`.
 
-In {product-title} 4.22 the automatic mode is available only for {aws-short}, {gcp-short}, {azure-short}, and {vmw-short} clusters and is the default for these platforms. All other platforms default to manual mode.
+In {product-title} 4.22 the automatic mode is available only for {aws-short}, {gcp-short}, {azure-short}, and {vmw-short} clusters and is the default for these platforms. All other platforms default to manual mode. If you modify a cluster from automatic mode to manual or none, you can only revert a cluster to automatic mode by removing the `bootImageSkewEnforcement` stanza from the `MachineConfiguration` object.
 
 .Prerequisites
 
@@ -25,7 +25,7 @@ Enabling the `TechPreviewNoUpgrade` feature set on your cluster cannot be undone
 
 .Procedure
 
-. For the `Manual` mode, you can obtain the current boot image on a node by using the following command:
+. For manual mode, you can obtain the current boot image on a node by using the following command:
 +
 [source,terminal]
 ----
@@ -71,6 +71,6 @@ where:
 --
 * `spec.bootImageSkewEnforcement.manual.mode`. Specify `OCPVersion` or `RHCOSVersion`. 
 * `spec.bootImageSkewEnforcement.manual.rhcosVersion/ocpVersion`. Specifies the {op-system} or {product-title} version of the current boot image. 
-** For `rhcosVersion`, specify the {op-system} version that should be used as a boot image in the `[major].[minor].[datestamp(YYYYMMDD)]-[buildnumber]` or `[major].[minor].[timestamp(YYYYMMDDHHmm)]-[buildnumber]` format. This field must be between 14 and 21 characters long.
-** For `ocpVersion`, specify the {product-title} version associated with the boot image that should be used in the x.y.z`. This field must be between 5 and 10 characters long.
+** For `rhcosVersion`, specify the {op-system} version that is being used as a boot image in the `[major].[minor].[datestamp(YYYYMMDD)]-[buildnumber]` or `[major].[minor].[timestamp(YYYYMMDDHHmm)]-[buildnumber]` format. This field must be between 14 and 21 characters long.
+** For `ocpVersion`, specify the {product-title} version associated with the boot image that is being used in the x.y.z`. This field must be between 5 and 10 characters long.
 --

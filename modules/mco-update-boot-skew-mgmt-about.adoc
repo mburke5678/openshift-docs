@@ -3,7 +3,7 @@
 // * machine-configuration/mco-update-boot-images.adoc
 // * nodes/nodes/nodes-update-boot-images.adoc
 
-:_mod-docs-content-type: REFERENCE
+:_mod-docs-content-type: CONCEPT
 [id="mco-update-boot-skew-mgmt-about.adoc_{context}"]
 = About boot image skew enforcement
 
@@ -15,8 +15,6 @@ cluster is The current thresholds for a skew violation is set to when OCP first 
 
 :FeatureName: Boot image skew enforcement
 include::snippets/technology-preview.adoc[]
-
-
 
 Boot image skew enforcement operates in one of the following modes:
 
@@ -32,11 +30,15 @@ metadata:
   name: cluster
 status:
 # ...
+  bootImageSkewEnforcement:
+    mode: Automatic
+    automatic:
+      ocpVersion: 4.22.0
+# ...
   bootImageSkewEnforcementStatus:
     automatic:
       ocpVersion: 4.22.0
     mode: Automatic
-# ...
 ----
 +
 The `ocpVersion` value is compared against the cluster's skew limit to determine skew compliance. 
@@ -61,13 +63,13 @@ spec:
     mode: Manual
     manual:
       mode: RHCOSVersion
-      rhcosVersion: 9.0.20251023-0
+      rhcosVersion: 9.2.20251023-0
 # ...
 status:
   bootImageSkewEnforcementStatus:
     manual:
-      mode: OCPVersion
-      ocpVersion: 4.22.0
+      mode: RHCOSVersion
+      rhcosVersion: 9.2.20251023-0
     mode: Manual
 ----
 +
