@@ -21,7 +21,7 @@ This procedure requires Nutanix authentication credentials, which you need to ac
 
 .Prerequisites
 
-* You have completed the general boot image prerequisites as described in the Prerequisites section of link:https://access.redhat.com/articles/7053165#prerequisites-2[{product-title} Boot Image Updates].
+* You have completed the general boot image prerequisites as described in the "Prerequisites" section of the link:https://access.redhat.com/articles/7053165#prerequisites-2[{product-title} Boot Image Updates knowledgebase article].
 
 * You have downloaded the latest version of the {product-title} installation program, openshift-install, from the {cluster-manager-url}. For more information, see "Obtaining the installation program."
 
@@ -94,13 +94,13 @@ $ oc get configmap cloud-provider-config -n openshift-config -o jsonpath='{.data
 ----
 where:
 
-`prismCentral.address`:: Specifies the Prism Central IP.
+`prismCentral.address`:: Specifies the Prism Central IP address.
 
-. Set an environment variables for the Prism Central IP value by running the following command:
+. Set an environment variables for the Prism Central IP address by running the following command:
 +
 [source,terminal]
 ----
-$ export PC_IP="<prism-central-ip-value>"
+$ export PC_IP="<prism_central_ip_adress>"
 ----
 
 . Obtain the boot image and upload the image to Prism Central:
@@ -119,7 +119,7 @@ $ export RHCOS_URL=$(openshift-install coreos print-stream-json | jq -r '.archit
 $ export IMAGE_NAME="<descriptive_image_name>"
 ----
 +
-Setting a descriptive name for your boot image, such as using the {op-system-first} version number in the image name, makes it easier to track which version is currently deployed if you update the cluster in the future.
+Setting a descriptive name for your boot image in Prim Central, such as using the {op-system-first} version number in the image name, makes it easier to track which version is currently deployed if you update the cluster in the future.
 +
 .Example command
 [source,terminal]
@@ -150,7 +150,7 @@ $ curl -k -u "$USER:$PASS" \
 +
 `USER`,`PASS`, `IMAGE_NAME`, and `RHCOS_URL` are environment variables you created in previous steps.
 
-.. Optional: Verify that the image uploaded by running the following command:
+.. Optional: Verify that the image is uploaded by running the following command:
 +
 [source,terminal]
 ----
@@ -161,6 +161,11 @@ $ curl -k -u "$USER:$PASS" \
     "kind": "image",
     "filter": "name=='"$IMAGE_NAME"'"
   }' | jq '.entities[] | {name: .status.name, state: .status.state}'
+----
++
+. Example output
+[source,terminal]
+----
 {
   "name": "<image-name>",
   "state": "COMPLETE"
@@ -228,7 +233,7 @@ $ oc get nodes
 +
 [source,terminal]
 ----
-$ oc debug node/<new_node> -- chroot /ho	st cat /sysroot/.coreos-aleph-version.json
+$ oc debug node/<new_node> -- chroot /host cat /sysroot/.coreos-aleph-version.json
 ----
 +
 Replace `<new_node>` with the name of your new node.
