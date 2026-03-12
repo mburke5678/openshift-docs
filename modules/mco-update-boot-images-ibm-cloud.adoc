@@ -252,7 +252,8 @@ Replace `<machineset_name>` with the name of your machine set.
 .Verification
 
 . Scale up a machine set to check that the new node is using the new boot image:
-
++
+--
 .. Increase the machine set replicas by one to trigger a new machine by running the following command:
 +
 [source,terminal]
@@ -301,3 +302,6 @@ Replace `<new_node>` with the name of your new node.
 where:
 
 `<version>`:: Specifies the boot image version.
+--
++
+After you migrate all machine sets to the new boot image, the old boot image is no longer needed. You can remove the old boot image from your COS bucket.
