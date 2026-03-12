@@ -8,5 +8,5 @@
 = Manually updating the boot image
 
 [role="_abstract"]
-For {product-title} platforms that do not support automatic boot image updating or clusters configured with the boot image skew enforcement feature set to `Manual` or `None`, you can manually update the boot image on your cluster. You can review the following sections for information on how to manually update the boot image on different platforms. 
+For {product-title} platforms that do not support automatic boot image updating or clusters configured with the boot image skew enforcement feature set to `Manual` or `None`, you can manually update the boot image on your cluster. By updating the boot image, you can ensure that newly scaled up nodes are able to successfully pivot to the latest {op-system-first} version and join the cluster.
 
