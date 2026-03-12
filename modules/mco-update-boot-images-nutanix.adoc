@@ -8,7 +8,7 @@
 = Manually updating the boot image on a Nutanix cluster
 
 [role="_abstract"]
-For a Nutanix cluster, you can manually update the boot image for your cluster by configuring your machine sets to use the latest {product-title} image as the boot image. By updating the boot image, you can ensure that the {op-system-first} version on new nodes is up-to-date.
+For a Nutanix cluster, you can manually update the boot image for your cluster by configuring your machine sets to use the latest {product-title} image as the boot image to help ensure any new nodes can scale up properly.
 
 [NOTE]
 ====
@@ -38,14 +38,14 @@ This procedure requires Nutanix authentication credentials, which you need to ac
 $ oc get machineset -n openshift-machine-api -o yaml | grep credentialsSecret -A 1
 ----
 +
-. Example output
+.Example output
 [source,terminal]
 ----
     credentialsSecret:
       name: nutanix-credentials
 ----
 
-.. Decrypt the secret and add the contents to the `clouds.yaml` file by running the following command:
+.. Decrypt the secret by running the following command:
 +
 [source,terminal]
 ----
@@ -54,7 +54,7 @@ oc get secret <secret-name> -n openshift-machine-api -o jsonpath='{.data.credent
 +
 Replace `<secret-name>` with the name of the secret, which you obtained in the previous step.
 +
-. Example output
+.Example output
 [source,terminal]
 ----
 [{"type":"basic_auth","data":{"prismCentral":{"username":"","password":""},"prismElements":null}}]
@@ -79,7 +79,7 @@ $ export PASS="<password>"
 $ oc get configmap cloud-provider-config -n openshift-config -o jsonpath='{.data.config}' | grep prismCentral -A 8
 ----
 +
-. Example output
+.Example output
 [source,terminal]
 ----
     "prismCentral": {
@@ -124,7 +124,7 @@ Setting a descriptive name for your boot image in Prim Central, such as using th
 .Example command
 [source,terminal]
 ----
-$ export IMAGE_NAME="rhcos 9.6 boot image"
+$ export IMAGE_NAME="rhcos-9.6-boot-image"
 ----
 
 .. Upload the image to Prism Central by running the following command:
@@ -160,10 +160,10 @@ $ curl -k -u "$USER:$PASS" \
   -d '{
     "kind": "image",
     "filter": "name=='"$IMAGE_NAME"'"
-  }' | jq '.entities[] | {name: .status.name, state: .status.state}'
+  }'
 ----
 +
-. Example output
+.Example output
 [source,terminal]
 ----
 {

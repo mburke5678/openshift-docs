@@ -22,10 +22,10 @@ include::modules/mco-update-boot-images-about.adoc[leveloffset=+1]
 
 include::modules/mco-update-boot-images-configuring.adoc[leveloffset=+1]
 
-include::modules/mco-update-boot-images-nutanix.adoc[leveloffset=+2]
-
 [role="_additional-resources"]
 .Additional resources
 * xref:../installing/installing_aws/ipi/ipi-aws-preparing-to-install.adoc#installation-obtaining-installer_ipi-aws-preparing-to-install[Obtaining the installation program]
 
 include::modules/mco-update-boot-images-disable.adoc[leveloffset=+1]
+
+include::modules/mco-update-boot-images-nutanix.adoc[leveloffset=+2]
