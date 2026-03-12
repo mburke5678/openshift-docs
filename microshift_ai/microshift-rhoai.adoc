@@ -78,5 +78,3 @@ include::modules/microshift-rhoai-override-kserve-config.adoc[leveloffset=+1]
 * link:https://kserve.github.io/website/latest/modelserving/data_plane/v2_protocol/[Open Inference Protocol (V2) (KServe documentation)]
 
 * link:https://docs.redhat.com/en/documentation/red_hat_openshift_ai_self-managed/latest/html/serving_models/serving-large-models_serving-large-models#inferenceservice[InferenceService]
-
-* xref:../microshift_networking/microshift-configuring-routes.adoc#microshift-configuring-routes[Configuring routes]

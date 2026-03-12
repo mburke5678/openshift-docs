@@ -7,7 +7,9 @@
 = Supported {rhoai} model-serving runtimes
 
 [role="_abstract"]
-You can review following information to learn about the {rhoai} model-serving runtimes that are verified for {microshift-short} deployments:
+You can review following information to learn about the {rhoai} model-serving runtimes that are verified for {microshift-short} deployments.
+
+The following {rhoai} model-serving runtimes that are verified for {microshift-short} deployments:
 
 * vLLM ServingRuntime for KServe
 * {ovms}

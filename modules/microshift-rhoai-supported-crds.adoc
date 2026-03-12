@@ -7,7 +7,9 @@
 = Supported {rhoai} custom resource definitions
 
 [role="_abstract"]
-You can review following information to learn about the {rhoai} custom resource definitions (CRDs) that are supported:
+You can review following information to learn about the {rhoai} custom resource definitions (CRDs). 
+
+The following CRD are supported:
 
 * `InferenceServices`
 * `TrainedModels`
