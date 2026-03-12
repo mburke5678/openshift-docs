@@ -15,7 +15,7 @@ You can add and run the {lws-operator} to your existing frameworks.
 * {lws-operator} and Operand are installed.
 * The {cert-manager-operator} is installed.
 * The `namespace` where `LeaderWorkerSet` will be created is labeled using `kueue.openshift.io/managed=true`.
-* Ensure that the following {kueue-name} objects have been configured:
+* Ensure that the following objects have been configured:
 ** `ClusterQueue`
 ** `ResourceFlavor`
 ** `LocalQueue`
