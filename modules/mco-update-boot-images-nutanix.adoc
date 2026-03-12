@@ -201,7 +201,8 @@ Replace `<machineset_name>` with the name of your machine set.
 .Verification
 
 . Scale up a machine set to check that the new node is using the new boot image:
-
++
+--
 .. Increase the machine set replicas by one to trigger a new machine by running the following command:
 +
 [source,terminal]
@@ -263,33 +264,6 @@ $ echo ${RHCOS_URL}
 ----
 https://rhcos.mirror.openshift.com/art/storage/prod/streams/rhel-9.6/builds/9.6.20251212-1/x86_64/rhcos-9.6.20251212-1-nutanix.x86_64.qcow2
 ----
-
-.Next steps
-
-After you migrate all machine sets to the new boot image, the old boot image is no longer needed. You can perform the following steps to remove the image from Prism Central.
-
-. Find the UUID for the image by running the following command:
+--
 +
-[source,terminal]
-----
-curl -k -u "$USER:$PASS" \
-  -X POST "https://$PC_IP:9440/api/nutanix/v3/images/list" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "kind": "image",
-    "filter": "name=='"<image_name>"'"
-  }'
-----
-+
-Replace `image_name` with the name of the image to delete.
-
-. Delete the image by running the following command:
-+
-[source,terminal]
-----
-curl -k -u "$USER:$PASS" \
-  -X DELETE "https://$PC_IP:9440/api/nutanix/v3/images/<image-uuid>" \
-  -H "Content-Type: application/json"
-----
-+
-Replace `image_uuid` with the UUID of the image.
+After you migrate all machine sets to the new boot image, the old boot image is no longer needed. You can remove the old boot image from Prism Central.
