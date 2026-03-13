@@ -7,7 +7,7 @@ include::_attributes/common-attributes.adoc[]
 toc::[]
 
 [role="_abstract"]
-Boot image skew enforcement allows you to ensure that the boot images in a cluster are up-to-date with the {product-title} and {op-system} version being used in the cluster. Using an older boot image could cause compatibility issues within your cluster.
+You can use boot image skew enforcement to help ensure that the boot images in a cluster are up-to-date with the {product-title} and {op-system} version being used in the cluster. Using an older boot image could cause compatibility issues within your cluster.
 
 :FeatureName: Boot image management for control plane nodes
 include::snippets/technology-preview.adoc[]
