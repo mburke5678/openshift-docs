@@ -12,7 +12,7 @@ You can disable the boot image management feature so that the Machine Config Ope
 
 [NOTE]
 ====
-If you are updating an {aws-first} or {vmw-first} cluster from {product-title} 4.21 to 4.22, and you have not configured the `managedBootImages` parameter, the update is blocked with a _This cluster is Azure or vSphere but lacks a boot image configuration._ message. The update is blocked intentionally on {azure-short} or {vmw-short} clusters in order to alert you that the default updated boot image behavior is changing between version 4.21 and 4.22 to enable updated boot images by default on those platforms .
+If you are updating an {azure-first} or {vmw-first} cluster from {product-title} 4.21 to 4.22, and you have not configured the `managedBootImages` parameter, the update is blocked with a _This cluster is Azure or vSphere but lacks a boot image configuration._ message. The update is blocked intentionally on {azure-short} or {vmw-short} clusters in order to alert you that the default updated boot image behavior is changing between version 4.21 and 4.22 to enable updated boot images by default on those platforms .
 
 To allow the update, perform one of the following tasks:
 
@@ -24,8 +24,6 @@ $ oc -n openshift-config patch cm admin-acks --patch '{"data":{"ack-4.21-boot-im
 ----
 
 * If you do not want the updated boot image feature enabled, explicitly disable the feature for compute nodes by using the following procedure.
-
-It is important to note that if you use boot images from the Azure Marketplace, enabling the updated boot image feature overwrites those images with a standard {op-system-first} image. You should explicitly disable this feature and not patch the `admin-acks` config map. If you accidentally enable the updated boot image feature, you can disable it by using the following procedure. Then, replace the marketplace boot images by modifying the compute machine sets, as described  in _Modifying a compute machine set_.
 ====
 
 You disable the boot image management feature for the control plane or worker machine sets in your cluster by editing the `MachineConfiguration` object.
@@ -35,9 +33,16 @@ You disable the boot image management feature for the control plane or worker ma
 include::snippets/mco-update-boot-images-intro.adoc[]
 ====
 
+:FeatureName: Boot image management for control plane nodes
+include::snippets/technology-preview.adoc[]
+
 Disabling this feature does not rollback the nodes or machine sets to the originally-installed boot image. The machine sets retain the boot image version that was present when the feature was disabled and is not updated if the cluster is upgraded to a new {product-title} version in the future. This feature has no effect on existing nodes.
 
 After disabling the feature, you can re-enable the feature at any time. For more information, see "Enabling updated boot images".
+
+.Prerequisites
+
+* If you are disabling boot image management for control plane machine sets, you enabled the required Technology Preview features for your cluster by editing the `FeatureGate` CR named `cluster`.
 
 .Procedure
 
@@ -73,7 +78,7 @@ where:
 
 `spec.managedBootImages`:: Configures the boot image management feature.
 
-`spec.managedBootImages.machineManagers.selection.resource.machinesets`:: Specifies that the `selection` action applies to compute nodes.
+`spec.managedBootImages.machineManagers.selection.resource.machinesets`:: Specifies that the `selection.mode` action applies to compute nodes.
 
 `spec.managedBootImages.machineManagers.selection.mode.None`:: Specifies that the feature is disabled for the specified machine sets in the cluster. 
 --
@@ -101,7 +106,7 @@ where:
 
 `spec.managedBootImages`:: Configures the boot image management feature.
 
-`spec.managedBootImages.machineManagers.selection.resource.controlplanemachinesets`:: Specifies that the `selection` action applies to control plane nodes.
+`spec.managedBootImages.machineManagers.selection.resource.controlplanemachinesets`:: Specifies that the `selection.mode` action applies to control plane nodes.
 
 `spec.managedBootImages.machineManagers.selection.mode.None`:: Specifies that the feature is disabled for the specified machine sets in the cluster. 
 --
