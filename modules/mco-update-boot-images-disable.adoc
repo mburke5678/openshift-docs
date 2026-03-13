@@ -42,7 +42,7 @@ After disabling the feature, you can re-enable the feature at any time. For more
 
 .Prerequisites
 
-* If you are disabling boot image management for control plane machine sets, you disabled the required Technology Preview features for your cluster by adding the `TechPreviewNoUpgrade` feature set to the `FeatureGate` CR named `cluster`. For information about enabling Feature Gates, see _Enabling features using feature gates_.
+* If you are disabling boot image management for control plane machine sets, you enabled the required Technology Preview features for your cluster by adding the `TechPreviewNoUpgrade` feature set to the `FeatureGate` CR named `cluster`. For information about enabling Feature Gates, see _Enabling features using feature gates_.
 +
 [WARNING]
 ====
@@ -81,9 +81,11 @@ spec:
 --
 where:
 
-`spec.managedBootImages`:: Configures the boot image management feature.
+`spec.managedBootImages`:: Specifies the parameters for the boot image management feature.
 
-`spec.managedBootImages.machineManagers.selection.resource.machinesets`:: Specifies that the `selection.mode` action applies to compute nodes.
+`spec.managedBootImages.machineManagers.apiGroup`:: Specifies the API group. This must be `machine.openshift.io`. 
+
+`spec.managedBootImages.machineManagers.selection.resource.machinesets`:: Specifies that the `selection.mode` parameter applies to compute nodes.
 
 `spec.managedBootImages.machineManagers.selection.mode.None`:: Specifies that the feature is disabled for the specified machine sets in the cluster. 
 --
@@ -109,9 +111,11 @@ spec:
 --
 where:
 
-`spec.managedBootImages`:: Configures the boot image management feature.
+`spec.managedBootImages`:: Specifies the parameters for the boot image management feature.
 
-`spec.managedBootImages.machineManagers.selection.resource.controlplanemachinesets`:: Specifies that the `selection.mode` action applies to control plane nodes.
+`spec.managedBootImages.machineManagers.apiGroup`:: Specifies the API group. This must be `machine.openshift.io`. 
+
+`spec.managedBootImages.machineManagers.selection.resource.controlplanemachinesets`:: Specifies that the `selection.mode` parameter applies to control plane nodes.
 
 `spec.managedBootImages.machineManagers.selection.mode.None`:: Specifies that the feature is disabled for the specified machine sets in the cluster. 
 --
