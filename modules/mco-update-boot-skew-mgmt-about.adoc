@@ -92,7 +92,7 @@ spec:
     mode: Manual
     manual:
       mode: OCPVersion
-      ocpVersion: 4.22.1
+      ocpVersion: 4.22.0
 # ...
 status:
   bootImageSkewEnforcementStatus:
