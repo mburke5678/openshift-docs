@@ -15,3 +15,11 @@ include::snippets/technology-preview.adoc[]
 include::modules/mco-update-boot-skew-mgmt-about.adoc[leveloffset=+1]
 
 include::modules/mco-update-boot-skew-mgmt-configuring.adoc[leveloffset=+1]
+
+include::modules/mco-update-boot-skew-mgmt-updating.adoc[leveloffset=+1]
+
+[role="_additional-resources"]
+[id="additional-resources_{context}"]
+== Additional resources
+
+* xref:../machine_configuration/mco-update-boot-images.adoc#mco-update-boot-images[Boot image management]

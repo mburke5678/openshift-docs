@@ -33,3 +33,5 @@ include::modules/mco-update-boot-skew-mgmt-configuring.adoc[leveloffset=+2]
 == Additional resources
 
 * [Manually updating the boot image forthcoming after https://github.com/openshift/openshift-docs/pull/108014 merges]
+
+* xref:../machine_configuration/mco-update-boot-skew-mgmt.adoc#mco-update-boot-skew-mgmt[Boot image skew enforcement]

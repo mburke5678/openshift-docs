@@ -1,7 +1,6 @@
 // Module included in the following assemblies:
 //
-// * machine-configuration/mco-update-boot-images.adoc
-// * nodes/nodes/nodes-update-boot-images.adoc
+// * machine-configuration/mco-update-boot-skew-mgmt.adoc
 
 :_mod-docs-content-type: PROCEDURE
 [id="mco-update-boot-skew-mgmt-configuring.adoc_{context}"]
@@ -70,7 +69,6 @@ where:
 +
 --
 * `spec.bootImageSkewEnforcement.manual.mode`. Specifies the version you want to represent the current boot image, either `OCPVersion` or `RHCOSVersion`. You must include one of the following parameters:
-* . Specifies the {op-system} or {product-title} version of the current boot image. 
 ** For `RHCOSVersion`, use `spec.bootImageSkewEnforcement.manual.rhcosVersion` to specify the {op-system} version that is being used as a boot image in the `[major].[minor].[datestamp(YYYYMMDD)]-[buildnumber]` or `[major].[minor].[timestamp(YYYYMMDDHHmm)]-[buildnumber]` format. This field must be between 14 and 21 characters long.
 ** For `OCPVersion`, use `spec.bootImageSkewEnforcement.manual.ocpVersion` to  specify the {product-title} version associated with the boot image that is being used in the `x.y.z` format. This field must be between 5 and 10 characters long.
 --

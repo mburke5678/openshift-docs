@@ -1,0 +1,87 @@
+// Module included in the following assemblies:
+//
+// * machine-configuration/mco-update-boot-skew-mgmt.adoc
+
+
+:_mod-docs-content-type: PROCEDURE
+[id="mco-update-boot-skew-mgmt-updating.adoc_{context}"]
+= Updating the boot image skew enforcement version
+
+[role="_abstract"]
+If you a running boot image skew enforcement in the manual mode, you must manually update the boot image version in the `MachineConfiguration` object each time you update the boot image. With the boot image updated in the `MachineConfiguration` object, the Machine Config Operator (MCO) can properly perform boot image skew enforcement to keep your node up-to-date. 
+
+.Prerequisites
+
+* You enabled the required Technology Preview features for your cluster by editing the `FeatureGate` CR named `cluster`.
++
+[WARNING]
+====
+Enabling the `TechPreviewNoUpgrade` feature set on your cluster cannot be undone and prevents minor version updates. You should not enable this feature set on production clusters.
+====
+
+.Procedure
+
+. If necessary, obtain the current boot image on a node by using the following command:
++
+[source,terminal]
+----
+$ oc debug node/<new-node> -- chroot /host cat /sysroot/.coreos-aleph-version.json
+----
++
+.Example output
+[source,terminal]
+----
+# ...
+    "ref": "docker://ostree-image-signed:oci-archive:/rhcos-9.6.20251023-0-ostree.x86_64.ociarchive",
+    "version": "9.6.20251023-0"
+----
+
+. Specify the boot image version in the `MachineConfiguration` object:
++
+* Optional: Update the `MachineConfiguration` object with the {op-system} version:
++
+[source,yaml]
+----
+apiVersion: operator.openshift.io/v1
+kind: MachineConfiguration
+metadata:
+  name: cluster
+# ...
+spec:
+  bootImageSkewEnforcement:
+    mode: Manual
+    manual:
+      mode: RHCOSVersion
+      rhcosVersion: 9.2.20251023-0
+# ...
+status:
+  bootImageSkewEnforcementStatus:
+    manual:
+      mode: RHCOSVersion
+      rhcosVersion: 9.2.20251023-0
+    mode: Manual
+----
+
+* Optional: Update the `MachineConfiguration` object with the {product-title} version
++
+[source,yaml]
+----
+apiVersion: operator.openshift.io/v1
+kind: MachineConfiguration
+metadata:
+  name: cluster
+# ...
+spec:
+  bootImageSkewEnforcement:
+    mode: Manual
+    manual:
+      mode: OCPVersion
+      ocpVersion: 4.22.1
+# ...
+status:
+  bootImageSkewEnforcementStatus:
+    manual:
+      mode: OCPVersion
+      ocpVersion: 4.22.0
+    mode: Manual
+----

@@ -19,6 +19,8 @@ include::snippets/mco-update-boot-images-intro.adoc[]
 
 Disabling this feature does not rollback the nodes or machine sets to the originally-installed boot image. The machine sets retain the boot image version that was present when the feature was disabled and is not updated if the cluster is upgraded to a new {product-title} version in the future. This feature has no effect on existing nodes.
 
+With boot image management disabled, you are responsible to update the boot image version used by the boot image skew enforcement feature to verify that the boot image version is up-to-date for your cluster. For more information, see "Boot image skew enforcement".
+
 After disabling the feature, you can re-enable the feature at any time. For more information, see "Enabling updated boot images".
 
 .Procedure
