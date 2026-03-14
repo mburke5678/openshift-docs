@@ -22,8 +22,6 @@ Boot image skew enforcement operates in one of the following modes:
 
 Automatic:: 
 In automatic mode, when the cluster is updated from one {product-title} version to the next, with boot image management also enabled, the MCO automatically updates the boot image version in the `MachineConfiguration` object and tests the boot image version for skew. Boot image management must be enabled in the node to use the automatic mode. 
-+ 
-Also, in automatic mode, if you manually update the boot image, the MCO updates the `MachineConfiguration` object and tests the boot image version for skew. 
 +
 [NOTE]
 ====
